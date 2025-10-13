@@ -1,3 +1,4 @@
+com/panaderia/model/Usuario.class
 com/panaderia/util/ConexionDB.class
 com/panaderia/dao/UsuarioDAO.class
-com/panaderia/model/Usuario.class
+com/panaderia/util/PasswordUtils.class

@@ -69,7 +69,7 @@
                     <div class="producto-card" data-id="1" data-name="Concha" data-price="15.00">
                         <img src="recursos/img/concha.png" alt="Concha">
                         <p class="nombre-producto">Concha</p>
-                        <p class="precio-producto">$15.00</p>
+                        <p class="precio-producto">$0.25</p>
                     </div>
                     </div>
             </div>
