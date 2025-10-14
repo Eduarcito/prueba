@@ -1,5 +1,5 @@
 <footer class="footer">
-    <p>© 2025 Panadería San Eduardo</p>
+    <p>© 2025 Panadería USO</p>
 </footer>
 </body>
 </html>
