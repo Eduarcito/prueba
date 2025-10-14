@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <%@ page import="com.panaderia.model.Usuario" %>
 <%
 Usuario user = (Usuario) session.getAttribute("usuario");
@@ -15,7 +17,7 @@ if (user == null || !"Panadero".equals(user.getRol())) {
     <title>Registro de Producción - Panadería USO</title>
 
     <!-- Estilos CSS compartidos -->
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/estilos.css">
+    <link rel="stylesheet" href="../css/estilos.css"
 </head>
 <body>
 
@@ -25,8 +27,8 @@ if (user == null || !"Panadero".equals(user.getRol())) {
     <header class="header-tpv">
         <div class="header-content">
             <div class="app-branding">
-                <img src="<%= request.getContextPath() %>/img/logo.png" alt="Logo Panadería" class="app-logo">
-                <h1>Panadería USO - Producción</h1>
+                <img src="../img/logo.png" alt="Logo Panadería" class="app-logo">
+                <h1>Panadería USO </h1>
             </div>
             <nav class="top-nav">
                 <ul>
@@ -60,19 +62,22 @@ if (user == null || !"Panadero".equals(user.getRol())) {
 
             <div class="productos-grid" id="productos-grid">
                 <div class="producto-card" data-name="Concha" data-id="1">
-                    <img src="<%= request.getContextPath() %>/img/concha.png" alt="Concha">
+                    <img src="../img/concha.png" alt="Concha">
                     <p class="nombre-producto">Concha</p>
                 </div>
-                <div class="producto-card" data-name="Pan de Chocolate" data-id="2">
-                    <img src="<%= request.getContextPath() %>/img/pandechocolate.png" alt="Pan de Chocolate">
-                    <p class="nombre-producto">Pan de Chocolate</p>
+                <div class="producto-card" data-name="marialuisa" data-id="2">
+                    <img src="../img/marialuisa.png" alt="marialuisa">
+                    <p class="nombre-producto">Maria Luisa</p>
                 </div>
-                <div class="producto-card" data-name="Cuerno" data-id="3">
-                    <img src="<%= request.getContextPath() %>/img/cuerno.png" alt="Cuerno">
-                    <p class="nombre-producto">Cuerno</p>
+                <div class="producto-card" data-name="quesadilla" data-id="3">
+                    <img src="../img/quesadilla.png" alt="quesadilla">
+                    <p class="nombre-producto">Quesadilla</p>
                 </div>
-                <!-- Agrega más panes aquí -->
-            </div>
+                <div class="producto-card" data-name="roseta" data-id="3">
+                    <img src="../img/roseta.png" alt="roseta">
+                    <p class="nombre-producto">Roseta</p>
+                </div>           
+             </div>
         </div>
 
     </div>
