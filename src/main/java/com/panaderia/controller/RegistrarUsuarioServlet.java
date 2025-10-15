@@ -19,12 +19,13 @@ public class RegistrarUsuarioServlet extends HttpServlet {
         String apellido = request.getParameter("apellido");
         String telefono = request.getParameter("telefono");
         String direccion = request.getParameter("direccion");
-        String rol = request.getParameter("rol"); // "Administrador", "Panadero" o "Empleado"
+        String rol = request.getParameter("rol");
 
-        // Generar username y password aleatorios
+        // Generar credenciales temporales
         String username = nombre.toLowerCase() + "." + apellido.toLowerCase() + (int)(Math.random() * 9000 + 1000);
         String password = "user" + (int)(Math.random() * 9000 + 1000);
 
+        // Crear objeto usuario
         Usuario nuevoUsuario = new Usuario();
         nuevoUsuario.setNombre(nombre);
         nuevoUsuario.setApellido(apellido);
@@ -37,7 +38,7 @@ public class RegistrarUsuarioServlet extends HttpServlet {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
 
         try {
-            // Registramos como credenciales temporales
+            // Registrar usuario temporal
             int idUsuario = usuarioDAO.registrarUsuario(nuevoUsuario, password, true);
             if (idUsuario == -1) {
                 request.setAttribute("error", "No se pudo registrar el usuario. Puede que ya exista.");
@@ -45,12 +46,14 @@ public class RegistrarUsuarioServlet extends HttpServlet {
                 request.setAttribute("nuevoUsuario", username);
                 request.setAttribute("nuevaClave", password);
             }
-            request.getRequestDispatcher("admin/usuarios.jsp").forward(request, response);
+
+            // 👇 Cambiamos el destino para quedarnos en agregar.jsp
+            request.getRequestDispatcher("admin/agregar.jsp").forward(request, response);
 
         } catch (SQLException e) {
             e.printStackTrace();
             request.setAttribute("error", "Error al registrar el usuario: " + e.getMessage());
-            request.getRequestDispatcher("admin/usuarios.jsp").forward(request, response);
+            request.getRequestDispatcher("admin/agregar.jsp").forward(request, response);
         }
     }
 }

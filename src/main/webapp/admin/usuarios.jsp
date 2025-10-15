@@ -43,8 +43,7 @@
 <nav class="navbar">
     <img src="../img/logo.png" alt="Logo" class="logo">
     <ul>
-        <li><a href="dashboard.jsp">Inicio</a></li>
-        <li><a href="usuarios.jsp">Usuarios</a></li>
+        <li><a href="dashboard.jsp">Dashboard</a></li>
         <li><a href="agregar.jsp">Agregar</a></li>
     </ul>
 </nav>

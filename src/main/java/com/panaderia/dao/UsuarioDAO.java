@@ -111,7 +111,6 @@ public class UsuarioDAO {
         return usuarios;
     }
 
-    // Método para hashear contraseñas
     private String hashPassword(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
