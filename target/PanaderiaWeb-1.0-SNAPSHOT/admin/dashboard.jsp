@@ -30,8 +30,6 @@ if (user == null || !"Administrador".equals(user.getRol())) {
     <!-- ===== CONTENIDO ===== -->
     <main class="admin-content">
         <h2>Bienvenido, <%= user.getNombre() %> (Administrador)</h2>
-
-        <!-- ===== INCLUDE: usuarios.jsp ===== -->
     </main>
 
     <!-- ===== FOOTER ===== -->
