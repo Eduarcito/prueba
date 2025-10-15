@@ -1,6 +1,3 @@
-/* ========================
-   🔷 ESTILOS GENERALES
-======================== */
 *,
 *::before,
 *::after {
@@ -13,10 +10,7 @@ body {
     padding: 0;
     background-color: #f8f9fa;
 }
-
-/* ========================
-   🔷 LOGIN PAGE
-======================== */
+/*login*/
 body.login-page {
     display: flex;
     justify-content: center;
@@ -86,18 +80,16 @@ body.login-page::before {
     background-color: #4a7396;
 }
 
-/* ========================
-   🟢 SISTEMA DE VENTAS (TPV)
-======================== */
+/*ventas*/
 .aplicacion-tpv {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
-/* HEADER */
+/*header*/
 .header-tpv {
-    background-color: #5d8aa8;
+    background-color: #f1ab5a;
     color: white;
     padding: 10px 20px;
     display: flex;
@@ -327,7 +319,7 @@ body.login-page::before {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #5d8aa8;
+    background-color: #f1ab5a;
     padding: 10px 20px;
 }
 
@@ -429,4 +421,122 @@ body.login-page::before {
 
 .panadero-form-container button[type="submit"]:hover {
     background-color: #4a7396;
+}
+.produccion-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #fff;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .produccion-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 10px;
+        }
+        .produccion-info {
+            flex: 1;
+        }
+        .produccion-info p {
+            margin: 0;
+            font-weight: 600;
+        }
+        .cantidad-produccion {
+            width: 60px;
+            padding: 5px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }  /* 🎨 Estilos específicos para Producción */
+        .carrito-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #fff;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .carrito-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 10px;
+        }
+        .carrito-info {
+            flex: 1;
+        }
+        .carrito-info p {
+            margin: 0;
+            font-weight: 600;
+        }
+        .cantidad-produccion {
+            width: 60px;
+            padding: 5px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }.admin-content {
+    padding: 30px;
+    max-width: 800px;
+    margin: auto;
+}
+
+.admin-section {
+    background: #fff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.admin-section h3 {
+    color: #d17b00;
+    margin-bottom: 10px;
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+}
+
+.formulario input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.btn-registrar {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    align-self: flex-start;
+}
+
+.btn-registrar:hover {
+    background-color: #218838;
+}
+
+.alert-success {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #d4edda;
+    color: #155724;
+    border-radius: 6px;
 }

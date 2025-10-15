@@ -1,5 +1,12 @@
+/home/eduardo/Documentos/GitHub/prueba/src/main/java/com/panaderia/util/TestUsuario.java
 /home/eduardo/Documentos/GitHub/prueba/src/main/java/com/panaderia/util/PasswordUtils.java
 /home/eduardo/Documentos/GitHub/prueba/src/main/java/com/panaderia/dao/UsuarioDAO.java
 /home/eduardo/Documentos/GitHub/prueba/src/main/java/com/panaderia/util/ConexionDB.java
 /home/eduardo/Documentos/GitHub/prueba/src/main/java/com/panaderia/model/Usuario.java
+/home/eduardo/Documentos/GitHub/prueba/src/main/java/com/panaderia/controller/RegistrarEmpleadoServlet.java
+/home/eduardo/Documentos/GitHub/prueba/src/main/java/com/panaderia/controller/RegistrarPanaderoServlet.java
 /home/eduardo/Documentos/GitHub/prueba/src/main/java/com/panaderia/controller/LoginServlet.java
+/home/eduardo/Documentos/GitHub/prueba/src/main/java/com/panaderia/controller/RegistrarAdministradorServlet.java
+/home/eduardo/Documentos/GitHub/prueba/src/main/java/com/panaderia/controller/ActualizarCredencialesServlet.java
+/home/eduardo/Documentos/GitHub/prueba/src/main/java/com/panaderia/controller/RegistrarUsuarioServlet.java
+/home/eduardo/Documentos/GitHub/prueba/src/main/java/com/panaderia/util/TestConexion.java

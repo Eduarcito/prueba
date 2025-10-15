@@ -1,27 +1,15 @@
 package com.panaderia.controller;
 
-import java.io.IOException;
+import com.panaderia.dao.UsuarioDAO;
 import com.panaderia.model.Usuario;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.*;
+import java.io.IOException;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-
-    // Credenciales de prueba (solo desarrollo)
-    private static final String ADMIN_USER = "eduardo";
-    private static final String ADMIN_PASS = "01302005";
-
-    private static final String PANADERO_USER = "chavarria";
-    private static final String PANADERO_PASS = "chaper";
-
-    private static final String EMPLEADO_USER = "kc";
-    private static final String EMPLEADO_PASS = "polluela";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -30,57 +18,41 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        HttpSession session = request.getSession(true);
-        Usuario user = null;
+        UsuarioDAO dao = new UsuarioDAO();
 
-        // Administrador
-        if (ADMIN_USER.equals(username) && ADMIN_PASS.equals(password)) {
-            user = new Usuario();
-            user.setNombre("Administrador de prueba");
-            user.setUsername(username);
-            user.setRol("Administrador");
-            user.setActivo(true);
-        }
+        try {
+            Usuario user = dao.validarLogin(username, password);
 
-        // Panadero
-        else if (PANADERO_USER.equals(username) && PANADERO_PASS.equals(password)) {
-            user = new Usuario();
-            user.setNombre("Panadero de prueba");
-            user.setUsername(username);
-            user.setRol("Panadero");
-            user.setActivo(true);
-        }
+            if (user != null) {
+                HttpSession session = request.getSession(true);
+                session.setAttribute("usuario", user);
 
-        // Empleado
-        else if (EMPLEADO_USER.equals(username) && EMPLEADO_PASS.equals(password)) {
-            user = new Usuario();
-            user.setNombre("Empleado de prueba");
-            user.setUsername(username);
-            user.setRol("Empleado");
-            user.setActivo(true);
-        }
+                // Si el usuario tiene credenciales temporales, obligar a cambiarlas
+                if (user.isUsernameTemporal() || user.isPasswordTemporal()) {
+                    response.sendRedirect(request.getContextPath() + "/cambiarCredenciales.jsp");
+                    return;
+                }
 
-        // Credenciales correctas: guardar en sesión y redirigir al dashboard según rol
-        if (user != null) {
-            session.setAttribute("usuario", user);
-
-            switch (user.getRol()) {
-                case "Administrador":
-                    response.sendRedirect(request.getContextPath() + "/admin/dashboard.jsp");
-                    break;
-                case "Panadero":
-                    response.sendRedirect(request.getContextPath() + "/panadero/produccion.jsp");
-                    break;
-                case "Empleado":
-                    response.sendRedirect(request.getContextPath() + "/ventas/ventas.jsp");
-                    break;
-                default:
-                    response.sendRedirect(request.getContextPath() + "/login.jsp");
+                // Redirigir según rol
+                switch (user.getRol()) {
+                    case "Administrador":
+                        response.sendRedirect(request.getContextPath() + "/admin/dashboard.jsp");
+                        break;
+                    case "Panadero":
+                        response.sendRedirect(request.getContextPath() + "/panadero/produccion.jsp");
+                        break;
+                    case "Empleado":
+                        response.sendRedirect(request.getContextPath() + "/ventas/ventas.jsp");
+                        break;
+                    default:
+                        response.sendRedirect(request.getContextPath() + "/login.jsp");
+                }
+            } else {
+                response.sendRedirect(request.getContextPath() + "/login.jsp?error=1");
             }
-            return;
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendRedirect(request.getContextPath() + "/login.jsp?error=1");
         }
-
-        // Credenciales incorrectas
-        response.sendRedirect(request.getContextPath() + "/login.jsp?error=1");
     }
 }
