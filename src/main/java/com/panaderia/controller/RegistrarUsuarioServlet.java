@@ -36,24 +36,24 @@ public class RegistrarUsuarioServlet extends HttpServlet {
         nuevoUsuario.setActivo(true);
 
         UsuarioDAO usuarioDAO = new UsuarioDAO();
+        HttpSession session = request.getSession();
 
         try {
-            // Registrar usuario temporal
             int idUsuario = usuarioDAO.registrarUsuario(nuevoUsuario, password, true);
             if (idUsuario == -1) {
-                request.setAttribute("error", "No se pudo registrar el usuario. Puede que ya exista.");
+                session.setAttribute("error", "No se pudo registrar el usuario. Puede que ya exista.");
             } else {
-                request.setAttribute("nuevoUsuario", username);
-                request.setAttribute("nuevaClave", password);
+                session.setAttribute("nuevoUsuario", username);
+                session.setAttribute("nuevaClave", password);
             }
 
-            // 👇 Cambiamos el destino para quedarnos en agregar.jsp
-            request.getRequestDispatcher("admin/agregar.jsp").forward(request, response);
+            // REDIRECT para que la URL permanezca en agregar.jsp
+            response.sendRedirect("admin/agregar.jsp");
 
         } catch (SQLException e) {
             e.printStackTrace();
-            request.setAttribute("error", "Error al registrar el usuario: " + e.getMessage());
-            request.getRequestDispatcher("admin/agregar.jsp").forward(request, response);
+            session.setAttribute("error", "Error al registrar el usuario: " + e.getMessage());
+            response.sendRedirect("admin/agregar.jsp");
         }
     }
 }

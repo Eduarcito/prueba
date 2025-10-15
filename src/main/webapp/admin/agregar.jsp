@@ -8,10 +8,15 @@
         return;
     }
 
-    // ✅ Recuperar los parámetros desde la URL
-    String nuevoUsuario = request.getParameter("nuevoUsuario");
-    String nuevaClave = request.getParameter("nuevaClave");
-    String error = request.getParameter("error");
+    // Recuperar mensajes de la sesión (POST-REDIRECT-GET)
+    String nuevoUsuario = (String) session.getAttribute("nuevoUsuario");
+    String nuevaClave = (String) session.getAttribute("nuevaClave");
+    String error = (String) session.getAttribute("error");
+
+    // Limpiar los atributos para que no aparezcan al recargar
+    session.removeAttribute("nuevoUsuario");
+    session.removeAttribute("nuevaClave");
+    session.removeAttribute("error");
 %>
 
 <!DOCTYPE html>
@@ -86,10 +91,8 @@
         <button type="submit">Registrar Usuario</button>
     </form>
 
-    <!-- 👇 Mostrar credenciales generadas o error -->
-    <%
-        if (nuevoUsuario != null && nuevaClave != null) {
-    %>
+    <!-- Mostrar mensajes -->
+    <% if (nuevoUsuario != null && nuevaClave != null) { %>
         <div class="mensaje-exito">
             <h3>✅ Usuario registrado correctamente:</h3>
             <p><strong>Usuario:</strong> <%= nuevoUsuario %></p>
