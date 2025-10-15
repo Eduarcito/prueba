@@ -32,7 +32,6 @@ if (user == null || !"Administrador".equals(user.getRol())) {
         <h2>Bienvenido, <%= user.getNombre() %> (Administrador)</h2>
 
         <!-- ===== INCLUDE: usuarios.jsp ===== -->
-        <jsp:include page="usuarios.jsp" />
     </main>
 
     <!-- ===== FOOTER ===== -->

@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UsuarioDAO {
 
@@ -82,6 +84,31 @@ public class UsuarioDAO {
 
             return ps.executeUpdate() > 0;
         }
+    }
+
+    // Listar todos los usuarios
+    public List<Usuario> listarUsuarios() throws SQLException {
+        List<Usuario> usuarios = new ArrayList<>();
+        String sql = "SELECT id_usuario, nombre, apellido, username, rol, telefono, direccion, activo FROM Usuarios";
+
+        try (Connection con = ConexionDB.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while(rs.next()) {
+                Usuario u = new Usuario();
+                u.setId(rs.getInt("id_usuario"));
+                u.setNombre(rs.getString("nombre"));
+                u.setApellido(rs.getString("apellido"));
+                u.setUsername(rs.getString("username"));
+                u.setRol(rs.getString("rol"));
+                u.setTelefono(rs.getString("telefono"));
+                u.setDireccion(rs.getString("direccion"));
+                u.setActivo(rs.getBoolean("activo"));
+                usuarios.add(u);
+            }
+        }
+        return usuarios;
     }
 
     // Método para hashear contraseñas
