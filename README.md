@@ -1,32 +1,38 @@
+# 🍞 Prueba – Panadería Web
 
-📌 **Distribución del código:**  
-- 🟦 **Java (61.6%)**: Lógica de negocio y controladores  
-- 🟪 **CSS (38.4%)**: Diseño y estilo de la interfaz web  
-
----
-
-## 🛠 Tecnologías utilizadas
-
-- ☕ **Java 17**  
-- 📦 **Maven**  
-- 🎨 **CSS**  
-- 🖥 **Azure Data Studio** (base de datos SQL)  
-- 🐧 **Linux** como entorno de desarrollo  
-- 💻 **Visual Studio Code** como editor principal  
+![Panadería](https://img.shields.io/badge/Proyecto-Panader%C3%ADa-orange?style=for-the-badge)
+[![Java](https://img.shields.io/badge/Java-17-blue?logo=java&logoColor=white)](https://www.java.com/)
+[![Maven](https://img.shields.io/badge/Maven-3.9.0-red?logo=apachemaven&logoColor=white)](https://maven.apache.org/)
+[![CSS](https://img.shields.io/badge/CSS-3-blue?logo=css3&logoColor=white)]()
+[![License](https://img.shields.io/badge/Licencia-Educativa-green)]()
 
 ---
 
-## ⚙ Funcionalidades principales
+## 🌟 Descripción
 
-- 👤 **Gestión de usuarios:** registro, edición y eliminación  
-- 🛍 **Administración de productos** de la panadería  
-- 💰 **Manejo de ventas y transacciones**  
-- 📊 **Panel de control** para visualizar información clave  
+¡Bienvenido a **Prueba – Panadería Web**! 🍰
+
+Este proyecto es una **aplicación web para la gestión interna de una panadería**, creada para simplificar tareas como:
+
+- Gestión de productos 🛍  
+- Administración de usuarios 👤  
+- Control de ventas y transacciones 💰  
+- Visualización de estadísticas y panel de control 📊  
+
+Está desarrollado en **Java** con **Maven**, y la interfaz se diseñó con **CSS** para una experiencia visual clara y atractiva.
+
+✨ **Objetivo:** Facilitar la administración de la panadería de manera intuitiva y eficiente, combinando funcionalidad y diseño moderno.
 
 ---
 
-## 🚀 Cómo ejecutar el proyecto
+## 📸 Capturas de la aplicación
 
-1. Clonar el repositorio:  
-```bash
-git clone https://github.com/Eduarcito/prueba.git
+*(Aquí puedes agregar imágenes o GIFs de tu interfaz)*
+
+![Dashboard](https://via.placeholder.com/800x400.png?text=Dashboard+de+la+Panader%C3%ADa)  
+![Gestión de Usuarios](https://via.placeholder.com/800x400.png?text=Gestión+de+Usuarios)
+
+---
+
+## 🗂 Estructura del proyecto
+
