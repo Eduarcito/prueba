@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  📌 Este repositorio contiene ejercicios, pruebas, scripts y pequeños proyectos desarrollados para mejorar mis habilidades como desarrollador.  
+  📌 Este repositorio contiene ejercicios, pruebas, scripts y pequeños proyectos desarrollados para mejorar mis habilidades como desarrollador.
 </p>
 
 ---
@@ -26,17 +26,25 @@ Aquí encontrarás:
 ## 🛠️ Tecnologías que utilizo
 
 <p align="left">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" width="50" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" width="50" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" width="50" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" width="50" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="50" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" width="50" />
+  <!-- Visual Studio Code -->
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" width="50" title="Visual Studio Code"/>
+
+  <!-- Java -->
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" width="50" title="Java + Maven"/>
+
+  <!-- CSS -->
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" width="50" title="CSS"/>
+
+  <!-- Azure Data Studio -->
+  <img src="https://avatars.githubusercontent.com/u/6913530?s=200&v=4" width="50" title="Azure Data Studio"/>
+
+  <!-- Linux -->
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" width="50" title="Linux"/>
 </p>
 
 ---
 
-## 📊 Estadísticas del Repositorio
+## 📊 Estadísticas
 
 <p align="center">
  <img src="https://github-readme-stats.vercel.app/api?username=Eduarcito&show_icons=true&theme=radical" height="160" />
@@ -48,14 +56,14 @@ Aquí encontrarás:
 ## 🧠 Objetivo
 
 > Seguir aprendiendo cada día y compartir mi camino como desarrollador.  
-> ¡Lo mejor está por venir! 🌟✨
+> ¡Lo mejor está por venir! ✨🔥
 
 ---
 
 <div align="center">
   
-📌 Si te gusta este proyecto, ¡no olvides dejar una ⭐ en el repo!  
-Gracias por pasarte 🚀🔥
+⭐ Si te gusta este proyecto, ¡no olvides dejar una estrella!  
+Gracias por pasarte 🚀
 
 </div>
 
