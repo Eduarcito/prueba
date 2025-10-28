@@ -1,65 +1,66 @@
-<h1 align="center">🚀 Proyecto de Desarrollo de Software</h1>
+# 🍞 Prueba – Panadería Web
 
-<p align="center">
-  <img src="https://media.giphy.com/media/ZVik7pBtu9dNS/giphy.gif" width="300" />
-</p>
-
-<p align="center">
-  📌 Este repositorio contiene un proyecto el cual presentare al final de ciclo en mi materia de Desarrollo de software I.  
-</p> 
+**Tipo de proyecto:** Aplicación web en Java con Maven  
+**Desarrollador:** Eduardo Iraheta  
+**Lenguajes:** Java, CSS  
 
 ---
 
-## 🛠️ Tecnologías que utilizo
+## 🔹 Descripción
 
-### 🧩 Lenguaje y Framework
-- **Java** (con **Maven**)
-- **CSS**
+Este proyecto es una **aplicación web para la gestión interna de una panadería**, diseñada para administrar productos, usuarios y ventas. La aplicación está desarrollada en **Java** con Maven, y cuenta con una interfaz web estilizada con **CSS**.
 
-### 🛠 Bases de datos
-- **Azure Data Studio**
-
-### 📟 Entorno
-- **Linux**
-
-### ✍️ Editor de Código
-- **Visual Studio Code**
-
-<p align="left">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" width="50" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/maven/maven-original.svg" width="50" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" width="50" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" width="50" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" width="50" />
-</p>
+El objetivo es brindar un sistema sencillo pero funcional para la administración eficiente de una panadería, incluyendo panel de control, gestión de usuarios y manejo de transacciones.
 
 ---
 
-## 📊 Estadísticas del Repositorio
+## 🗂 Estructura del proyecto
 
-<p align="center">
- <img src="https://github-readme-stats.vercel.app/api?username=Eduarcito&show_icons=true&theme=radical" height="160" />
- <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Eduarcito&layout=compact&theme=radical" height="160" />
-</p>
+prueba/
+├─ src/
+│ └─ main/
+│ └─ webapp/ # Archivos web: HTML, JSP, CSS
+├─ target/ # Archivos compilados por Maven
+├─ pom.xml # Configuración de Maven y dependencias
 
----
 
-## 🧠 Objetivo
-
-> Seguir aprendiendo cada día y compartir mi camino como desarrollador.  
-> ¡Lo mejor está por venir! 🌟✨
-
----
-
-<div align="center">
-  
-📌 Si te gusta este proyecto, ¡no olvides dejar una ⭐ en el repo!  
-Gracias por pasarte 🚀🔥
-
-</div>
+- **Java (61.6%)**: Lógica de negocio y controladores  
+- **CSS (38.4%)**: Diseño y estilo de la interfaz web  
 
 ---
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/onimur/.github/master/.resources/git-header.svg" width="100%" />
-</p>
+## 🛠 Tecnologías utilizadas
+
+- **Java 17**  
+- **Maven**  
+- **CSS**  
+- **Azure Data Studio** (para gestión de base de datos SQL)  
+- **Linux** como entorno de desarrollo  
+- **Visual Studio Code** como editor principal  
+
+---
+
+## ⚙ Funcionalidades principales
+
+- Gestión de **usuarios**: registro, edición y eliminación  
+- Administración de **productos** de la panadería  
+- Manejo de **ventas y transacciones**  
+- **Panel de control** para visualización de información clave  
+
+---
+
+## 🚀 Cómo ejecutar el proyecto
+
+1. Clonar el repositorio:  
+```bash
+git clone https://github.com/Eduarcito/prueba.git
+
+Abrir el proyecto en Visual Studio Code o NetBeans
+
+Ejecutar con Maven:
+mvn clean install
+mvn tomcat7:run   # si usas Tomcat
+
+Abrir la aplicación en un navegador:
+
+http://localhost:8080/prueba
