@@ -25,8 +25,9 @@ if (user == null || !"Administrador".equals(user.getRol())) {
         </div>
         <ul class="sidebar-menu">
             <li><a href="dashboard.jsp" class="active">Dashboard</a></li>
-            <li><a href="reportes.jsp">Reportes</a></li>
             <li><a href="usuarios.jsp">Usuarios</a></li>
+            <li><a href="reportes.jsp">Reportes</a></li>
+
         </ul>
     </aside>
 
