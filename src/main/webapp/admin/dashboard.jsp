@@ -12,30 +12,49 @@ if (user == null || !"Administrador".equals(user.getRol())) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Administrador - Panadería USO</title>
-    <link rel="stylesheet" href="../css/estilos.css">
+    <title>Administrador Panadería USO</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
 </head>
 <body>
 
-    <!-- ===== NAVBAR ===== -->
-    <nav class="navbar">
-        <img src="../img/logo.png" alt="Logo" class="logo">
-        <ul>
-            <li><a href="dashboard.jsp" class="active">Inicio</a></li>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <img src="../img/logo.png" alt="Logo" class="logo">
+            <h2>Panadería USO</h2>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.jsp" class="active">Dashboard</a></li>
             <li><a href="reportes.jsp">Reportes</a></li>
             <li><a href="usuarios.jsp">Usuarios</a></li>
         </ul>
-    </nav>
+    </aside>
 
-    <!-- ===== CONTENIDO ===== -->
-    <main class="admin-content">
-        <h2>Bienvenido, <%= user.getNombre() %> (Administrador)</h2>
+    <!-- Main content -->
+    <main class="main-content">
+        <header class="main-header">
+            <h1>Bienvenido, <%= user.getNombre() %></h1>
+        </header>
+
+        <section class="cards-container">
+            <div class="card gradient-blue">
+                <h3>Usuarios Registrados</h3>
+                <p>25</p>
+            </div>
+            <div class="card gradient-purple">
+                <h3>Ventas Hoy</h3>
+                <p>$350.00</p>
+            </div>
+            <div class="card gradient-pink">
+                <h3>Productos Disponibles</h3>
+                <p>120</p>
+            </div>
+            <div class="card gradient-green">
+                <h3>Pedidos Pendientes</h3>
+                <p>8</p>
+            </div>
+        </section>
     </main>
-
-    <!-- ===== FOOTER ===== -->
-    <footer class="footer">
-        <p>Panadería USO</p>
-    </footer>
 
 </body>
 </html>

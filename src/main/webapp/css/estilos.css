@@ -540,3 +540,123 @@ body.login-page::before {
     color: #155724;
     border-radius: 6px;
 }
+section {
+     padding: 20px 0; 
+     margin-bottom: 40px;
+}
+.navbar ul li a { 
+    padding: 10px 15px; 
+    display: inline-block; 
+    text-decoration: none;
+}
+.mensaje-error { 
+    color: red; 
+    margin-bottom: 20px; 
+}
+.tabla-usuarios { 
+    width: 100%; 
+    border-collapse: collapse; 
+}
+.tabla-usuarios th, 
+.tabla-usuarios td { 
+    padding: 8px; 
+    text-align: left; 
+}
+/* --- Sidebar --- */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    background-color: #f4f7fa;
+    color: #333;
+}
+
+.sidebar {
+    width: 220px;
+    background-color: #1f2a38;
+    color: #fff;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+}
+
+.sidebar-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.sidebar-header .logo {
+    width: 80px;
+    margin-bottom: 10px;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-menu li {
+    margin: 15px 0;
+}
+
+.sidebar-menu a {
+    color: #cfd8dc;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.sidebar-menu a:hover,
+.sidebar-menu a.active {
+    background-color: #3a5068;
+    color: #fff;
+}
+
+/* --- Main content --- */
+.main-content {
+    margin-left: 220px;
+    padding: 30px;
+    flex-grow: 1;
+}
+
+.main-header h1 {
+    margin: 0 0 30px 0;
+    font-size: 28px;
+}
+
+/* --- Cards --- */
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.card h3 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    color: #555;
+}
+
+.card p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #1f2a38;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
