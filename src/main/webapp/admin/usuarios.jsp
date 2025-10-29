@@ -29,13 +29,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuarios - Panel Administrador</title>
     <link rel="stylesheet" href="../css/estilos.css">
-    <style>
-        section { padding: 20px 0; margin-bottom: 40px; }
-        .navbar ul li a { padding: 10px 15px; display: inline-block; text-decoration: none; }
-        .mensaje-error { color: red; margin-bottom: 20px; }
-        .tabla-usuarios { width: 100%; border-collapse: collapse; }
-        .tabla-usuarios th, .tabla-usuarios td { padding: 8px; text-align: left; }
-    </style>
+
 </head>
 <body>
 
