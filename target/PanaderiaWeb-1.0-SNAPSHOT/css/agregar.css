@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
+
+* {
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: linear-gradient(135deg, #0f1020, #141632);
+    color: #f9fafb;
+    min-height: 100vh;
+    display: flex;
+}
+
+/* ======== SIDEBAR ======== */
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: radial-gradient(circle at 30% 30%, #1e1e2f, #0d0d1a);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid rgba(255,255,255,0.05);
+    box-shadow: 6px 0 22px rgba(0,0,0,0.45);
+    z-index: 50;
+}
+
+.sidebar-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.sidebar-header .logo {
+    width: 120px;
+    filter: brightness(0) invert(1);
+    margin-bottom: 10px;
+}
+
+.sidebar-header h2 {
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.sidebar-menu {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 15px;
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.sidebar-menu a i {
+    width: 18px;
+    text-align: center;
+}
+
+.sidebar-menu a:hover,
+.sidebar-menu a.active {
+    background-color: #7c3aed;
+    transform: translateX(5px);
+}
+
+.logout {
+    margin-top: auto;
+}
+
+.logout a {
+    color: #ff4444;
+    text-decoration: none;
+    font-size: 15px;
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.logout a:hover {
+    background-color: #3a3a3a;
+    transform: translateX(5px);
+}
+
+/* ======== CONTENIDO PRINCIPAL ======== */
+.admin-content {
+    margin-left: 260px; /* espacio para el sidebar */
+    flex: 1;
+    height: 100vh; /* toma toda la pantalla */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.admin-content-inner {
+    width: 100%;
+    max-width: 500px;
+    background-color: rgba(30,30,47,0.95);
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+}
+
+/* Título */
+.admin-content-inner h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+/* ======== FORMULARIO ======== */
+.form-admin input,
+.form-admin select {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+}
+
+.form-admin select {
+    background-color: #f9fafb;
+    color: #000;
+}
+
+.form-admin button {
+    width: 100%;
+    background: #7c3aed;
+    color: white;
+    border: none;
+    padding: 12px 0;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.form-admin button:hover {
+    background: #5b21b6;
+    transform: translateY(-2px);
+}
+
+/* ======== MENSAJES ======== */
+.mensaje-exito {
+    background: #e6ffe6;
+    color: #006400;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.mensaje-error {
+    background: #ffe6e6;
+    color: #b30000;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+/* ======== RESPONSIVE ======== */
+@media (max-width: 1024px) {
+    .admin-content-inner {
+        padding: 30px;
+    }
+}
+
+@media (max-width: 640px) {
+    body {
+        flex-direction: column;
+    }
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 10px 20px;
+    }
+    .sidebar-menu {
+        flex-direction: row;
+        gap: 10px;
+    }
+    .admin-content {
+        margin-left: 0;
+    }
+}

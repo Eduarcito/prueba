@@ -16,7 +16,7 @@ if (user == null || !"Panadero".equals(user.getRol())) {
     <title>Registro de Producción - Panadería USO</title>
 
     <!-- ✅ Llamada al CSS -->
-    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/produccion.css">
 </head>
 <body>
 

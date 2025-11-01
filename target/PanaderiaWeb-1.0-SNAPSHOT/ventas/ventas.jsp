@@ -16,7 +16,7 @@ if (user == null || !"Empleado".equals(user.getRol())) {
     <title>Panadería USO - Ventas</title>
 
     <!-- ✅ CSS -->
-    <link rel="stylesheet" href="../css/estilos.css?v=<%= System.currentTimeMillis() %>">
+    <link rel="stylesheet" href="../css/ventas.css">
 </head>
 
 <body>
