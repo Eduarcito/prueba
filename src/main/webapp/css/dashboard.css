@@ -3,154 +3,295 @@
 * {
     font-family: 'Poppins', sans-serif;
     box-sizing: border-box;
-}
-
-body {
     margin: 0;
-    background: #f4f6fc;
-    color: #333;
-    display: flex;
+    padding: 0;
 }
 
+/* ======== BODY ======== */
+body {
+    background: linear-gradient(135deg, #0f1020, #141632);
+    color: #f9fafb;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ======== SIDEBAR ======== */
 .sidebar {
     width: 240px;
-    background: linear-gradient(180deg, #586f97 0%, #111c2e 100%);
-    color: #fff;
     height: 100vh;
     position: fixed;
+    top: 0;
+    left: 0;
+    background: radial-gradient(circle at 30% 30%, #1e1e2f, #0d0d1a);
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    padding: 25px 0;
+    border-right: 1px solid rgba(255,255,255,0.05);
+    box-shadow: 6px 0 22px rgba(0,0,0,0.45);
+    z-index: 50;
 }
 
 .sidebar-header {
-    text-align: center;
-    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 25px;
 }
 
-.sidebar-header img {
-    width: 80px;
+.sidebar-header .logo {
+    width: 120px;
+    filter: brightness(0) invert(1);
     margin-bottom: 10px;
 }
 
 .sidebar-header h2 {
-    font-size: 18px;
+    color: #ffffff;
+    font-size: 1.1rem;
     font-weight: 600;
 }
 
 .sidebar-menu {
     list-style: none;
-    padding: 0 0;
-}
-
-.sidebar-menu li {
-    margin: 12px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0;
+    margin: 0;
 }
 
 .sidebar-menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ffffff;
     text-decoration: none;
-    color: #d1d9e6;
-    padding: 12px 20px;
-    display: block;
-    border-radius: 10px;
     font-size: 15px;
-    transition: 0.3s;
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: background 0.3s, transform 0.2s;
 }
 
 .sidebar-menu a:hover,
 .sidebar-menu a.active {
-    background: linear-gradient(90deg,#5e72e4,#825ee4);
-    color: #fff;
-    font-weight: 500;
+    background-color: #3a3a3a;
+    transform: translateX(5px);
 }
 
+.logout {
+    margin-top: auto;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.logout a {
+    color: #ff4444;
+    text-decoration: none;
+    font-size: 15px;
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.logout a:hover {
+    background-color: #3a3a3a;
+    transform: translateX(5px);
+}
+
+/* ======== CONTENIDO PRINCIPAL ======== */
 .main-content {
-    margin-left: 240px;
-    padding: 35px;
-    width: calc(100% - 240px);
+    margin-left: 260px;
+    width: calc(100% - 260px);
+    padding: 40px 30px;
+    box-sizing: border-box;
+}
+
+.main-header {
+    text-align: center;
+    margin-bottom: 30px;
 }
 
 .main-header h1 {
-    font-size: 28px;
+    font-size: 1.8rem;
     font-weight: 600;
-    color: #2d3748;
-    margin-bottom: 35px;
 }
 
-.cards-container {
+/* ======== LAYOUT DEL DASHBOARD ======== */
+.dashboard-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    grid-template-columns: 4fr 1fr; /* 80% / 20% */
     gap: 25px;
+    width: 100%;
+    height: calc(100vh - 160px);
+    align-items: stretch;
+}
+
+/* ======== IZQUIERDA (GRÁFICA + USUARIOS) ======== */
+.left-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+}
+
+/* Card de gráfica */
+.chart-card {
+    flex: none;       /* eliminado flex anterior */
+    height: 60%;      /* ahora sí ocupa 60% */
+    background: linear-gradient(180deg, #111827 0%, #1e293b 100%);
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.55);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.chart-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 6px;
+}
+
+.chart-header h2 {
+    margin: 0;
+    color: #f9fafb;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.chart-content {
+    background: #0f1724;
+    border-radius: 12px;
+    padding: 12px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chart-content canvas {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 350px;
+}
+
+/* Card de usuarios registrados debajo de la gráfica */
+.card.usuarios-registrados {
+    flex: none;       /* eliminado flex anterior */
+    height: 40%;      /* ahora sí ocupa 40% */
+    background: linear-gradient(135deg,#2563eb,#1e40af);
+    border-radius: 12px;
+    padding: 18px 20px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* ======== DERECHA (PRODUCTOS + VENTAS) ======== */
+.cards-side {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
 }
 
 .card {
-    background: #fff;
-    border-radius: 18px;
-    padding: 25px;
-    text-align: center;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-    transition: 0.3s ease;
+    color: #fff;
+    border-radius: 12px;
+    padding: 18px 20px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     position: relative;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.card h3 {
-    font-size: 17px;
-    margin: 0 0 10px;
-    color: #525f7f;
-}
-
-.card p {
-    font-size: 30px;
-    font-weight: 700;
-    color: #344767;
-    margin: 0;
-}
-
+/* Hover cards */
 .card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.55);
 }
 
-.card::before {
-    content: "";
-    position: absolute;
-    top: -25px;
-    right: -25px;
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    background: linear-gradient(135deg,#5e72e4,#825ee4);
-    opacity: 0.2;
+/* Altura específica para cards derecha */
+.card.ventas-totales {
+    flex: none;
+    height: 40%;      /* mantiene 40% del alto */
 }
 
-.card:nth-child(2)::before {
-    background: linear-gradient(135deg,#11cdef,#1171ef);
+.card.productos-disponibles {
+    flex: none;
+    height: 60%;      /* mantiene 60% del alto */
 }
 
-.card:nth-child(3)::before {
-    background: linear-gradient(135deg,#2dce89,#2dcecc);
+/* Contenedor interno para scroll */
+.products-card-content {
+    width: 100%;
+    flex: 1;
+    overflow-y: auto;
+    margin-top: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.3) transparent;
 }
 
-.card:nth-child(4)::before {
-    background: linear-gradient(135deg,#f5365c,#f56036);
+.products-card-content::-webkit-scrollbar {
+    width: 6px;
 }
 
-@media (max-width: 768px) {
-    .sidebar {
-        width: 200px;
+.products-card-content::-webkit-scrollbar-thumb {
+    background-color: rgba(255,255,255,0.3);
+    border-radius: 6px;
+}
+
+/* Estilo de la tablita dentro del card */
+.products-table {
+    width: 100%;
+    border-collapse: collapse;
+    display: block;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.products-table th, .products-table td {
+    text-align: left;
+    padding: 8px 12px;
+}
+
+.products-table th {
+    background-color: rgba(255,255,255,0.1);
+    position: sticky;
+    top: 0;
+    font-weight: 600;
+}
+
+.products-table tr:nth-child(even) {
+    background-color: rgba(255,255,255,0.05);
+}
+
+/* Gradientes */
+.gradient-blue { background: linear-gradient(135deg,#2563eb,#1e40af); }
+.gradient-green { background: linear-gradient(135deg,#059669,#065f46); }
+.gradient-purple { background: linear-gradient(135deg,#7c3aed,#4c1d95); }
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .cards-side {
+        flex-direction: row;
+        justify-content: center;
+        gap: 12px;
+        height: auto;
     }
-    .main-content {
-        margin-left: 200px;
-    }
-}
-
-@media (max-width: 576px) {
-    .sidebar {
-        display: none;
-    }
-    .main-content {
-        margin-left: 0;
-        width: 100%;
+    .card.ventas-totales,
+    .card.productos-disponibles,
+    .card.usuarios-registrados,
+    .chart-card {
+        flex: 1;
+        height: auto;
     }
 }

@@ -1,17 +1,24 @@
-/* === Fondo general y tipografía === */
-body {
-    background: linear-gradient(135deg, #0f1020, #141632);
-    font-family: "Poppins", sans-serif;
-    display: flex;
-    min-height: 100vh;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+* {
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
     margin: 0;
-    color: #fff;
+    padding: 0;
 }
 
-/* === Sidebar === */
+/* ======== BODY ======== */
+body {
+    background: linear-gradient(135deg, #0f1020, #141632);
+    color: #f9fafb;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ======== SIDEBAR ======== */
 .sidebar {
     width: 240px;
-    height: 100%;
+    height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
@@ -21,67 +28,70 @@ body {
     flex-direction: column;
     border-right: 1px solid rgba(255,255,255,0.05);
     box-shadow: 6px 0 22px rgba(0,0,0,0.45);
+    z-index: 50;
 }
 
 .sidebar-header {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-bottom: 25px;
 }
 
 .sidebar-header .logo {
-    filter: brightness(0) invert(1);
     width: 120px;
+    filter: brightness(0) invert(1);
     margin-bottom: 10px;
 }
 
 .sidebar-header h2 {
-    font-size: 18px;
     color: #ffffff;
-    letter-spacing: 0.5px;
+    font-size: 1.1rem;
+    font-weight: 600;
 }
 
 .sidebar-menu {
     list-style: none;
-    padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
+    padding: 0;
+    margin: 0;
 }
 
-.sidebar-menu li a {
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 16px;
-    padding: 10px 15px;
-    border-radius: 6px;
-    transition: background 0.3s, transform 0.2s;
+.sidebar-menu a {
     display: flex;
     align-items: center;
     gap: 10px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 15px;
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: background 0.3s, transform 0.2s;
 }
 
-.sidebar-menu li a:hover,
-.sidebar-menu li a.active {
+.sidebar-menu a:hover,
+.sidebar-menu a.active {
     background-color: #3a3a3a;
     transform: translateX(5px);
 }
 
-/* === Botón de salida === */
 .logout {
     margin-top: auto;
-    margin-bottom: 35px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .logout a {
     color: #ff4444;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 15px;
     padding: 10px 15px;
     border-radius: 6px;
     transition: background 0.3s, transform 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 10px;
 }
 
 .logout a:hover {
@@ -89,97 +99,199 @@ body {
     transform: translateX(5px);
 }
 
-/* === Contenido principal === */
+/* ======== CONTENIDO PRINCIPAL ======== */
 .main-content {
     margin-left: 260px;
     width: calc(100% - 260px);
-    padding: 40px;
+    padding: 40px 30px;
+    box-sizing: border-box;
 }
 
-/* === Encabezado === */
+.main-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
 .main-header h1 {
-    font-size: 28px;
-    margin-bottom: 40px;
-    color: #ffffff;
+    font-size: 1.8rem;
+    font-weight: 600;
 }
 
-/* === Tarjetas de resumen === */
-.cards-container {
+/* ======== LAYOUT DEL DASHBOARD ======== */
+.dashboard-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: 4fr 1fr; /* 80% / 20% */
     gap: 25px;
+    width: 100%;
+    height: calc(100vh - 160px);
+    align-items: stretch;
+}
+
+/* ======== IZQUIERDA (GRÁFICA + USUARIOS) ======== */
+.left-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+}
+
+/* Card de gráfica */
+.chart-card {
+    flex: none;       /* eliminado flex anterior */
+    height: 60%;      /* ahora sí ocupa 60% */
+    background: linear-gradient(180deg, #111827 0%, #1e293b 100%);
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.55);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.chart-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 6px;
+}
+
+.chart-header h2 {
+    margin: 0;
+    color: #f9fafb;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.chart-content {
+    background: #0f1724;
+    border-radius: 12px;
+    padding: 12px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chart-content canvas {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 350px;
+}
+
+/* Card de usuarios registrados debajo de la gráfica */
+.card.usuarios-registrados {
+    flex: none;       /* eliminado flex anterior */
+    height: 40%;      /* ahora sí ocupa 40% */
+    background: linear-gradient(135deg,#2563eb,#1e40af);
+    border-radius: 12px;
+    padding: 18px 20px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* ======== DERECHA (PRODUCTOS + VENTAS) ======== */
+.cards-side {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
 }
 
 .card {
-    background: rgba(255,255,255,0.05);
-    border-radius: 18px;
-    padding: 25px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-    text-align: center;
-    transition: transform 0.3s, box-shadow 0.3s;
-    backdrop-filter: blur(10px);
+    color: #fff;
+    border-radius: 12px;
+    padding: 18px 20px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
+/* Hover cards */
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.55);
 }
 
-.card h3 {
-    font-size: 16px;
-    color: #9da3b4;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+/* Altura específica para cards derecha */
+.card.ventas-totales {
+    flex: none;
+    height: 40%;      /* mantiene 40% del alto */
 }
 
-.card p {
-    font-size: 26px;
-    font-weight: bold;
-    margin: 0;
-    color: #ffffff;
+.card.productos-disponibles {
+    flex: none;
+    height: 60%;      /* mantiene 60% del alto */
 }
 
-/* === Degradados de tarjetas === */
-.gradient-blue {
-    background: linear-gradient(135deg, #1e3c72, #2a5298);
+/* Contenedor interno para scroll */
+.products-card-content {
+    width: 100%;
+    flex: 1;
+    overflow-y: auto;
+    margin-top: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.3) transparent;
 }
 
-.gradient-purple {
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
+.products-card-content::-webkit-scrollbar {
+    width: 6px;
 }
 
-.gradient-pink {
-    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+.products-card-content::-webkit-scrollbar-thumb {
+    background-color: rgba(255,255,255,0.3);
+    border-radius: 6px;
 }
 
-.gradient-green {
-    background: linear-gradient(135deg, #43e97b, #38f9d7);
+/* Estilo de la tablita dentro del card */
+.products-table {
+    width: 100%;
+    border-collapse: collapse;
+    display: block;
+    max-height: 200px;
+    overflow-y: auto;
 }
 
-/* === Responsividad === */
-@media (max-width: 768px) {
-    .sidebar {
-        width: 200px;
+.products-table th, .products-table td {
+    text-align: left;
+    padding: 8px 12px;
+}
+
+.products-table th {
+    background-color: rgba(255,255,255,0.1);
+    position: sticky;
+    top: 0;
+    font-weight: 600;
+}
+
+.products-table tr:nth-child(even) {
+    background-color: rgba(255,255,255,0.05);
+}
+
+/* Gradientes */
+.gradient-blue { background: linear-gradient(135deg,#2563eb,#1e40af); }
+.gradient-green { background: linear-gradient(135deg,#059669,#065f46); }
+.gradient-purple { background: linear-gradient(135deg,#7c3aed,#4c1d95); }
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .cards-side {
+        flex-direction: row;
+        justify-content: center;
+        gap: 12px;
+        height: auto;
     }
-
-    .main-content {
-        margin-left: 220px;
-        padding: 20px;
+    .card.ventas-totales,
+    .card.productos-disponibles,
+    .card.usuarios-registrados,
+    .chart-card {
+        flex: 1;
+        height: auto;
     }
-
-    .cards-container {
-        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-        gap: 15px;
-    }
-
-    .card {
-        padding: 20px;
-    }
-}
-
-/* === Iconos opcionales (Font Awesome o Lucide) === */
-.sidebar-menu li a i,
-.logout a i {
-    font-size: 18px;
 }
