@@ -13,6 +13,7 @@ body {
     color: #f9fafb;
     display: flex;
     min-height: 100vh;
+    overflow-x: hidden;
 }
 
 /* ======== SIDEBAR ======== */
@@ -105,6 +106,7 @@ body {
     width: calc(100% - 260px);
     padding: 40px 30px;
     box-sizing: border-box;
+    transition: margin-left 0.3s ease, width 0.3s ease;
 }
 
 .main-header {
@@ -117,7 +119,7 @@ body {
     font-weight: 600;
 }
 
-/* ======== LAYOUT DEL DASHBOARD ======== */
+/* ======== LAYOUT DASHBOARD ======== */
 .dashboard-grid {
     display: grid;
     grid-template-columns: 4fr 1fr; /* 80% / 20% */
@@ -127,7 +129,7 @@ body {
     align-items: stretch;
 }
 
-/* ======== IZQUIERDA (GRÁFICA + USUARIOS) ======== */
+/* ======== IZQUIERDA ======== */
 .left-column {
     display: flex;
     flex-direction: column;
@@ -135,10 +137,9 @@ body {
     height: 100%;
 }
 
-/* Card de gráfica */
+/* Gráfica */
 .chart-card {
-    flex: none;       /* eliminado flex anterior */
-    height: 60%;      /* ahora sí ocupa 60% */
+    height: 60%;
     background: linear-gradient(180deg, #111827 0%, #1e293b 100%);
     border-radius: 14px;
     padding: 20px;
@@ -180,10 +181,9 @@ body {
     max-height: 350px;
 }
 
-/* Card de usuarios registrados debajo de la gráfica */
+/* Usuarios registrados */
 .card.usuarios-registrados {
-    flex: none;       /* eliminado flex anterior */
-    height: 40%;      /* ahora sí ocupa 40% */
+    height: 40%;
     background: linear-gradient(135deg,#2563eb,#1e40af);
     border-radius: 12px;
     padding: 18px 20px;
@@ -193,7 +193,7 @@ body {
     justify-content: space-between;
 }
 
-/* ======== DERECHA (PRODUCTOS + VENTAS) ======== */
+/* ======== DERECHA ======== */
 .cards-side {
     display: flex;
     flex-direction: column;
@@ -207,30 +207,20 @@ body {
     padding: 18px 20px;
     box-shadow: 0 6px 18px rgba(0,0,0,0.45);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-/* Hover cards */
 .card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 30px rgba(0,0,0,0.55);
 }
 
-/* Altura específica para cards derecha */
-.card.ventas-totales {
-    flex: none;
-    height: 40%;      /* mantiene 40% del alto */
-}
+.card.ventas-totales { height: 40%; }
+.card.productos-disponibles { height: 60%; }
 
-.card.productos-disponibles {
-    flex: none;
-    height: 60%;      /* mantiene 60% del alto */
-}
-
-/* Contenedor interno para scroll */
+/* Scroll interno */
 .products-card-content {
     width: 100%;
     flex: 1;
@@ -239,59 +229,95 @@ body {
     scrollbar-width: thin;
     scrollbar-color: rgba(255,255,255,0.3) transparent;
 }
-
-.products-card-content::-webkit-scrollbar {
-    width: 6px;
-}
-
+.products-card-content::-webkit-scrollbar { width: 6px; }
 .products-card-content::-webkit-scrollbar-thumb {
     background-color: rgba(255,255,255,0.3);
     border-radius: 6px;
 }
 
-/* Estilo de la tablita dentro del card */
-.products-table {
-    width: 100%;
-    border-collapse: collapse;
-    display: block;
-    max-height: 200px;
-    overflow-y: auto;
-}
+/* ======== RESPONSIVE ======== */
 
-.products-table th, .products-table td {
-    text-align: left;
-    padding: 8px 12px;
-}
-
-.products-table th {
-    background-color: rgba(255,255,255,0.1);
-    position: sticky;
-    top: 0;
-    font-weight: 600;
-}
-
-.products-table tr:nth-child(even) {
-    background-color: rgba(255,255,255,0.05);
-}
-
-/* Gradientes */
-.gradient-blue { background: linear-gradient(135deg,#2563eb,#1e40af); }
-.gradient-green { background: linear-gradient(135deg,#059669,#065f46); }
-.gradient-purple { background: linear-gradient(135deg,#7c3aed,#4c1d95); }
-
-/* Responsive */
+/* ✅ Tablets y laptops pequeñas */
 @media (max-width: 1024px) {
-    .cards-side {
-        flex-direction: row;
-        justify-content: center;
-        gap: 12px;
+    .sidebar {
+        width: 200px;
+        padding: 15px;
+    }
+
+    .main-content {
+        margin-left: 210px;
+        width: calc(100% - 210px);
+        padding: 25px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
         height: auto;
     }
-    .card.ventas-totales,
-    .card.productos-disponibles,
-    .card.usuarios-registrados,
-    .chart-card {
-        flex: 1;
+
+    .left-column,
+    .cards-side {
+        flex-direction: column;
         height: auto;
+    }
+
+    .chart-card,
+    .card.usuarios-registrados,
+    .card.productos-disponibles,
+    .card.ventas-totales {
+        height: auto;
+        min-height: 250px;
+    }
+}
+
+/* ✅ Móviles y tablets verticales */
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        width: 240px;
+        height: 100vh;
+        z-index: 100;
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+        padding: 20px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        height: auto;
+    }
+
+    .chart-card,
+    .card.usuarios-registrados,
+    .card.productos-disponibles,
+    .card.ventas-totales {
+        width: 100%;
+        height: auto;
+    }
+}
+
+/* ✅ Teléfonos pequeños */
+@media (max-width: 480px) {
+    .main-header h1 {
+        font-size: 1.3rem;
+    }
+
+    .card,
+    .chart-card {
+        padding: 15px;
+    }
+
+    .sidebar-header .logo {
+        width: 80px;
     }
 }
