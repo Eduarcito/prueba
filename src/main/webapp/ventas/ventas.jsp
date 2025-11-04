@@ -15,13 +15,11 @@ if (user == null || !"Empleado".equals(user.getRol())) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panadería USO - Ventas</title>
 
-    <!-- ✅ CSS -->
     <link rel="stylesheet" href="../css/ventas.css">
 </head>
 
 <body>
     <div class="aplicacion-tpv">
-        <!-- ===== HEADER ===== -->
         <header class="header-tpv">
             <div class="header-content">
                 <div class="app-branding">
@@ -38,10 +36,8 @@ if (user == null || !"Empleado".equals(user.getRol())) {
             </div>
         </header>
 
-        <!-- ===== CONTENIDO PRINCIPAL ===== -->
         <div class="main-content">
             
-            <!-- Panel del carrito -->
             <div class="carrito-panel">
                 <div class="search-bar">
                     <input type="text" placeholder="Buscar Producto...">
@@ -70,7 +66,6 @@ if (user == null || !"Empleado".equals(user.getRol())) {
                 </div>
             </div>
 
-            <!-- Panel del catálogo -->
             <div class="catalogo-panel">
                 <div class="categorias-nav">
                     <span>Categorías:</span>
@@ -80,7 +75,6 @@ if (user == null || !"Empleado".equals(user.getRol())) {
                 </div>
                 
                 <div class="productos-grid" id="productos-grid">
-                    <!-- 🥯 Catálogo de productos -->
                     <div class="producto-card" data-id="1" data-name="Concha" data-price="0.25">
                         <img src="../img/concha.png" alt="Concha">
                         <p class="nombre-producto">Concha</p>
@@ -108,10 +102,9 @@ if (user == null || !"Empleado".equals(user.getRol())) {
                 </div>
             </div>
 
-        </div> <!-- Fin main-content -->
-    </div> <!-- Fin aplicacion-tpv -->
+        </div> 
+    </div> 
 
-    <!-- ✅ JS -->
     <script src="../js/app.js?v=<%= System.currentTimeMillis() %>"></script>
 </body>
 </html>
