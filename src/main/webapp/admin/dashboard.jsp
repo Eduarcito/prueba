@@ -127,7 +127,6 @@ for (int i = 0; i < meses.size(); i++) {
                 </div>
             </div>
 
-            <!-- Usuarios Registrados debajo de la gráfica -->
             <div class="card gradient-blue">
                 <i class="fas fa-users icon"></i>
                 <h3>Usuarios Registrados</h3>
@@ -135,7 +134,6 @@ for (int i = 0; i < meses.size(); i++) {
             </div>
         </div>
 
-        <!-- Columna derecha: Productos + Ventas Totales -->
         <div class="cards-side">
             <div class="card productos-disponibles gradient-purple">
                 <i class="fas fa-bread-slice icon"></i>
