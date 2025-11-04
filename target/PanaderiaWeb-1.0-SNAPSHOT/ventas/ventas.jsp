@@ -16,7 +16,12 @@ if (user == null || !"Empleado".equals(user.getRol())) {
     <title>Panadería USO - Ventas</title>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     <link rel="stylesheet" href="../css/ventas.css">
+=======
+    <!-- ✅ CSS -->
+    <link rel="stylesheet" href="../css/estilos.css?v=<%= System.currentTimeMillis() %>">
+>>>>>>> parent of fdf3c8f (git commit)
 =======
     <!-- ✅ CSS -->
     <link rel="stylesheet" href="../css/estilos.css?v=<%= System.currentTimeMillis() %>">
