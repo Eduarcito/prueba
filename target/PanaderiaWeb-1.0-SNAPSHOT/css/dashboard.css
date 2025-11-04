@@ -11,8 +11,11 @@
 body {
     background-color: #0f1020;
     min-height: 100vh;
+<<<<<<< HEAD
     color: #fff;
     display: flex;
+=======
+>>>>>>> parent of 94426cc (update)
 }
 
 /* ======== SIDEBAR ======== */
@@ -64,9 +67,17 @@ body {
 }
 
 /* ======== CONTENIDO PRINCIPAL ======== */
+<<<<<<< HEAD
 .main {
     flex: 1;
     padding: 2rem;
+=======
+.main-content {
+    margin-left: 260px;
+    width: calc(100% - 260px);
+    padding: 40px 30px;
+    box-sizing: border-box;
+>>>>>>> parent of 94426cc (update)
 }
 
 .main h1 {
@@ -74,6 +85,7 @@ body {
     margin-bottom: 2rem;
 }
 
+<<<<<<< HEAD
 /* ======== GRID PRINCIPAL ======== */
 .dashboard-grid {
     display: grid;
@@ -81,6 +93,95 @@ body {
     grid-template-rows: 60% 40%;
     gap: 1.5rem;
     height: 80vh;
+=======
+.main-header h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+/* ======== LAYOUT DEL DASHBOARD ======== */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 4fr 1fr; /* 80% / 20% */
+    gap: 25px;
+    width: 100%;
+    height: calc(100vh - 160px);
+    align-items: stretch;
+}
+
+/* ======== IZQUIERDA (GRÁFICA + USUARIOS) ======== */
+.left-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+}
+
+/* Card de gráfica */
+.chart-card {
+    flex: none;       /* eliminado flex anterior */
+    height: 60%;      /* ahora sí ocupa 60% */
+    background: linear-gradient(180deg, #111827 0%, #1e293b 100%);
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.55);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.chart-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 6px;
+}
+
+.chart-header h2 {
+    margin: 0;
+    color: #f9fafb;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.chart-content {
+    background: #0f1724;
+    border-radius: 12px;
+    padding: 12px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chart-content canvas {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 350px;
+}
+
+/* Card de usuarios registrados debajo de la gráfica */
+.card.usuarios-registrados {
+    flex: none;       /* eliminado flex anterior */
+    height: 40%;      /* ahora sí ocupa 40% */
+    background: linear-gradient(135deg,#2563eb,#1e40af);
+    border-radius: 12px;
+    padding: 18px 20px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* ======== DERECHA (PRODUCTOS + VENTAS) ======== */
+.cards-side {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+>>>>>>> parent of 94426cc (update)
 }
 
 /* ======== CARDS ======== */
@@ -88,6 +189,7 @@ body {
     border-radius: 15px;
     padding: 1rem;
     color: #fff;
+<<<<<<< HEAD
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
@@ -128,4 +230,97 @@ body {
 .grafica {
     width: 100%;
     height: 100%;
+=======
+    border-radius: 12px;
+    padding: 18px 20px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Hover cards */
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.55);
+}
+
+/* Altura específica para cards derecha */
+.card.ventas-totales {
+    flex: none;
+    height: 40%;      /* mantiene 40% del alto */
+}
+
+.card.productos-disponibles {
+    flex: none;
+    height: 60%;      /* mantiene 60% del alto */
+}
+
+/* Contenedor interno para scroll */
+.products-card-content {
+    width: 100%;
+    flex: 1;
+    overflow-y: auto;
+    margin-top: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.3) transparent;
+}
+
+.products-card-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.products-card-content::-webkit-scrollbar-thumb {
+    background-color: rgba(255,255,255,0.3);
+    border-radius: 6px;
+}
+
+/* Estilo de la tablita dentro del card */
+.products-table {
+    width: 100%;
+    border-collapse: collapse;
+    display: block;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.products-table th, .products-table td {
+    text-align: left;
+    padding: 8px 12px;
+}
+
+.products-table th {
+    background-color: rgba(255,255,255,0.1);
+    position: sticky;
+    top: 0;
+    font-weight: 600;
+}
+
+.products-table tr:nth-child(even) {
+    background-color: rgba(255,255,255,0.05);
+}
+
+/* Gradientes */
+.gradient-blue { background: linear-gradient(135deg,#2563eb,#1e40af); }
+.gradient-green { background: linear-gradient(135deg,#059669,#065f46); }
+.gradient-purple { background: linear-gradient(135deg,#7c3aed,#4c1d95); }
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .cards-side {
+        flex-direction: row;
+        justify-content: center;
+        gap: 12px;
+        height: auto;
+    }
+    .card.ventas-totales,
+    .card.productos-disponibles,
+    .card.usuarios-registrados,
+    .chart-card {
+        flex: 1;
+        height: auto;
+    }
+>>>>>>> parent of 94426cc (update)
 }

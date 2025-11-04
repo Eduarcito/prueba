@@ -15,11 +15,13 @@ if (user == null || !"Empleado".equals(user.getRol())) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panadería USO - Ventas</title>
 
+    <!-- ✅ CSS -->
     <link rel="stylesheet" href="../css/ventas.css">
 </head>
 
 <body>
     <div class="aplicacion-tpv">
+        <!-- ===== HEADER ===== -->
         <header class="header-tpv">
             <div class="header-content">
                 <div class="app-branding">
