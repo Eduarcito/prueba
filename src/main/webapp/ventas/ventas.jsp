@@ -15,7 +15,12 @@ if (user == null || !"Empleado".equals(user.getRol())) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panadería USO - Ventas</title>
 
+<<<<<<< HEAD
     <link rel="stylesheet" href="../css/ventas.css">
+=======
+    <!-- ✅ CSS -->
+    <link rel="stylesheet" href="../css/estilos.css?v=<%= System.currentTimeMillis() %>">
+>>>>>>> parent of fdf3c8f (git commit)
 </head>
 
 <body>
