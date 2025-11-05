@@ -160,7 +160,7 @@ for (int i = 0; i < meses.size(); i++) {
                 <p class="count">$<%= String.format("%.2f", ventasTotales) %></p>
             </div>
             
-            <div class="card gradient-blue">
+            <div class="card usuarios-registrados">
                 <i class="fas fa-users icon"></i>
                 <h3>Usuarios Registrados</h3>
                 <p class="count"><%= totalUsuarios %></p>
