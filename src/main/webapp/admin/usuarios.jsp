@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.panaderia.model.Usuario" %>
 <%@ page import="com.panaderia.dao.UsuarioDAO" %>
+
+<%! 
+    // Función para escapar comillas y barras invertidas en JavaScript
+    public static String escapeJS(String s) {
+        if (s == null) return "";
+        return s.replace("\\", "\\\\").replace("'", "\\'").replace("\"", "\\\"");
+    }
+%>
+
 <%
     // Verificar sesión y rol
     Usuario user = (Usuario) session.getAttribute("usuario");
@@ -17,37 +26,47 @@
     } catch (Exception e) {
         e.printStackTrace();
     }
-
-    // Mensajes de error
-    String error = (String) request.getAttribute("error");
 %>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usuarios - Panel Administrador</title>
-    <link rel="stylesheet" href="../css/usuarios.css">
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Usuarios - Panel Administrador</title>
+
+<link rel="stylesheet" href="../css/usuarios.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+/* ===== MODAL ===== */
+.modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.6); }
+.modal-content { background-color: #111827; margin: 10% auto; padding: 30px; border-radius: 14px; width: 400px; color: #f9fafb; position: relative; }
+.close-modal { position: absolute; top: 15px; right: 20px; color: #fff; font-size: 24px; cursor: pointer; }
+.modal-content h2 { text-align:center; margin-bottom:20px; }
+.modal-content input, .modal-content select { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 10px; border: none; background: rgba(255,255,255,0.05); color: #fff; font-size: 15px; }
+.modal-content input:focus, .modal-content select:focus { outline:none; background: rgba(255,255,255,0.15); }
+.modal-content button { background: linear-gradient(135deg,#7c3aed,#10b981); border: none; padding: 12px; border-radius: 10px; color: #fff; font-weight: 600; width: 100%; cursor: pointer; font-size: 16px; margin-bottom: 10px; }
+.modal-content button:hover { background: linear-gradient(135deg,#10b981,#7c3aed); }
+.button-reset { background:#ef4444; }
+.button-reset:hover { background:#dc2626; }
+</style>
+
 </head>
 <body>
 
 <aside class="sidebar">
-    <!-- Logo -->
     <div class="logo">
         <img src="../img/logo.png" alt="Logo Panadería USO" style="filter: brightness(0) invert(1);">
     </div>
 
-    <!-- Menú principal arriba -->
     <nav class="menu">
         <a href="dashboard.jsp"><i class="fas fa-chart-line"></i> Panel</a>
         <a class="active" href="usuarios.jsp"><i class="fas fa-users"></i> Usuarios</a>
         <a href="reportes.jsp"><i class="fas fa-file-alt"></i> Reportes</a>
     </nav>
 
-    <!-- Salir abajo -->
     <div class="logout">
         <a href="../login.jsp"><i class="fas fa-sign-out-alt"></i> Salir</a>
     </div>
@@ -55,7 +74,8 @@
 
 <main class="admin-content">
     <div class="main-header">
-        <h1>Usuarios registrados</h1>
+        <span class="usuarios"><i class="fas fa-users"></i> Usuarios registrados</span>
+        <a href="../admin/agregar.jsp" class="btn-agregar"><i class="fas fa-plus"></i> Agregar</a>
     </div>
 
     <section class="table-container">
@@ -92,7 +112,15 @@
 
                     <td>2024</td>
 
-                    <td><a class="action-link" href="editar.jsp?id=<%= u.getId() %>">Editar</a></td>
+                    <td>
+                        <span class="action-link" onclick="abrirModal(
+                            <%= u.getId() %>, 
+                            '<%= escapeJS(u.getNombre()) %>', 
+                            '<%= escapeJS(u.getApellido()) %>', 
+                            '<%= escapeJS(u.getTelefono()) %>', 
+                            '<%= escapeJS(u.getRol()) %>'
+                        )">Editar</span>
+                    </td>
                 </tr>
                 <% } %>
 
@@ -107,9 +135,73 @@
     </section>
 </main>
 
-<footer class="footer">
-    <p>Panadería USO</p>
-</footer>
+<!-- MODAL EDITAR USUARIO -->
+<div id="modalEditar" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="cerrarModal()">&times;</span>
+        <h2>Editar Usuario</h2>
+            <form action="<%= request.getContextPath() %>/EditarUsuarioServlet" method="post">
+            <input type="hidden" id="usuarioId" name="id">
+            <input type="text" id="editNombre" name="nombre" placeholder="Nombre" required onkeypress="return soloLetras(event)">
+            <input type="text" id="editApellido" name="apellido" placeholder="Apellido" required onkeypress="return soloLetras(event)">
+            <input type="text" id="editTelefono" name="telefono" placeholder="Teléfono" required onkeypress="return soloNumeros(event)">
+            <select id="editRol" name="rol" required>
+                <option value="">Seleccionar rol</option>
+                <option value="Administrador">Administrador</option>
+                <option value="Panadero">Panadero</option>
+                <option value="Empleado">Empleado</option>
+            </select>
+            <button type="submit">Guardar Cambios</button>
+            <button type="button" class="button-reset" onclick="restablecerContrasena()">Restablecer Contraseña</button>
+        </form>
+    </div>
+</div>
+
+<script>
+function abrirModal(id,nombre,apellido,telefono,rol){
+    document.getElementById('modalEditar').style.display='block';
+    document.getElementById('usuarioId').value=id;
+    document.getElementById('editNombre').value=nombre;
+    document.getElementById('editApellido').value=apellido;
+    document.getElementById('editTelefono').value=telefono;
+    document.getElementById('editRol').value=rol;
+}
+
+function cerrarModal(){ document.getElementById('modalEditar').style.display='none'; }
+
+window.onclick = function(event){
+    if(event.target == document.getElementById('modalEditar')){
+        cerrarModal();
+    }
+}
+
+// Validaciones
+function soloLetras(e){
+    let key = e.keyCode || e.which;
+    let tecla = String.fromCharCode(key).toLowerCase();
+    let letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
+    let especiales = [8,37,39,46]; 
+    if(letras.indexOf(tecla)===-1 && !especiales.includes(key)) return false;
+}
+
+function soloNumeros(e){
+    let key = e.keyCode || e.which;
+    if(key>=48 && key<=57 || [8,37,39,46].includes(key)) return true;
+    return false;
+}
+
+function restablecerContrasena(){
+    if(confirm("¿Desea restablecer la contraseña de este usuario?")){
+        const userId = document.getElementById('usuarioId').value;
+        fetch(`../ResetPasswordServlet?id=${userId}`)
+            .then(res => res.text())
+            .then(msg => {
+                alert(msg);
+                cerrarModal();
+            });
+    }
+}
+</script>
 
 </body>
 </html>

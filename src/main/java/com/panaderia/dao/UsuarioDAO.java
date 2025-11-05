@@ -28,8 +28,8 @@ public class UsuarioDAO {
             ps.setString(6, usuario.getDireccion());
             ps.setString(7, usuario.getRol());
             ps.setBoolean(8, usuario.isActivo());
-            ps.setBoolean(9, temporal); // username temporal
-            ps.setBoolean(10, temporal); // password temporal
+            ps.setBoolean(9, temporal);
+            ps.setBoolean(10, temporal);
 
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -71,10 +71,9 @@ public class UsuarioDAO {
         return null;
     }
 
-    // Cambiar username y/o contraseña de un usuario
+    // Cambiar username y/o contraseña
     public boolean actualizarCredenciales(int idUsuario, String nuevoUsername, String nuevaContrasena) throws SQLException {
         String sql = "UPDATE Usuarios SET username = ?, password_hash = ?, username_temporal = 0, password_temporal = 0 WHERE id_usuario = ?";
-
         try (Connection con = ConexionDB.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
@@ -83,6 +82,33 @@ public class UsuarioDAO {
             ps.setInt(3, idUsuario);
 
             return ps.executeUpdate() > 0;
+        }
+    }
+
+    // Actualizar usuario (nombre, apellido, teléfono, rol)
+    public boolean editarUsuario(int idUsuario, String nombre, String apellido, String telefono, String rol) throws SQLException {
+        String sql = "UPDATE Usuarios SET nombre=?, apellido=?, telefono=?, rol=? WHERE id_usuario=?";
+        try (Connection con = ConexionDB.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, nombre);
+            ps.setString(2, apellido);
+            ps.setString(3, telefono);
+            ps.setString(4, rol);
+            ps.setInt(5, idUsuario);
+
+            return ps.executeUpdate() > 0;
+        }
+    }
+
+    // Actualizar contraseña
+    public void actualizarContrasena(int id, String nuevaClave) throws SQLException {
+        String sql = "UPDATE Usuarios SET password_hash=? WHERE id_usuario=?";
+        try (Connection con = ConexionDB.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, hashPassword(nuevaClave));
+            ps.setInt(2, id);
+            ps.executeUpdate();
         }
     }
 
@@ -111,6 +137,7 @@ public class UsuarioDAO {
         return usuarios;
     }
 
+    // Hash password
     private String hashPassword(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");

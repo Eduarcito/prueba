@@ -74,6 +74,27 @@ body {
     background-color: #3a3a3a;
     transform: translateX(5px);
 }
+.btn-agregar {
+    position: absolute;
+    right: 0;           /* lo pone a la derecha del header */
+    top: 50%;           /* centra verticalmente */
+    transform: translateY(-50%);
+    background-color: #10b981;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.btn-agregar:hover {
+    background-color: #059669;
+    transform: translateY(-50%) translateY(-2px);
+}
 
 .admin-content {
     margin-left: 260px; 
@@ -85,6 +106,7 @@ body {
 .table-container {
     background: rgba(255,255,255,0.03);
     padding: 25px;
+    width: 105%;
     border-radius: 18px;
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255,255,255,0.05);
@@ -159,4 +181,15 @@ body {
 
 .action-link:hover {
     text-decoration: underline;
+}
+.main-header {
+    position: relative;  /* para posicionar el botón respecto al header */
+    text-align: center;  /* centra horizontalmente el contenido */
+    margin-bottom: 30px;
+}
+.usuarios {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    display: inline-block;  /* para que el texto ocupe solo su espacio */
 }
