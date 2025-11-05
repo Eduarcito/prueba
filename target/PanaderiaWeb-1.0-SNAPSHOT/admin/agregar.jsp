@@ -98,7 +98,6 @@
             <button type="submit">Registrar Usuario</button>
         </form>
 
-        <!-- Mostrar mensajes -->
         <% if (nuevoUsuario != null && nuevaClave != null) { %>
             <div class="mensaje-exito">
                 <h3>✅ Usuario registrado correctamente:</h3>

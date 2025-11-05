@@ -117,7 +117,7 @@ for (int i = 0; i < meses.size(); i++) {
 
     <section class="dashboard-grid">
         <div class="left-column">
-            <!-- Gráfica -->
+
             <div class="chart-card gradient-purple">
                 <div class="chart-header">
                     <h2><i class="fas fa-chart-line"></i> Ventas Mensuales</h2>
@@ -127,15 +127,9 @@ for (int i = 0; i < meses.size(); i++) {
                 </div>
             </div>
 
-            <!-- Usuarios Registrados debajo de la gráfica -->
-            <div class="card gradient-blue">
-                <i class="fas fa-users icon"></i>
-                <h3>Usuarios Registrados</h3>
-                <p class="count"><%= totalUsuarios %></p>
-            </div>
+
         </div>
 
-        <!-- Columna derecha: Productos + Ventas Totales -->
         <div class="cards-side">
             <div class="card productos-disponibles gradient-purple">
                 <i class="fas fa-bread-slice icon"></i>
@@ -164,6 +158,12 @@ for (int i = 0; i < meses.size(); i++) {
                 <i class="fas fa-shopping-cart icon"></i>
                 <h3>Ventas Totales (Año)</h3>
                 <p class="count">$<%= String.format("%.2f", ventasTotales) %></p>
+            </div>
+            
+            <div class="card gradient-blue">
+                <i class="fas fa-users icon"></i>
+                <h3>Usuarios Registrados</h3>
+                <p class="count"><%= totalUsuarios %></p>
             </div>
         </div>
     </section>

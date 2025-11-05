@@ -117,28 +117,25 @@ body {
     font-weight: 600;
 }
 
-/* ======== LAYOUT DEL DASHBOARD ======== */
+/* ======== DASHBOARD GRID ======== */
 .dashboard-grid {
     display: grid;
-    grid-template-columns: 4fr 1fr; /* 80% / 20% */
+    grid-template-columns: 75% 25%; 
     gap: 25px;
     width: 100%;
     height: calc(100vh - 160px);
     align-items: stretch;
 }
 
-/* ======== IZQUIERDA (GRÁFICA + USUARIOS) ======== */
+/* ======== IZQUIERDA (GRÁFICA) ======== */
 .left-column {
     display: flex;
     flex-direction: column;
-    gap: 20px;
     height: 100%;
 }
 
-/* Card de gráfica */
 .chart-card {
-    flex: none;       /* eliminado flex anterior */
-    height: 60%;      /* ahora sí ocupa 60% */
+    flex: 1;
     background: linear-gradient(180deg, #111827 0%, #1e293b 100%);
     border-radius: 14px;
     padding: 20px;
@@ -180,20 +177,7 @@ body {
     max-height: 350px;
 }
 
-/* Card de usuarios registrados debajo de la gráfica */
-.card.usuarios-registrados {
-    flex: none;       /* eliminado flex anterior */
-    height: 40%;      /* ahora sí ocupa 40% */
-    background: linear-gradient(135deg,#2563eb,#1e40af);
-    border-radius: 12px;
-    padding: 18px 20px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-/* ======== DERECHA (PRODUCTOS + VENTAS) ======== */
+/* ======== DERECHA (CARDS) ======== */
 .cards-side {
     display: flex;
     flex-direction: column;
@@ -201,61 +185,48 @@ body {
     height: 100%;
 }
 
+/* CARD GENERAL */
 .card {
-    color: #fff;
-    border-radius: 12px;
-    padding: 18px 20px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    color: white;
+    padding: 18px 20px;
+    border-radius: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease;
 }
 
-/* Hover cards */
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.55);
 }
 
-/* Altura específica para cards derecha */
-.card.ventas-totales {
-    flex: none;
-    height: 40%;      /* mantiene 40% del alto */
-}
-
+/* COLORES SÓLIDOS DIFERENTES */
 .card.productos-disponibles {
-    flex: none;
-    height: 60%;      /* mantiene 60% del alto */
+    background: #2563eb; /* azul */
+    flex: 1;
 }
 
-/* Contenedor interno para scroll */
+.card.ventas-totales {
+    background: #059669; /* verde */
+    flex: 1;
+}
+
+.card.usuarios-registrados {
+    background: #f59e0b; /* naranja */
+    flex: 1;
+}
+
 .products-card-content {
-    width: 100%;
+    margin-top: 10px;
     flex: 1;
     overflow-y: auto;
-    margin-top: 8px;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255,255,255,0.3) transparent;
 }
 
-.products-card-content::-webkit-scrollbar {
-    width: 6px;
-}
-
-.products-card-content::-webkit-scrollbar-thumb {
-    background-color: rgba(255,255,255,0.3);
-    border-radius: 6px;
-}
-
-/* Estilo de la tablita dentro del card */
 .products-table {
     width: 100%;
     border-collapse: collapse;
-    display: block;
-    max-height: 200px;
-    overflow-y: auto;
+    font-size: 0.9rem;
 }
 
 .products-table th, .products-table td {
@@ -264,34 +235,26 @@ body {
 }
 
 .products-table th {
-    background-color: rgba(255,255,255,0.1);
-    position: sticky;
-    top: 0;
-    font-weight: 600;
+    background-color: rgba(255,255,255,0.15);
 }
 
 .products-table tr:nth-child(even) {
-    background-color: rgba(255,255,255,0.05);
+    background-color: rgba(255,255,255,0.1);
 }
 
-/* Gradientes */
-.gradient-blue { background: linear-gradient(135deg,#2563eb,#1e40af); }
-.gradient-green { background: linear-gradient(135deg,#059669,#065f46); }
-.gradient-purple { background: linear-gradient(135deg,#7c3aed,#4c1d95); }
-
-/* Responsive */
+/* ======== RESPONSIVE ======== */
 @media (max-width: 1024px) {
-    .cards-side {
-        flex-direction: row;
-        justify-content: center;
-        gap: 12px;
+    .dashboard-grid {
+        grid-template-columns: 1fr;
         height: auto;
     }
-    .card.ventas-totales,
-    .card.productos-disponibles,
-    .card.usuarios-registrados,
-    .chart-card {
-        flex: 1;
-        height: auto;
+
+    .cards-side {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .card {
+        flex: 1 1 45%;
     }
 }
