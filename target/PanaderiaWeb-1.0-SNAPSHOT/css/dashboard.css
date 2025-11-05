@@ -119,11 +119,12 @@ body {
 
 .dashboard-grid {
     display: grid;
-    grid-template-columns: 75% 25%; 
-    gap: 25px;
+    grid-template-columns: 72% 26%; 
+    gap: 20px; 
     width: 100%;
     height: calc(100vh - 160px);
     align-items: stretch;
+    transition: transform 0.3s ease;
 }
 
 .left-column {
@@ -141,8 +142,11 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-}
 
+}
+.chart-card :hover{
+        transform: translateY(-5px);
+}
 .chart-header {
     display: flex;
     align-items: center;
@@ -174,7 +178,9 @@ body {
     height: 100% !important;
     max-height: 350px;
 }
-
+.chart-card gradient-blue {
+    background: linear-gradient(180deg, #1e3a8a 0%, #3b82f6 100%);
+}
 .cards-side {
     display: flex;
     flex-direction: column;
@@ -185,7 +191,8 @@ body {
 .card {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;  /* centra verticalmente */
+    text-align: center;
     color: white;
     padding: 18px 20px;
     border-radius: 14px;
@@ -210,6 +217,7 @@ body {
 .card.usuarios-registrados {
     background: #f59e0b;
     flex: 1;
+
 }
 
 .products-card-content {
@@ -236,9 +244,18 @@ body {
 .products-table tr:nth-child(even) {
     background-color: rgba(255,255,255,0.1);
 }
-.chart-card gradient-blue {
-    background: linear-gradient(180deg, #1e3a8a 0%, #3b82f6 100%);
+.cards-side .card p {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
 }
+
+.cards-side .card .count {
+    font-weight: bold;
+    margin: 0;
+}
+
+
 /* ======== RESPONSIVE ======== */
 @media (max-width: 1024px) {
     .dashboard-grid {
