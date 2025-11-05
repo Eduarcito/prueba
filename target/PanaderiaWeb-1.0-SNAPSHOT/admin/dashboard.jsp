@@ -13,7 +13,7 @@ if (user == null || !"Administrador".equals(user.getRol())) {
 int totalUsuarios = 0;
 double ventasTotales = 0.0;
 
-List<String> meses = new ArrayList<>();
+List<String> dias = new ArrayList<>();
 List<Double> totales = new ArrayList<>();
 List<Map<String, Object>> productos = new ArrayList<>();
 
@@ -41,15 +41,17 @@ try {
     if (rs.next()) ventasTotales = rs.getDouble("total");
     rs.close(); ps.close();
 
-    // Ventas mensuales
+    // Ventas por día (últimos 7 días)
     ps = con.prepareStatement(
-        "SELECT DATENAME(MONTH, fecha_hora) AS mes, SUM(total) AS total " +
-        "FROM Ventas GROUP BY DATENAME(MONTH, fecha_hora), MONTH(fecha_hora) " +
-        "ORDER BY MONTH(fecha_hora)"
+        "SELECT CONVERT(VARCHAR(10), fecha_hora, 103) AS dia, SUM(total) AS total " +
+        "FROM Ventas " +
+        "WHERE CONVERT(DATE, fecha_hora) BETWEEN DATEADD(DAY, -7, GETDATE()) AND GETDATE() " +
+        "GROUP BY CONVERT(VARCHAR(10), fecha_hora, 103), CONVERT(DATE, fecha_hora) " +
+        "ORDER BY CONVERT(DATE, fecha_hora)"
     );
     rs = ps.executeQuery();
     while (rs.next()) {
-        meses.add(rs.getString("mes"));
+        dias.add(rs.getString("dia"));
         totales.add(rs.getDouble("total"));
     }
     rs.close(); ps.close();
@@ -71,13 +73,13 @@ try {
     try { if (rs != null) rs.close(); if (ps != null) ps.close(); if (con != null) con.close(); } catch (Exception e) {}
 }
 
-StringBuilder sbMeses = new StringBuilder();
+StringBuilder sbDias = new StringBuilder();
 StringBuilder sbTotales = new StringBuilder();
-for (int i = 0; i < meses.size(); i++) {
-    sbMeses.append("\"").append(meses.get(i)).append("\"");
+for (int i = 0; i < dias.size(); i++) {
+    sbDias.append("\"").append(dias.get(i)).append("\"");
     sbTotales.append(totales.get(i));
-    if (i < meses.size() - 1) {
-        sbMeses.append(",");
+    if (i < dias.size() - 1) {
+        sbDias.append(",");
         sbTotales.append(",");
     }
 }
@@ -120,13 +122,20 @@ for (int i = 0; i < meses.size(); i++) {
 
             <div class="chart-card gradient-purple">
                 <div class="chart-header">
-                    <h2><i class="fas fa-chart-line"></i> Ventas Mensuales</h2>
+                    <h2><i class="fas fa-chart-line"></i> Ventas Diarias</h2>
                 </div>
                 <div class="chart-content">
                     <canvas id="salesChart"></canvas>
                 </div>
             </div>
-
+            <div class="chart-card gradient-blue">
+                <div class="chart-header">
+                    <h2><i class="fas fa-chart-pie"></i> Productos Más Vendidos</h2>
+                </div>
+                <div class="chart-content">
+                    <p>Próximamente...</p>
+                </div>
+            </div>
 
         </div>
 
@@ -170,7 +179,7 @@ for (int i = 0; i < meses.size(); i++) {
 </main>
 
 <script>
-const labels = [<%= sbMeses.toString() %>];
+const labels = [<%= sbDias.toString() %>];
 const dataValues = [<%= sbTotales.toString() %>];
 const ctx = document.getElementById('salesChart').getContext('2d');
 
