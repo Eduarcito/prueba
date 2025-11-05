@@ -17,6 +17,10 @@ List<String> dias = new ArrayList<>();
 List<Double> totales = new ArrayList<>();
 List<Map<String, Object>> productos = new ArrayList<>();
 
+// NUEVAS LISTAS PARA LA GRÁFICA DE PRODUCTOS
+List<String> nombresProductos = new ArrayList<>();
+List<Double> ventasPorProducto = new ArrayList<>();
+
 String url = "jdbc:sqlserver://localhost:1433;databaseName=Panaderia;encrypt=false;";
 String usuarioDB = "sa";
 String claveDB = "TuContraseñaFuerte123";
@@ -67,12 +71,28 @@ try {
     }
     rs.close(); ps.close();
 
+    // Ventas por producto
+    ps = con.prepareStatement(
+        "SELECT p.nombre, ISNULL(SUM(vp.cantidad * vp.precio_unitario), 0) AS total " +
+        "FROM Ventas_Productos vp " +
+        "INNER JOIN Productos p ON vp.id_producto = p.id_producto " +
+        "GROUP BY p.nombre " +
+        "ORDER BY total DESC"
+    );
+    rs = ps.executeQuery();
+    while (rs.next()) {
+        nombresProductos.add(rs.getString("nombre"));
+        ventasPorProducto.add(rs.getDouble("total"));
+    }
+    rs.close(); ps.close();
+
 } catch (Exception e) {
     e.printStackTrace();
 } finally {
     try { if (rs != null) rs.close(); if (ps != null) ps.close(); if (con != null) con.close(); } catch (Exception e) {}
 }
 
+// Preparar datos para JS
 StringBuilder sbDias = new StringBuilder();
 StringBuilder sbTotales = new StringBuilder();
 for (int i = 0; i < dias.size(); i++) {
@@ -81,6 +101,17 @@ for (int i = 0; i < dias.size(); i++) {
     if (i < dias.size() - 1) {
         sbDias.append(",");
         sbTotales.append(",");
+    }
+}
+
+StringBuilder sbNombresProductos = new StringBuilder();
+StringBuilder sbVentasPorProducto = new StringBuilder();
+for (int i = 0; i < nombresProductos.size(); i++) {
+    sbNombresProductos.append("\"").append(nombresProductos.get(i)).append("\"");
+    sbVentasPorProducto.append(ventasPorProducto.get(i));
+    if (i < nombresProductos.size() - 1) {
+        sbNombresProductos.append(",");
+        sbVentasPorProducto.append(",");
     }
 }
 %>
@@ -113,13 +144,14 @@ for (int i = 0; i < dias.size(); i++) {
 </aside>
 
 <main class="main-content">
-    <header class="main-header">
+    <!--<header class="main-header">
         <h1>Bienvenido, <%= user.getNombre() %></h1>
-    </header>
+    </header>-->
 
     <section class="dashboard-grid">
         <div class="left-column">
 
+            <!-- VENTAS DIARIAS -->
             <div class="chart-card gradient-purple">
                 <div class="chart-header">
                     <h2><i class="fas fa-chart-line"></i> Ventas Diarias</h2>
@@ -128,21 +160,23 @@ for (int i = 0; i < dias.size(); i++) {
                     <canvas id="salesChart"></canvas>
                 </div>
             </div>
+
+            <!-- VENTAS POR PRODUCTO (DONUT) -->
             <div class="chart-card gradient-blue">
                 <div class="chart-header">
-                    <h2><i class="fas fa-chart-pie"></i> Productos Más Vendidos</h2>
+                    <h2><i class="fas fa-chart-pie"></i> Ventas por Producto</h2>
                 </div>
                 <div class="chart-content">
-                    <p>Próximamente...</p>
+                    <canvas id="productosChart"></canvas>
                 </div>
             </div>
 
         </div>
 
+        <!-- TARJETAS LATERALES -->
         <div class="cards-side">
             <div class="card productos-disponibles gradient-purple">
-                <i class="fas fa-bread-slice icon"></i>
-                <h3>Productos Disponibles</h3>
+                <i class="fas fa-bread-slice icon"> Productos Disponibles</i>
                 <div class="products-card-content">
                     <table class="products-table">
                         <thead>
@@ -164,14 +198,12 @@ for (int i = 0; i < dias.size(); i++) {
             </div>
 
             <div class="card ventas-totales gradient-green">
-                <i class="fas fa-shopping-cart icon"></i>
-                <h3>Ventas Totales (Año)</h3>
+                <i class="fas fa-shopping-cart icon"> Ventas Totales (Año)</i>
                 <p class="count">$<%= String.format("%.2f", ventasTotales) %></p>
             </div>
             
             <div class="card usuarios-registrados">
-                <i class="fas fa-users icon"></i>
-                <h3>Usuarios Registrados</h3>
+                <i class="fas fa-users icon"> Usuarios Registrados</i>
                 <p class="count"><%= totalUsuarios %></p>
             </div>
         </div>
@@ -213,6 +245,35 @@ new Chart(ctx, {
             x: { ticks: { color: '#d1d5db' }, grid: { color: 'rgba(255,255,255,0.1)' } },
             y: { ticks: { color: '#d1d5db' }, grid: { color: 'rgba(255,255,255,0.1)' } }
         }
+    }
+});
+
+const prodLabels = [<%= sbNombresProductos.toString() %>];
+const prodData = [<%= sbVentasPorProducto.toString() %>];
+const ctxProd = document.getElementById('productosChart').getContext('2d');
+
+new Chart(ctxProd, {
+    type: 'doughnut',
+    data: {
+        labels: prodLabels,
+        datasets: [{
+            data: prodData,
+            backgroundColor: [
+                '#7c3aed', '#2563eb', '#10b981', '#f59e0b', '#ef4444', '#14b8a6', '#8b5cf6'
+            ],
+            borderWidth: 2,
+            borderColor: '#fff'
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: true,
+                labels: { color: '#e5e7eb', font: { size: 13 } }
+            }
+        },
+        cutout: '65%'
     }
 });
 </script>
