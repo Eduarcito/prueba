@@ -45,13 +45,18 @@ try {
     if (rs.next()) ventasTotales = rs.getDouble("total");
     rs.close(); ps.close();
 
-    // Ventas por día (últimos 7 días)
+    // Ventas por día (últimos 7 días) — incluye días sin ventas (devuelve 0)
     ps = con.prepareStatement(
-        "SELECT CONVERT(VARCHAR(10), fecha_hora, 103) AS dia, SUM(total) AS total " +
-        "FROM Ventas " +
-        "WHERE CONVERT(DATE, fecha_hora) BETWEEN DATEADD(DAY, -7, GETDATE()) AND GETDATE() " +
-        "GROUP BY CONVERT(VARCHAR(10), fecha_hora, 103), CONVERT(DATE, fecha_hora) " +
-        "ORDER BY CONVERT(DATE, fecha_hora)"
+        "WITH fechas AS ( " +
+        "  SELECT CAST(DATEADD(DAY, -6, CAST(GETDATE() AS DATE)) AS DATE) AS d " +
+        "  UNION ALL " +
+        "  SELECT DATEADD(DAY, 1, d) FROM fechas WHERE d < CAST(GETDATE() AS DATE) " +
+        ") " +
+        "SELECT CONVERT(VARCHAR(10), f.d, 103) AS dia, ISNULL(SUM(v.total), 0) AS total " +
+        "FROM fechas f " +
+        "LEFT JOIN Ventas v ON CAST(v.fecha_hora AS DATE) = f.d " +
+        "GROUP BY f.d " +
+        "ORDER BY f.d"
     );
     rs = ps.executeQuery();
     while (rs.next()) {
@@ -71,11 +76,13 @@ try {
     }
     rs.close(); ps.close();
 
-    // Ventas por producto
+    // Ventas por producto (usando DetalleVenta) — suma cantidad * precio_unitario
+    // LEFT JOIN para incluir productos sin ventas (total = 0)
     ps = con.prepareStatement(
-        "SELECT p.nombre, ISNULL(SUM(vp.cantidad * vp.precio_unitario), 0) AS total " +
-        "FROM Ventas_Productos vp " +
-        "INNER JOIN Productos p ON vp.id_producto = p.id_producto " +
+        "SELECT p.nombre, ISNULL(SUM(d.cantidad * d.precio_unitario), 0) AS total " +
+        "FROM Productos p " +
+        "LEFT JOIN DetalleVenta d ON p.id_producto = d.id_producto " +
+        "LEFT JOIN Ventas v ON d.id_venta = v.id_venta AND YEAR(v.fecha_hora) = YEAR(GETDATE()) " +
         "GROUP BY p.nombre " +
         "ORDER BY total DESC"
     );
@@ -92,7 +99,7 @@ try {
     try { if (rs != null) rs.close(); if (ps != null) ps.close(); if (con != null) con.close(); } catch (Exception e) {}
 }
 
-// Preparar datos para JS
+// Preparar datos para JS — convierto listas a literales JS (evitar NPE)
 StringBuilder sbDias = new StringBuilder();
 StringBuilder sbTotales = new StringBuilder();
 for (int i = 0; i < dias.size(); i++) {
@@ -107,7 +114,7 @@ for (int i = 0; i < dias.size(); i++) {
 StringBuilder sbNombresProductos = new StringBuilder();
 StringBuilder sbVentasPorProducto = new StringBuilder();
 for (int i = 0; i < nombresProductos.size(); i++) {
-    sbNombresProductos.append("\"").append(nombresProductos.get(i)).append("\"");
+    sbNombresProductos.append("\"").append(nombresProductos.get(i).replace("\"","\\\"")).append("\"");
     sbVentasPorProducto.append(ventasPorProducto.get(i));
     if (i < nombresProductos.size() - 1) {
         sbNombresProductos.append(",");
@@ -144,39 +151,36 @@ for (int i = 0; i < nombresProductos.size(); i++) {
 </aside>
 
 <main class="main-content">
-    <!--<header class="main-header">
+   <!-- <header class="main-header">
         <h1>Bienvenido, <%= user.getNombre() %></h1>
     </header>-->
 
     <section class="dashboard-grid">
         <div class="left-column">
 
-            <!-- VENTAS DIARIAS -->
             <div class="chart-card gradient-purple">
                 <div class="chart-header">
-                    <h2><i class="fas fa-chart-line"></i> Ventas Diarias</h2>
+                    <h2><i class="fas fa-chart-line"></i> Ventas Diarias (últimos 7 días)</h2>
                 </div>
                 <div class="chart-content">
                     <canvas id="salesChart"></canvas>
                 </div>
             </div>
 
-            <!-- VENTAS POR PRODUCTO (DONUT) -->
             <div class="chart-card gradient-blue">
                 <div class="chart-header">
-                    <h2><i class="fas fa-chart-pie"></i> Ventas por Producto</h2>
+                    <h2><i class="fas fa-chart-pie"></i> Ventas por Producto (Año actual)</h2>
                 </div>
                 <div class="chart-content">
                     <canvas id="productosChart"></canvas>
                 </div>
             </div>
-
         </div>
 
-        <!-- TARJETAS LATERALES -->
         <div class="cards-side">
             <div class="card productos-disponibles gradient-purple">
-                <i class="fas fa-bread-slice icon"> Productos Disponibles</i>
+                <i class="fas fa-bread-slice icon"></i>
+                <h3>Productos Disponibles</h3>
                 <div class="products-card-content">
                     <table class="products-table">
                         <thead>
@@ -198,12 +202,14 @@ for (int i = 0; i < nombresProductos.size(); i++) {
             </div>
 
             <div class="card ventas-totales gradient-green">
-                <i class="fas fa-shopping-cart icon"> Ventas Totales (Año)</i>
+                <i class="fas fa-shopping-cart icon"></i>
+                <h3>Ventas Totales (Año)</h3>
                 <p class="count">$<%= String.format("%.2f", ventasTotales) %></p>
             </div>
             
             <div class="card usuarios-registrados">
-                <i class="fas fa-users icon"> Usuarios Registrados</i>
+                <i class="fas fa-users icon"></i>
+                <h3>Usuarios Registrados</h3>
                 <p class="count"><%= totalUsuarios %></p>
             </div>
         </div>
@@ -271,6 +277,15 @@ new Chart(ctxProd, {
             legend: {
                 display: true,
                 labels: { color: '#e5e7eb', font: { size: 13 } }
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        let label = context.label || '';
+                        let value = context.formattedValue || '0';
+                        return label + ': $' + value;
+                    }
+                }
             }
         },
         cutout: '65%'
