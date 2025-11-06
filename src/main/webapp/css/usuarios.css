@@ -193,3 +193,77 @@ body {
     color: #ffffff;
     display: inline-block;  /* para que el texto ocupe solo su espacio */
 }
+
+/* ===== MODAL ===== */
+.modal { 
+    display: none; 
+    position: fixed; 
+    z-index: 100; 
+    left: 0; 
+    top: 0; 
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.6); 
+}
+.modal-content { 
+    background-color: #111827; 
+    margin: 10% auto; 
+    padding: 30px; 
+    border-radius: 14px; 
+    width: 400px; 
+    color: #f9fafb; 
+    position: relative; 
+}
+.close-modal { 
+    position: absolute; 
+    top: 15px; 
+    right: 20px; 
+    color: #fff; 
+    font-size: 24px; 
+    cursor: pointer; 
+}
+.modal-content h2 { 
+    text-align:center; 
+    margin-bottom:20px; 
+}
+.modal-content input, .modal-content select { 
+    width: 100%; 
+    padding: 12px; 
+    margin-bottom: 15px; 
+    border-radius: 10px; 
+    border: none; 
+    background: rgba(255,255,255,0.05); 
+    color: #fff; font-size: 15px; 
+    cursor: pointer;
+}
+.modal-content input:focus, .modal-content select:focus { 
+    outline:none; 
+    background: rgba(255,255,255,0.15); 
+}
+.modal-content button { 
+    background: linear-gradient(135deg,#7c3aed,#10b981); 
+    border: none; 
+    padding: 12px; 
+    border-radius: 10px; 
+    color: #fff; 
+    font-weight: 600; 
+    width: 100%; 
+    cursor: pointer; 
+    font-size: 16px; 
+    margin-bottom: 10px; 
+}
+.modal-content button:hover { 
+    background: linear-gradient(135deg,#10b981,#7c3aed); 
+    cursor: pointer;
+}
+.button-reset { 
+    background:#ef4444; 
+}
+.button-reset:hover { 
+    background:#dc2626; 
+}
+.action-link {
+    color: #3b82f6;
+    cursor: pointer;
+}

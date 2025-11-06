@@ -27,6 +27,7 @@
 </head>
 <body>
 
+<!-- === SIDEBAR (sin cambios) === -->
 <aside class="sidebar">
     <div class="logo">
         <img src="../img/logo.png" alt="Logo Panadería USO">
@@ -41,6 +42,7 @@
     </div>
 </aside>
 
+<!-- === CONTENIDO PRINCIPAL === -->
 <main class="admin-content">
     <div class="main-header">
         <span class="reportes"><i class="fas fa-file-alt"></i> Reportes</span>
@@ -50,108 +52,91 @@
         </form>
     </div>
 
-<%
-Connection con = null;
-Statement st = null;
-ResultSet rs = null;
-try {
-    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-    con = DriverManager.getConnection(url, usuarioDB, claveDB);
-    st = con.createStatement();
+    <!-- === CARDS DE REPORTES === -->
+    <div class="cards-container">
+    <%
+        Connection con = null;
+        Statement st = null;
+        ResultSet rs = null;
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            con = DriverManager.getConnection(url, usuarioDB, claveDB);
+            st = con.createStatement();
 
-    // ====================== USUARIOS ======================
-    out.println("<h2>Usuarios</h2>");
-    rs = st.executeQuery("SELECT id_usuario, nombre, username AS Usuario, rol, activo FROM Usuarios");
-    out.println("<table class='vision-table'><thead><tr><th>ID</th><th>Nombre</th><th>Usuario</th><th>Rol</th><th>Activo</th></tr></thead><tbody>");
-    while(rs.next()){
-        out.println("<tr>");
-        out.println("<td>" + rs.getInt("id_usuario") + "</td>");
-        out.println("<td>" + rs.getString("nombre") + "</td>");
-        out.println("<td>" + rs.getString("Usuario") + "</td>");
-        out.println("<td>" + rs.getString("rol") + "</td>");
-        out.println("<td>" + (rs.getBoolean("activo") ? "<span class='badge online'>Sí</span>" : "<span class='badge offline'>No</span>") + "</td>");
-        out.println("</tr>");
-    }
-    out.println("</tbody></table>");
+            // ========== CARD PRODUCTOS ==========
+            out.println("<div class='report-card'>");
+            out.println("<h3><i class='fas fa-bread-slice'></i> Productos</h3>");
+            rs = st.executeQuery("SELECT TOP 4 nombre, stock_actual FROM Productos ORDER BY id_producto DESC");
+            out.println("<table class='mini-table'><thead><tr><th>Producto</th><th>Stock</th></tr></thead><tbody>");
+            while(rs.next()){
+                out.println("<tr><td>" + rs.getString("nombre") + "</td><td>" + rs.getInt("stock_actual") + "</td></tr>");
+            }
+            out.println("</tbody></table>");
+            // 🔹 Cambio aquí
+            out.println("<button class='report-btn' onclick=\"window.open('GenerarReporte?tipo=productos', '_blank')\"><i class='fas fa-file-pdf'></i> Ver reporte completo</button>");
+            out.println("</div>");
 
-    // ====================== PRODUCTOS ======================
-    out.println("<h2>Productos</h2>");
-    rs = st.executeQuery("SELECT id_producto AS ID, nombre AS NOMBRE, precio_unitario AS PRECIO, stock_actual AS STOCK FROM Productos");
-    out.println("<table class='vision-table'><thead><tr><th>ID</th><th>NOMBRE</th><th>PRECIO</th><th>STOCK</th></tr></thead><tbody>");
-    while(rs.next()){
-        out.println("<tr>");
-        out.println("<td>" + rs.getInt("ID") + "</td>");
-        out.println("<td>" + rs.getString("NOMBRE") + "</td>");
-        out.println("<td>" + rs.getDouble("PRECIO") + "</td>");
-        out.println("<td>" + rs.getInt("STOCK") + "</td>");
-        out.println("</tr>");
-    }
-    out.println("</tbody></table>");
+            // ========== CARD PRODUCCIÓN ==========
+            out.println("<div class='report-card'>");
+            out.println("<h3><i class='fas fa-industry'></i> Producción</h3>");
+            String prodQuery = "SELECT TOP 4 pr.nombre AS producto, p.cantidad_producida " +
+                               "FROM Produccion p INNER JOIN Productos pr ON p.id_producto = pr.id_producto ";
+            // 🔧 Corrección aplicada aquí:
+            if(!fechaFiltro.isEmpty()) prodQuery += "WHERE CAST(p.fecha AS DATE) = '" + fechaFiltro + "' ";
+            prodQuery += "ORDER BY p.id_produccion DESC";
+            rs = st.executeQuery(prodQuery);
+            out.println("<table class='mini-table'><thead><tr><th>Producto</th><th>Cantidad</th></tr></thead><tbody>");
+            while(rs.next()){
+                out.println("<tr><td>" + rs.getString("producto") + "</td><td>" + rs.getInt("cantidad_producida") + "</td></tr>");
+            }
+            out.println("</tbody></table>");
+            // 🔹 Cambio aquí
+            out.println("<button class='report-btn' onclick=\"window.open('GenerarReporte?tipo=produccion', '_blank')\"><i class='fas fa-file-pdf'></i> Ver reporte completo</button>");
+            out.println("</div>");
 
-    // ====================== PRODUCCIÓN ======================
-    out.println("<h2>Producción</h2>");
-    String prodQuery = "SELECT p.id_produccion, u.nombre AS panadero, pr.nombre AS producto, p.cantidad_producida " +
-                       "FROM Produccion p " +
-                       "INNER JOIN Usuarios u ON p.id_panadero = u.id_usuario " +
-                       "INNER JOIN Productos pr ON p.id_producto = pr.id_producto ";
-    if(!fechaFiltro.isEmpty()) prodQuery += "WHERE p.fecha = '" + fechaFiltro + "' ";
-    rs = st.executeQuery(prodQuery);
-    out.println("<table class='vision-table'><thead><tr><th>ID Producción</th><th>Panadero</th><th>Producto</th><th>Cantidad</th></tr></thead><tbody>");
-    while(rs.next()){
-        out.println("<tr>");
-        out.println("<td>" + rs.getInt("id_produccion") + "</td>");
-        out.println("<td>" + rs.getString("panadero") + "</td>");
-        out.println("<td>" + rs.getString("producto") + "</td>");
-        out.println("<td>" + rs.getInt("cantidad_producida") + "</td>");
-        out.println("</tr>");
-    }
-    out.println("</tbody></table>");
+            // ========== CARD VENTAS ==========
+            out.println("<div class='report-card'>");
+            out.println("<h3><i class='fas fa-cash-register'></i> Ventas</h3>");
+            String ventasQuery = "SELECT TOP 4 v.id_venta, v.total " +
+                                 "FROM Ventas v ";
+            if(!fechaFiltro.isEmpty()) ventasQuery += "WHERE CAST(v.fecha_hora AS DATE) = '" + fechaFiltro + "' ";
+            ventasQuery += "ORDER BY v.id_venta DESC";
+            rs = st.executeQuery(ventasQuery);
+            out.println("<table class='mini-table'><thead><tr><th>ID</th><th>Total</th></tr></thead><tbody>");
+            while(rs.next()){
+                out.println("<tr><td>" + rs.getInt("id_venta") + "</td><td>$" + rs.getDouble("total") + "</td></tr>");
+            }
+            out.println("</tbody></table>");
+            // 🔹 Cambio aquí
+            out.println("<button class='report-btn' onclick=\"window.open('GenerarReporte?tipo=ventas', '_blank')\"><i class='fas fa-file-pdf'></i> Ver reporte completo</button>");
+            out.println("</div>");
 
-    // ====================== VENTAS ======================
-    out.println("<h2>Ventas</h2>");
-    String ventasQuery = "SELECT v.id_venta, u.nombre AS Cajero, v.tipo_pago, v.total " +
-                         "FROM Ventas v " +
-                         "INNER JOIN Usuarios u ON v.id_cajero = u.id_usuario ";
-    if(!fechaFiltro.isEmpty()) ventasQuery += "WHERE CAST(v.fecha_hora AS DATE) = '" + fechaFiltro + "' ";
-    rs = st.executeQuery(ventasQuery);
-    out.println("<table class='vision-table'><thead><tr><th>ID Venta</th><th>Cajero</th><th>Tipo Pago</th><th>Total</th></tr></thead><tbody>");
-    while(rs.next()){
-        out.println("<tr>");
-        out.println("<td>" + rs.getInt("id_venta") + "</td>");
-        out.println("<td>" + rs.getString("Cajero") + "</td>");
-        out.println("<td>" + rs.getString("tipo_pago") + "</td>");
-        out.println("<td>" + rs.getDouble("total") + "</td>");
-        out.println("</tr>");
-    }
-    out.println("</tbody></table>");
+            // ========== CARD DETALLE DE VENTAS ==========
+            out.println("<div class='report-card'>");
+            out.println("<h3><i class='fas fa-list'></i> Detalle de Ventas</h3>");
+            String detQuery = "SELECT TOP 4 pr.nombre AS producto, dv.cantidad, dv.subtotal_linea " +
+                              "FROM DetalleVenta dv " +
+                              "INNER JOIN Productos pr ON dv.id_producto = pr.id_producto ";
+            if(!fechaFiltro.isEmpty())
+                detQuery += "WHERE dv.id_venta IN (SELECT id_venta FROM Ventas WHERE CAST(fecha_hora AS DATE) = '" + fechaFiltro + "') ";
+            detQuery += "ORDER BY dv.id_detalle DESC";
+            rs = st.executeQuery(detQuery);
+            out.println("<table class='mini-table'><thead><tr><th>Producto</th><th>Cant.</th><th>Subtotal</th></tr></thead><tbody>");
+            while(rs.next()){
+                out.println("<tr><td>" + rs.getString("producto") + "</td><td>" + rs.getInt("cantidad") + "</td><td>$" + rs.getDouble("subtotal_linea") + "</td></tr>");
+            }
+            out.println("</tbody></table>");
+            // 🔹 Cambio aquí
+            out.println("<button class='report-btn' onclick=\"window.open('GenerarReporte?tipo=detalle_venta', '_blank')\"><i class='fas fa-file-pdf'></i> Ver reporte completo</button>");
+            out.println("</div>");
 
-    // ====================== DETALLE VENTA ======================
-    out.println("<h2>Detalle de Ventas</h2>");
-    String detQuery = "SELECT dv.id_detalle, dv.id_venta, pr.nombre AS producto, dv.precio_unitario AS precio, dv.cantidad, dv.subtotal_linea " +
-                      "FROM DetalleVenta dv " +
-                      "INNER JOIN Productos pr ON dv.id_producto = pr.id_producto ";
-    if(!fechaFiltro.isEmpty()) detQuery += "WHERE dv.id_venta IN (SELECT id_venta FROM Ventas WHERE CAST(fecha_hora AS DATE) = '" + fechaFiltro + "') ";
-    rs = st.executeQuery(detQuery);
-    out.println("<table class='vision-table'><thead><tr><th>ID Detalle</th><th>ID Venta</th><th>Producto</th><th>Precio</th><th>Cantidad</th><th>Subtotal</th></tr></thead><tbody>");
-    while(rs.next()){
-        out.println("<tr>");
-        out.println("<td>" + rs.getInt("id_detalle") + "</td>");
-        out.println("<td>" + rs.getInt("id_venta") + "</td>");
-        out.println("<td>" + rs.getString("producto") + "</td>");
-        out.println("<td>" + rs.getDouble("precio") + "</td>");
-        out.println("<td>" + rs.getInt("cantidad") + "</td>");
-        out.println("<td>" + rs.getDouble("subtotal_linea") + "</td>");
-        out.println("</tr>");
-    }
-    out.println("</tbody></table>");
-
-} catch(Exception e){
-    out.println("<p style='color:red;'>Error al cargar los datos: " + e.getMessage() + "</p>");
-} finally {
-    try{ if(rs!=null) rs.close(); if(st!=null) st.close(); if(con!=null) con.close(); } catch(Exception ex){}
-}
-%>
-
+        } catch(Exception e){
+            out.println("<p style='color:red;'>Error al cargar datos: " + e.getMessage() + "</p>");
+        } finally {
+            try{ if(rs!=null) rs.close(); if(st!=null) st.close(); if(con!=null) con.close(); } catch(Exception ex){}
+        }
+    %>
+    </div>
 </main>
 </body>
 </html>

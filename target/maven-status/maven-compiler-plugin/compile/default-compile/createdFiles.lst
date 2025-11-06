@@ -1,4 +1,5 @@
 com/panaderia/controller/EditarUsuarioServlet.class
+com/panaderia/controller/GenerarReporte.class
 com/panaderia/util/TestConexion.class
 com/panaderia/controller/RegistrarUsuarioServlet.class
 com/panaderia/util/PasswordUtils.class

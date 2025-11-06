@@ -1,5 +1,6 @@
 /home/eduardo/Documentos/GitHub/prueba/src/main/java/com/panaderia/util/PasswordUtils.java
 /home/eduardo/Documentos/GitHub/prueba/src/main/java/com/panaderia/dao/UsuarioDAO.java
+/home/eduardo/Documentos/GitHub/prueba/src/main/java/com/panaderia/controller/GenerarReporte.java
 /home/eduardo/Documentos/GitHub/prueba/src/main/java/com/panaderia/controller/RegistrarEmpleadoServlet.java
 /home/eduardo/Documentos/GitHub/prueba/src/main/java/com/panaderia/controller/RegistrarPanaderoServlet.java
 /home/eduardo/Documentos/GitHub/prueba/src/main/java/com/panaderia/controller/LoginServlet.java
