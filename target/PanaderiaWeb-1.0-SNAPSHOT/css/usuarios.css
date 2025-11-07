@@ -1,3 +1,4 @@
+/* ===== BODY ===== */
 body {
     background: linear-gradient(135deg, #0f1020, #141632);
     font-family: "Poppins", sans-serif;
@@ -6,6 +7,7 @@ body {
     margin: 0;
 }
 
+/* ===== SIDEBAR ===== */
 .sidebar {
     width: 240px;
     height: 100%;
@@ -60,7 +62,6 @@ body {
     gap: 15px;
 }
 
-
 .logout a {
     color: #ff4444; 
     text-decoration: none;
@@ -75,43 +76,61 @@ body {
     transform: translateX(5px);
 }
 
-
+/* ===== ADMIN CONTENT ===== */
 .admin-content {
     margin-left: 260px; 
     width: calc(100% - 260px);
     padding: 40px;
     color: #fff;
+    box-sizing: border-box; /* importante para que padding no agregue ancho extra */
+    overflow-x: hidden;     /* evita scroll horizontal global */
 }
 
+/* ===== TABLE CONTAINER ===== */
 .table-container {
     background: rgba(255,255,255,0.03);
     padding: 25px;
-    width: 105%;
+    width: 100%;          
+    max-width: 100%;      
     border-radius: 18px;
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255,255,255,0.05);
     margin-top: 25px;
+    overflow-x: auto;     
+    box-sizing: border-box;
 }
 
+/* ===== VISION TABLE ===== */
 .vision-table {
     width: 100%;
+    max-width: 100%;
     border-collapse: collapse;
     font-size: 14px;
     color: #e1e1e6;
+    table-layout: auto;      
+    word-break: break-word;
+}
+
+.vision-table th,
+.vision-table td {
+    padding: 18px 20px;      /* filas más altas */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;        
+    vertical-align: middle;
 }
 
 .vision-table th {
-    text-align: left;
-    padding: 12px 18px;
-    font-size: 13px;
     font-weight: 600;
+    font-size: 13px;
     color: #9da3b4;
     text-transform: uppercase;
     border-bottom: 1px solid rgba(255,255,255,0.08);
+    text-align: left;        /* alinea con los td */
 }
 
 .vision-table td {
-    padding: 15px 18px;
     border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
@@ -120,6 +139,7 @@ body {
     transition: 0.25s;
 }
 
+/* ===== USER INFO ===== */
 .user-info {
     display: flex;
     flex-direction: column;
@@ -135,11 +155,13 @@ body {
     color: #9ca8c9;
 }
 
+/* ===== BADGES ===== */
 .badge {
     padding: 6px 16px;
     border-radius: 12px;
     font-size: 12px;
     font-weight: 600;
+    display: inline-block;
 }
 
 .badge.online {
@@ -152,21 +174,25 @@ body {
     color: #dbe0f0;
 }
 
+/* ===== ACTION LINK ===== */
 .action-link {
-    color: #4da3ff;
+    color: #3b82f6;
     font-weight: bold;
     text-decoration: none;
     transition: .3s;
+    cursor: pointer;
 }
 
 .action-link:hover {
     text-decoration: underline;
 }
+
+/* ===== HEADER ===== */
 .main-header {
     display: flex;
-    align-items: center;           /* alinea verticalmente */
-    justify-content: center;       /* centra el título horizontalmente */
-    position: relative;            /* para posicionar botones a la derecha */
+    align-items: center;
+    justify-content: center;
+    position: relative;
     margin-bottom: 30px;
 }
 
@@ -174,8 +200,67 @@ body {
     font-size: 1.5rem;
     font-weight: 600;
     color: #ffffff;
-    text-align: center;            /* centra texto dentro del span */
-    flex: 1;                       /* ocupa todo el espacio disponible */
+    text-align: center;
+    flex: 1;
+}
+
+.acciones-header {
+    display: flex;
+    gap: 10px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* ===== BOTONES ===== */
+.btn-agregar,
+.btn-eliminar {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: none;
+    transition: background 0.3s;
+}
+
+.btn-agregar { background-color: #10b981; color: #fff; }
+.btn-agregar:hover { background-color: #059669; }
+
+.btn-eliminar { background-color: #ef4444; color: #fff; }
+.btn-eliminar:hover { background-color: #dc2626; }
+
+.button-reset { 
+    background:#ef4444; 
+    color:#fff;
+    border:none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-weight:600;
+    cursor:pointer;
+}
+.button-reset:hover { background:#dc2626; }
+
+/* ===== DELETE ICON ===== */
+.delete-icon {
+    display: none;           /* por defecto oculto */
+    cursor: pointer;
+    color: #ff4d4d;
+    font-size: 16px;
+    margin-left: 10px;
+    transition: color 0.2s;
+}
+
+.delete-icon:hover {
+    color: #dc2626;
+}
+
+.modo-eliminar .delete-icon {
+    display: inline-block;
 }
 
 /* ===== MODAL ===== */
@@ -241,49 +326,21 @@ body {
     background: linear-gradient(135deg,#10b981,#7c3aed); 
     cursor: pointer;
 }
-.button-reset { 
-    background:#ef4444; 
-}
-.button-reset:hover { 
-    background:#dc2626; 
-}
-.action-link {
-    color: #3b82f6;
-    cursor: pointer;
-}
-.acciones-header {
-    display: flex;
-    gap: 10px;       /* espacio entre los botones */
-    justify-content: flex-end; /* alinea los botones a la derecha */
-    align-items: center;
-}
-.acciones-header {
-    display: flex;
-    gap: 10px;
-    position: absolute;            /* saca los botones del flujo normal */
-    right: 0;                      /* los coloca a la derecha del header */
-    top: 50%;                      /* centra verticalmente respecto al header */
-    transform: translateY(-50%);
-}
 
-.btn-agregar,
-.btn-eliminar {
-    background: #10b981;  /* verde por defecto */
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    transition: background 0.3s;
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .admin-content {
+        margin-left: 0;
+        width: 100%;
+        padding: 20px;
+    }
+
+    .table-container {
+        padding: 15px;
+    }
+
+    .vision-table th, .vision-table td {
+        font-size: 12px;
+        padding: 10px 8px;
+    }
 }
-
-.btn-agregar { background-color: #10b981; }
-.btn-agregar:hover { background-color: #059669; }
-
-.btn-eliminar { background-color: #ef4444; }
-.btn-eliminar:hover { background-color: #dc2626; }
