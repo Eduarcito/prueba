@@ -5,9 +5,22 @@
                              http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
-    <!-- Configurar página de inicio -->
+    <!-- Página de inicio -->
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>
+
+    <!-- Servlets sin anotación @WebServlet -->
+    <servlet>
+        <servlet-name>EliminarUsuarioServlet</servlet-name>
+        <servlet-class>com.panaderia.controller.EliminarUsuarioServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EliminarUsuarioServlet</servlet-name>
+        <url-pattern>/EliminarUsuarioServlet</url-pattern>
+    </servlet-mapping>
+
+    <!-- EditarUsuarioServlet ahora solo usa @WebServlet en la clase -->
+    <!-- No se declara aquí para evitar duplicación -->
 
 </web-app>

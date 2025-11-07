@@ -149,4 +149,40 @@ public class UsuarioDAO {
             throw new RuntimeException(e);
         }
     }
+
+    public boolean eliminarUsuario(int idUsuario) throws SQLException {
+    String sql = "DELETE FROM Usuarios WHERE id_usuario = ?";
+    
+    try (Connection con = ConexionDB.getConnection();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        System.out.println("DEBUG: Intentando eliminar usuario con ID = " + idUsuario);
+        ps.setInt(1, idUsuario);
+
+        int filasAfectadas = ps.executeUpdate();
+        System.out.println("DEBUG: Filas afectadas por DELETE = " + filasAfectadas);
+
+        return filasAfectadas > 0;
+    } catch (SQLException e) {
+        System.err.println("ERROR SQL en eliminarUsuario: " + e.getMessage());
+        throw e;
+    }
+}
+
+// Actualiza contraseña y marca como temporal
+public void actualizarContrasenaTemporal(int id, String nuevaClave) throws SQLException {
+    String sql = "UPDATE Usuarios SET password_hash=?, password_temporal=1 WHERE id_usuario=?";
+    try (Connection con = ConexionDB.getConnection();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setString(1, hashPassword(nuevaClave));
+        ps.setInt(2, id);
+        ps.executeUpdate();
+    }
+}
+
+
+
+
+
 }

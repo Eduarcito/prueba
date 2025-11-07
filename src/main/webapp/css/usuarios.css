@@ -74,27 +74,7 @@ body {
     background-color: #3a3a3a;
     transform: translateX(5px);
 }
-.btn-agregar {
-    position: absolute;
-    right: 0;           /* lo pone a la derecha del header */
-    top: 50%;           /* centra verticalmente */
-    transform: translateY(-50%);
-    background-color: #10b981;
-    color: #fff;
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-weight: 600;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    transition: background 0.3s, transform 0.2s;
-}
 
-.btn-agregar:hover {
-    background-color: #059669;
-    transform: translateY(-50%) translateY(-2px);
-}
 
 .admin-content {
     margin-left: 260px; 
@@ -183,15 +163,19 @@ body {
     text-decoration: underline;
 }
 .main-header {
-    position: relative;  /* para posicionar el botón respecto al header */
-    text-align: center;  /* centra horizontalmente el contenido */
+    display: flex;
+    align-items: center;           /* alinea verticalmente */
+    justify-content: center;       /* centra el título horizontalmente */
+    position: relative;            /* para posicionar botones a la derecha */
     margin-bottom: 30px;
 }
+
 .usuarios {
     font-size: 1.5rem;
     font-weight: 600;
     color: #ffffff;
-    display: inline-block;  /* para que el texto ocupe solo su espacio */
+    text-align: center;            /* centra texto dentro del span */
+    flex: 1;                       /* ocupa todo el espacio disponible */
 }
 
 /* ===== MODAL ===== */
@@ -267,3 +251,39 @@ body {
     color: #3b82f6;
     cursor: pointer;
 }
+.acciones-header {
+    display: flex;
+    gap: 10px;       /* espacio entre los botones */
+    justify-content: flex-end; /* alinea los botones a la derecha */
+    align-items: center;
+}
+.acciones-header {
+    display: flex;
+    gap: 10px;
+    position: absolute;            /* saca los botones del flujo normal */
+    right: 0;                      /* los coloca a la derecha del header */
+    top: 50%;                      /* centra verticalmente respecto al header */
+    transform: translateY(-50%);
+}
+
+.btn-agregar,
+.btn-eliminar {
+    background: #10b981;  /* verde por defecto */
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.3s;
+}
+
+.btn-agregar { background-color: #10b981; }
+.btn-agregar:hover { background-color: #059669; }
+
+.btn-eliminar { background-color: #ef4444; }
+.btn-eliminar:hover { background-color: #dc2626; }

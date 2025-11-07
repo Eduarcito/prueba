@@ -103,7 +103,7 @@ body {
     padding: 20px;
     box-sizing: border-box;
     height: 100vh;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .main-header {
