@@ -175,8 +175,8 @@ body {
 
 .chart-content canvas {
     width: 100% !important;
-    min-height: 180px;  /* reducido un poco para que quepa en pantallas pequeñas */
-    max-height: 300px;  /* antes era 350px */
+    min-height: 180px;  
+    max-height: 300px;  
 }
 
 .cards-side {
@@ -201,6 +201,8 @@ body {
 
 .card:hover {
     transform: translateY(-5px);
+    cursor: default;
+
 }
 
 .card.productos-disponibles { background: #2563eb; flex: 1; }
