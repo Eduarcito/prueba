@@ -48,12 +48,13 @@
 <body>
 
 <aside class="sidebar">
-    <div class="logo">
-        <img src="../img/logo.png" alt="Logo Panadería USO" style="filter: brightness(0) invert(1);">
+    <div class="sidebar-header">
+        <img src="../img/logo.png" alt="Logo" class="logo">
+        <h2>PANADERIA USO</h2>
     </div>
 
     <nav class="menu">
-        <a href="dashboard.jsp"><i class="fas fa-chart-line"></i> Panel</a>
+        <a href="dashboard.jsp"><i class="fas fa-chart-line"></i> Dashboard</a>
         <a class="active" href="usuarios.jsp"><i class="fas fa-users"></i> Usuarios</a>
         <a href="reportes.jsp"><i class="fas fa-file-alt"></i> Reportes</a>
     </nav>

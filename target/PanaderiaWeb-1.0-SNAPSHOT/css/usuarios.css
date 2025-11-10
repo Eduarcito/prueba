@@ -1,4 +1,12 @@
-/* ===== BODY ===== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+* {
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     background: linear-gradient(135deg, #0f1020, #141632);
     font-family: "Poppins", sans-serif;
@@ -10,7 +18,7 @@ body {
 /* ===== SIDEBAR ===== */
 .sidebar {
     width: 240px;
-    height: 100%;
+    height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
@@ -20,29 +28,44 @@ body {
     flex-direction: column;
     border-right: 1px solid rgba(255,255,255,0.05);
     box-shadow: 6px 0 22px rgba(0,0,0,0.45);
+    z-index: 50;
 }
-
-.logo {
+.sidebar-header {
     display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 25px;
 }
 
-.logo img {
-    filter: brightness(0) invert(1); 
-    width: 140px;
+.sidebar-header .logo {
+    width: 120px;
+    filter: brightness(0) invert(1);
+    margin-bottom: 10px;
+    justify-content: center;
+}
+
+.sidebar-header h2 {
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 600;
 }
 
 .menu {
+    list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
+    padding: 0;
+    margin: 0;
 }
 
 .menu a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     color: #ffffff;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 15px;
     padding: 10px 15px;
     border-radius: 6px;
     transition: background 0.3s, transform 0.2s;
