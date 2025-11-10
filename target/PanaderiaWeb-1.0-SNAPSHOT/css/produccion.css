@@ -16,7 +16,6 @@ body {
     flex-direction: column;
 }
 
-/* ======== HEADER ======== */
 .header-tpv {
     background: linear-gradient(135deg, #1e1e2f, #0d0d1a);
     padding: 15px 25px;
@@ -234,4 +233,136 @@ body {
     .carrito-panel, .catalogo-panel {
         width: 100%;
     }
+}
+
+.menu-usuario-contenedor {
+    position: relative;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Botón Hamburguesa */
+.menu-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px; 
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 20;
+    margin-left: 10px;
+}
+
+.menu-toggle .bar {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #f9fafb;
+    border-radius: 1px;
+    transition: all 0.3s ease;
+}
+
+/* Animación a "X" */
+.menu-toggle.active .bar:nth-child(1) {
+    transform: translateY(11px) rotate(45deg);
+}
+.menu-toggle.active .bar:nth-child(2) {
+    opacity: 0;
+}
+.menu-toggle.active .bar:nth-child(3) {
+    transform: translateY(-11px) rotate(-45deg);
+}
+
+/* Menú Flotante Aumentado */
+.menu-flotante {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 300px; /* Aumentamos el ancho para que quepa el avatar de 100px */
+    background: linear-gradient(135deg, #1e1e2f, #0d0d1a);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    z-index: 10;
+    padding: 10px 0;
+    
+    /* Oculto por defecto */
+    display: none;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Mostrar Menú */
+.menu-flotante.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Contenido del menú */
+.user-info-header {
+    text-align: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 10px;
+}
+
+/* **AJUSTE CLAVE DEL AVATAR** */
+.user-avatar {
+    /* Forzamos el tamaño y la forma para que se vea perfectamente redondo */
+    display: block; /* Asegura que tome sus dimensiones */
+    width: 100px; /* Tamaño grande y adecuado para el menú de 300px */
+    height: 100px;
+    border-radius: 50%; /* **¡Clave para el círculo!** */
+    object-fit: cover;
+    margin: 0 auto 15px auto; /* Centrado y más margen inferior */
+    border: 3px solid #7c3aed; 
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.4); 
+}
+
+.user-fullname {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #f9fafb;
+    margin: 5px 0 2px 0;
+}
+
+.user-username {
+    font-size: 0.9em;
+    color: #a0aec0;
+    margin: 0;
+}
+
+.menu-opciones {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-opciones li a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #f9fafb;
+    transition: background-color 0.2s, color 0.2s;
+    font-weight: 500;
+}
+
+.menu-opciones li a:hover {
+    background-color: rgba(124, 58, 237, 0.2);
+    color: #ffffff;
+}
+
+.logout-btn {
+    color: #ef4444 !important;
+    font-weight: 600;
+}
+.logout-btn:hover {
+    background-color: rgba(239, 68, 68, 0.2) !important;
+    color: #ffffff !important;
 }

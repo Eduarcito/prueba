@@ -102,7 +102,7 @@ body {
     width: calc(100% - 260px);
     padding: 20px;
     box-sizing: border-box;
-    height: 100vh;
+    min-height: 100vh;    
     overflow: auto;
 }
 
@@ -121,7 +121,6 @@ body {
     grid-template-columns: 72% 28%; 
     gap: 20px; 
     width: 100%;
-    height: 100%;
     align-items: stretch;
 }
 
@@ -175,15 +174,16 @@ body {
 
 .chart-content canvas {
     width: 100% !important;
-    min-height: 180px;  
-    max-height: 300px;  
+    min-height: 170px;  
+    max-height: 290px;  
 }
 
 .cards-side {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    height: 100%;
+    padding: 10px 30px;
+
 }
 
 .card {
@@ -192,7 +192,6 @@ body {
     justify-content: center;
     text-align: center;
     color: white;
-    padding: 18px 20px;
     border-radius: 14px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.4);
     transition: transform 0.3s ease;
@@ -210,18 +209,22 @@ body {
     background: #059669; 
     flex: 1; 
     font-size: 1.5rem;
+    height: auto;
 }
 .card.usuarios-registrados { 
     background: #f59e0b; 
     flex: 1;
     font-size: 1.5rem;
- 
+    height: 25%;
+
 }
 
 .products-card-content {
     margin-top: 10px;
     flex: 1;
     overflow-y: auto;
+    height: 25%;
+
 }
 
 .products-table {

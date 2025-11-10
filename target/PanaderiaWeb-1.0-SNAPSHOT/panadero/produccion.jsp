@@ -15,13 +15,11 @@ if (user == null || !"Panadero".equals(user.getRol())) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Producción - Panadería USO</title>
 
-    <!-- ✅ Llamada al CSS -->
     <link rel="stylesheet" href="../css/produccion.css">
 </head>
 <body>
 
 <div class="aplicacion-tpv">
-    <!-- HEADER -->
     <header class="header-tpv">
         <div class="header-content">
             <div class="app-branding">
@@ -31,12 +29,48 @@ if (user == null || !"Panadero".equals(user.getRol())) {
             <nav class="top-nav">
                 <ul>
                     <li><a href="#" class="nav-link"><%= user.getNombre() %> (Panadero)</a></li>
+
+                    <li class="menu-usuario-contenedor">
+
+                            <button class="menu-toggle" id="menu-toggle" aria-label="Menú de Usuario">
+
+                                <span class="bar"></span>
+
+                                <span class="bar"></span>
+
+                                <span class="bar"></span>
+
+                            </button>
+
+
+
+                            <div class="menu-flotante" id="user-menu">
+
+                                <div class="user-info-header">
+
+                                    <img src="../img/default-avatar.png" alt="Foto de Usuario" class="user-avatar"> 
+
+                                    <p class="user-fullname">**<%= user.getNombre() %> <%= user.getApellido() != null ? user.getApellido() : "" %>**</p>
+
+                                    <p class="user-username">@<%= user.getUsername() %></p>
+
+                                </div>
+
+                                <ul class="menu-opciones">
+
+                                    <li><a href="../login.jsp" class="logout-btn">🚪 Cerrar Sesión</a></li>
+
+                                </ul>
+
+                            </div>
+
+                        </li>
                 </ul>
+                
             </nav>
         </div>
     </header>
 
-    <!-- CONTENIDO PRINCIPAL -->
     <div class="main-content">
         <!-- PANEL DE PRODUCCIÓN -->
         <div class="carrito-panel">
@@ -131,7 +165,27 @@ registrarBtn.addEventListener('click', () => {
 
     produccionList.innerHTML = '<p>Selecciona uno o varios panes del catálogo para registrar su producción</p>';
 });
-</script>
+const menuToggle = document.getElementById('menu-toggle');
+    const userMenu = document.getElementById('user-menu');
 
+    if (menuToggle && userMenu) {
+        // Muestra/Oculta el menú al hacer clic en el botón hamburguesa
+        menuToggle.addEventListener('click', (event) => {
+            event.stopPropagation();
+            userMenu.classList.toggle('show');
+            // Agregamos la clase 'active' para la animación de la X
+            menuToggle.classList.toggle('active'); 
+        });
+
+        // Oculta el menú si se hace clic en cualquier otro lugar de la página
+        document.addEventListener('click', (event) => {
+            if (!userMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+                userMenu.classList.remove('show');
+                // Removemos la clase 'active' para que vuelva a ser hamburguesa
+                menuToggle.classList.remove('active'); 
+            }
+        });
+    }
+</script>
 </body>
 </html>
