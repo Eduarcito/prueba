@@ -151,9 +151,9 @@ for (int i = 0; i < nombresProductos.size(); i++) {
 </aside>
 
 <main class="main-content">
-   <!-- <header class="main-header">
+    <header class="main-header">
         <h1>Bienvenido, <%= user.getNombre() %></h1>
-    </header>-->
+    </header>
 
     <section class="dashboard-grid">
         <div class="left-column">
