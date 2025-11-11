@@ -14,7 +14,7 @@ if (user == null || !"Panadero".equals(user.getRol())) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Producción - Panadería USO</title>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="../css/produccion.css">
 </head>
 <body>
@@ -28,7 +28,7 @@ if (user == null || !"Panadero".equals(user.getRol())) {
             </div>
             <nav class="top-nav">
                 <ul>
-                    <li><a href="#" class="nav-link"><%= user.getNombre() %> (Panadero)</a></li>
+                    <li> Panadero </li>
 
                     <li class="menu-usuario-contenedor">
 
@@ -57,9 +57,9 @@ if (user == null || !"Panadero".equals(user.getRol())) {
                                 </div>
 
                                 <ul class="menu-opciones">
-
-                                    <li><a href="../login.jsp" class="logout-btn">🚪 Cerrar Sesión</a></li>
-
+                                    <div class="logout-btn">
+                                        <li><a href="../login.jsp" class="fas fa-sign-out-alt"> Cerrar Sesión</a></li>
+                                    </div>
                                 </ul>
 
                             </div>
@@ -72,7 +72,6 @@ if (user == null || !"Panadero".equals(user.getRol())) {
     </header>
 
     <div class="main-content">
-        <!-- PANEL DE PRODUCCIÓN -->
         <div class="carrito-panel">
             <h3>Panes Seleccionados</h3>
             <div id="produccion-list" class="carrito-list">
@@ -82,7 +81,6 @@ if (user == null || !"Panadero".equals(user.getRol())) {
             <button id="registrar-produccion" class="btn cobrar">Registrar Producción</button>
         </div>
 
-        <!-- PANEL DE CATÁLOGO -->
         <div class="catalogo-panel">
             <div class="categorias-nav">
                 <span>Categorías:</span>
@@ -113,7 +111,6 @@ if (user == null || !"Panadero".equals(user.getRol())) {
     </div>
 </div>
 
-<!-- ✅ Script JS -->
 <script>
 const productosGrid = document.getElementById('productos-grid');
 const produccionList = document.getElementById('produccion-list');
@@ -127,7 +124,6 @@ productosGrid.addEventListener('click', e => {
     const nombre = card.dataset.name;
     const imgSrc = card.dataset.img;
 
-    // Si ya está en la lista, evita duplicarlo
     if (document.querySelector(`#produccion-list .item[data-id='${id}']`)) return;
 
     const div = document.createElement('div');
@@ -146,7 +142,6 @@ productosGrid.addEventListener('click', e => {
     produccionList.appendChild(div);
 });
 
-// Registrar producción
 registrarBtn.addEventListener('click', () => {
     const items = [...produccionList.querySelectorAll('.item')];
     if (items.length === 0) {
@@ -169,19 +164,15 @@ const menuToggle = document.getElementById('menu-toggle');
     const userMenu = document.getElementById('user-menu');
 
     if (menuToggle && userMenu) {
-        // Muestra/Oculta el menú al hacer clic en el botón hamburguesa
         menuToggle.addEventListener('click', (event) => {
             event.stopPropagation();
             userMenu.classList.toggle('show');
-            // Agregamos la clase 'active' para la animación de la X
             menuToggle.classList.toggle('active'); 
         });
 
-        // Oculta el menú si se hace clic en cualquier otro lugar de la página
         document.addEventListener('click', (event) => {
             if (!userMenu.contains(event.target) && !menuToggle.contains(event.target)) {
                 userMenu.classList.remove('show');
-                // Removemos la clase 'active' para que vuelva a ser hamburguesa
                 menuToggle.classList.remove('active'); 
             }
         });

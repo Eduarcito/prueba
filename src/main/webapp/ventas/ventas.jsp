@@ -91,9 +91,9 @@ if (user == null || !"Empleado".equals(user.getRol())) {
                                 </div>
 
                                 <ul class="menu-opciones">
-
-                                    <li><a href="../login.jsp" class="logout-btn">🚪 Cerrar Sesión</a></li>
-
+                                    <div class="logout">
+                                        <a href="../login.jsp"><i class="fas fa-sign-out-alt"></i> Salir</a>
+                                    </div>
                                 </ul>
 
                             </div>
