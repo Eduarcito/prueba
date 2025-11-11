@@ -7,9 +7,8 @@
         return;
     }
 
-    String url = "jdbc:sqlserver://localhost:1433;databaseName=Panaderia;encrypt=false;";
-    String usuarioDB = "sa";
-    String claveDB = "TuContraseñaFuerte123";
+    String url="jdbc:sqlserver:GERARDO\\SQLEXPRESS:1433;databaseName=panaderia;IntegratedSecurity=true;";
+
 
     String fechaFiltro = request.getParameter("fecha");
     if(fechaFiltro == null) fechaFiltro = "";

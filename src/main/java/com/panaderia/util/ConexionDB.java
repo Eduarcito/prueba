@@ -1,19 +1,20 @@
 package com.panaderia.util;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
-
 public class ConexionDB {
-    private static final String URL = "jdbc:sqlserver://localhost:1433;databaseName=panaderia;encrypt=true;trustServerCertificate=true;";
-    private static final String USER = "sa";
-    private static final String PASS = "TuContraseñaFuerte123";
-
-    public static Connection getConnection() {
+    String url="jdbc:sqlserver:GERARDO\\SQLEXPRESS:1433;databaseName=panaderia;IntegratedSecurity=true;";
+    //String url="jdbc:mysql://localhost:3306/ejemplobd";
+    Connection con;
+    public Connection getConnection(){
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            return DriverManager.getConnection(URL, USER, PASS);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            //Class.forName("com.mysql.cj.jdbc.Driver");
+            con=DriverManager.getConnection(url);
+            //con=DriverManager.getConnection(url,"root","root");
+        } catch (Exception e) {  
+            System.out.println("Error: " + e.getMessage());
         }
+        return con;
     }
 }
