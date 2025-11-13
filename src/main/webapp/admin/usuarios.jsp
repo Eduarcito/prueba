@@ -3,6 +3,7 @@
 <%@ page import="com.panaderia.dao.UsuarioDAO" %>
 
 <%! 
+    // Función para escapar comillas y barras invertidas en JavaScript
     public static String escapeJS(String s) {
         if (s == null) return "";
         return s.replace("\\", "\\\\").replace("'", "\\'").replace("\"", "\\\"");
@@ -10,12 +11,14 @@
 %>
 
 <%
+    // Verificar sesión y rol
     Usuario user = (Usuario) session.getAttribute("usuario");
     if (user == null || !"Administrador".equals(user.getRol())) {
         response.sendRedirect("../login.jsp");
         return;
     }
 
+    // Obtener lista de usuarios
     UsuarioDAO dao = new UsuarioDAO();
     java.util.List<Usuario> listaUsuarios = new java.util.ArrayList<>();
     try {
@@ -33,28 +36,34 @@
 <title>Usuarios - Panel Administrador</title>
 
 <link rel="stylesheet" href="../css/usuarios.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-.acciones-header { display: flex; gap: 10px; }
-.btn-eliminar {
-    background: #ef4444; color: #fff; border: none; padding: 8px 14px;
-    border-radius: 6px; font-size: 14px; cursor: pointer; transition: background 0.3s;
-}
-.btn-eliminar:hover { background: #dc2626; }
-.delete-icon { display: none; cursor: pointer; color: #ff4d4d; margin-left: 10px; }
+/* ===== MODAL ===== */
+.modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.6); }
+.modal-content { background-color: #111827; margin: 10% auto; padding: 30px; border-radius: 14px; width: 400px; color: #f9fafb; position: relative; }
+.close-modal { position: absolute; top: 15px; right: 20px; color: #fff; font-size: 24px; cursor: pointer; }
+.modal-content h2 { text-align:center; margin-bottom:20px; }
+.modal-content input, .modal-content select { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 10px; border: none; background: rgba(255,255,255,0.05); color: #fff; font-size: 15px; }
+.modal-content input:focus, .modal-content select:focus { outline:none; background: rgba(255,255,255,0.15); }
+.modal-content button { background: linear-gradient(135deg,#7c3aed,#10b981); border: none; padding: 12px; border-radius: 10px; color: #fff; font-weight: 600; width: 100%; cursor: pointer; font-size: 16px; margin-bottom: 10px; }
+.modal-content button:hover { background: linear-gradient(135deg,#10b981,#7c3aed); }
+.button-reset { background:#ef4444; }
+.button-reset:hover { background:#dc2626; }
+.action-link{cursor: pointer}
 </style>
+
 </head>
 <body>
 
 <aside class="sidebar">
-    <div class="sidebar-header">
-        <img src="../img/logo.png" alt="Logo" class="logo">
-        <h2>PANADERIA USO</h2>
+    <div class="logo">
+        <img src="../img/logo.png" alt="Logo Panadería USO" style="filter: brightness(0) invert(1);">
     </div>
 
     <nav class="menu">
-        <a href="dashboard.jsp"><i class="fas fa-chart-line"></i> Dashboard</a>
+        <a href="dashboard.jsp"><i class="fas fa-chart-line"></i> Panel</a>
         <a class="active" href="usuarios.jsp"><i class="fas fa-users"></i> Usuarios</a>
         <a href="reportes.jsp"><i class="fas fa-file-alt"></i> Reportes</a>
     </nav>
@@ -67,10 +76,7 @@
 <main class="admin-content">
     <div class="main-header">
         <span class="usuarios"><i class="fas fa-users"></i> Usuarios registrados</span>
-        <div class="acciones-header">
-            <a href="../admin/agregar.jsp" class="btn-agregar"><i class="fas fa-plus"></i> Agregar</a>
-            <button class="btn-eliminar" onclick="activarModoEliminar()"><i class="fas fa-trash"></i> Eliminar</button>
-        </div>
+        <a href="../admin/agregar.jsp" class="btn-agregar"><i class="fas fa-plus"></i> Agregar</a>
     </div>
 
     <section class="table-container">
@@ -84,6 +90,7 @@
                     <th>Acción</th>
                 </tr>
             </thead>
+
             <tbody>
                 <%
                     for (Usuario u : listaUsuarios) {
@@ -95,13 +102,17 @@
                             <span class="user-email"><%= u.getTelefono() %></span>
                         </div>
                     </td>
+
                     <td><%= u.getRol() %></td>
+
                     <td>
                         <span class="badge <%= u.isActivo() ? "online" : "offline" %>">
                             <%= u.isActivo() ? "En línea" : "Desconectado" %>
                         </span>
                     </td>
+
                     <td>2024</td>
+
                     <td>
                         <span class="action-link" onclick="abrirModal(
                             <%= u.getId() %>, 
@@ -110,9 +121,6 @@
                             '<%= escapeJS(u.getTelefono()) %>', 
                             '<%= escapeJS(u.getRol()) %>'
                         )">Editar</span>
-
-                        <i class="fas fa-trash delete-icon" 
-                           onclick="eliminarUsuario(<%= u.getId() %>, this)"></i>
                     </td>
                 </tr>
                 <% } %>
@@ -128,12 +136,12 @@
     </section>
 </main>
 
-<!-- Modal Editar Usuario -->
+<!-- MODAL EDITAR USUARIO -->
 <div id="modalEditar" class="modal">
     <div class="modal-content">
         <span class="close-modal" onclick="cerrarModal()">&times;</span>
         <h2>Editar Usuario</h2>
-        <form action="<%= request.getContextPath() %>/EditarUsuarioServlet" method="post">
+            <form action="<%= request.getContextPath() %>/EditarUsuarioServlet" method="post">
             <input type="hidden" id="usuarioId" name="id">
             <input type="text" id="editNombre" name="nombre" placeholder="Nombre" required onkeypress="return soloLetras(event)">
             <input type="text" id="editApellido" name="apellido" placeholder="Apellido" required onkeypress="return soloLetras(event)">
@@ -151,7 +159,6 @@
 </div>
 
 <script>
-// Modal
 function abrirModal(id,nombre,apellido,telefono,rol){
     document.getElementById('modalEditar').style.display='block';
     document.getElementById('usuarioId').value=id;
@@ -160,7 +167,9 @@ function abrirModal(id,nombre,apellido,telefono,rol){
     document.getElementById('editTelefono').value=telefono;
     document.getElementById('editRol').value=rol;
 }
+
 function cerrarModal(){ document.getElementById('modalEditar').style.display='none'; }
+
 window.onclick = function(event){
     if(event.target == document.getElementById('modalEditar')){
         cerrarModal();
@@ -175,82 +184,22 @@ function soloLetras(e){
     let especiales = [8,37,39,46]; 
     if(letras.indexOf(tecla)===-1 && !especiales.includes(key)) return false;
 }
+
 function soloNumeros(e){
     let key = e.keyCode || e.which;
     if(key>=48 && key<=57 || [8,37,39,46].includes(key)) return true;
     return false;
 }
 
-// ✅ Restablecer contraseña
-function restablecerContrasena() {
-    const userId = document.getElementById('usuarioId').value;
-    console.log("DEBUG: ID usuario para reset:", userId);
-
-    if (!userId) {
-        alert("❌ ID de usuario no válido.");
-        return;
-    }
-
-    if (confirm("¿Desea restablecer la contraseña de este usuario?")) {
-        fetch('<%= request.getContextPath() %>/ResetPasswordServlet?id=' + userId)
+function restablecerContrasena(){
+    if(confirm("¿Desea restablecer la contraseña de este usuario?")){
+        const userId = document.getElementById('usuarioId').value;
+        fetch(`../ResetPasswordServlet?id=${userId}`)
             .then(res => res.text())
-            .then(msg => { 
-                alert(msg); 
-                cerrarModal(); 
-            })
-            .catch(err => {
-                console.error(err);
-                alert("❌ Error al restablecer contraseña.");
+            .then(msg => {
+                alert(msg);
+                cerrarModal();
             });
-    }
-}
-
-// === ELIMINAR USUARIOS ===
-let modoEliminar = false;
-
-function activarModoEliminar() {
-    modoEliminar = !modoEliminar;
-    const iconos = document.querySelectorAll('.delete-icon');
-    iconos.forEach(icon => { icon.style.display = modoEliminar ? 'inline' : 'none'; });
-    
-    const boton = document.querySelector('.btn-eliminar');
-    if (modoEliminar) {
-        boton.style.background = '#b91c1c';
-        boton.innerHTML = '<i class="fas fa-times"></i> Cancelar';
-    } else {
-        boton.style.background = '#ef4444';
-        boton.innerHTML = '<i class="fas fa-trash"></i> Eliminar';
-    }
-}
-
-function eliminarUsuario(id, element) {
-    const idNum = parseInt(id, 10);
-    if (isNaN(idNum)) {
-        alert("❌ ID inválido.");
-        return;
-    }
-
-    console.log("DEBUG: ID a eliminar:", idNum);
-
-    if(confirm("¿Deseas eliminar este usuario?")){
-        const data = new URLSearchParams();
-        data.append('id', idNum);
-
-        fetch('<%= request.getContextPath() %>/EliminarUsuarioServlet', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: data.toString()
-        })
-        .then(res => res.text())
-        .then(msg => {
-            alert(msg);
-            const row = element.closest('tr');
-            if(row) row.remove();
-        })
-        .catch(err => {
-            console.error(err);
-            alert("Error al eliminar usuario.");
-        });
     }
 }
 </script>
