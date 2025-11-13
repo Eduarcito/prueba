@@ -169,7 +169,6 @@ public class UsuarioDAO {
     }
 }
 
-// Actualiza contraseña y marca como temporal
 public void actualizarContrasenaTemporal(int id, String nuevaClave) throws SQLException {
     String sql = "UPDATE Usuarios SET password_hash=?, password_temporal=1 WHERE id_usuario=?";
     try (Connection con = ConexionDB.getConnection();
