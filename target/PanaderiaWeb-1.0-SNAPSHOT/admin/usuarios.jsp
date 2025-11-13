@@ -51,6 +51,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 .modal-content button:hover { background: linear-gradient(135deg,#10b981,#7c3aed); }
 .button-reset { background:#ef4444; }
 .button-reset:hover { background:#dc2626; }
+.action-link{cursor: pointer}
 </style>
 
 </head>

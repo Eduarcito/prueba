@@ -10,6 +10,7 @@ public class Usuario {
     private String direccion;
     private String rol;
     private boolean activo;
+    private String fotoUrl;
 
     // Nuevos campos para credenciales temporales
     private boolean usernameTemporal;
@@ -40,4 +41,13 @@ public class Usuario {
     public void setActivo(boolean activo) { this.activo = activo; }
     public void setUsernameTemporal(boolean usernameTemporal) { this.usernameTemporal = usernameTemporal; }
     public void setPasswordTemporal(boolean passwordTemporal) { this.passwordTemporal = passwordTemporal; }
+    
+    //foto de perfil:
+    public String getFotoUrl() {
+        return fotoUrl;
+    }
+
+    public void setFotoUrl(String fotoUrl) {
+        this.fotoUrl = fotoUrl;
+    }
 }

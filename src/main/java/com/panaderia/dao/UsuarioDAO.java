@@ -39,9 +39,9 @@ public class UsuarioDAO {
         return -1;
     }
 
-    // Validar login
+    // Validar login - CORRECCIÓN: Se añadió 'foto_url' al SELECT y al objeto Usuario
     public Usuario validarLogin(String username, String password) throws SQLException {
-        String sql = "SELECT id_usuario, nombre, apellido, username, rol, telefono, direccion, activo, password_hash, username_temporal, password_temporal "
+        String sql = "SELECT id_usuario, nombre, apellido, username, rol, telefono, direccion, activo, password_hash, username_temporal, password_temporal, foto_url "
                    + "FROM Usuarios WHERE username = ?";
         try (Connection con = ConexionDB.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -64,6 +64,10 @@ public class UsuarioDAO {
                     u.setActivo(true);
                     u.setUsernameTemporal(rs.getBoolean("username_temporal"));
                     u.setPasswordTemporal(rs.getBoolean("password_temporal"));
+                    
+                    // LÍNEA CRUCIAL AÑADIDA: Cargar la foto URL de la BD
+                    u.setFotoUrl(rs.getString("foto_url")); 
+                    
                     return u;
                 }
             }
@@ -115,7 +119,8 @@ public class UsuarioDAO {
     // Listar todos los usuarios
     public List<Usuario> listarUsuarios() throws SQLException {
         List<Usuario> usuarios = new ArrayList<>();
-        String sql = "SELECT id_usuario, nombre, apellido, username, rol, telefono, direccion, activo FROM Usuarios";
+        // Añadida foto_url a la consulta
+        String sql = "SELECT id_usuario, nombre, apellido, username, rol, telefono, direccion, activo, foto_url FROM Usuarios";
 
         try (Connection con = ConexionDB.getConnection();
              PreparedStatement ps = con.prepareStatement(sql);
@@ -131,13 +136,15 @@ public class UsuarioDAO {
                 u.setTelefono(rs.getString("telefono"));
                 u.setDireccion(rs.getString("direccion"));
                 u.setActivo(rs.getBoolean("activo"));
+                // Asignar foto_url al listar
+                u.setFotoUrl(rs.getString("foto_url")); 
                 usuarios.add(u);
             }
         }
         return usuarios;
     }
 
-    // Hash password
+    // Hash password (sin cambios)
     private String hashPassword(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -149,4 +156,32 @@ public class UsuarioDAO {
             throw new RuntimeException(e);
         }
     }
+    
+    // MÉTODO DE FOTO ACTUALIZADO - CORRECCIÓN: Sentencia SQL correcta y uso de try-with-resources
+   // En UsuarioDAO.java
+public void actualizarFoto(int idUsuario, String nuevaFotoUrl) throws SQLException {
+    // Usamos 'Usuarios' y 'id_usuario' según tu esquema
+    String sql = "UPDATE Usuarios SET foto_url = ? WHERE id_usuario = ?"; 
+
+    try (Connection con = ConexionDB.getConnection();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        if (con == null) {
+             throw new SQLException("Error: La conexión a la base de datos es nula.");
+        }
+        
+        ps.setString(1, nuevaFotoUrl);
+        ps.setInt(2, idUsuario);
+        
+        int rows = ps.executeUpdate();
+        if (rows == 0) {
+            System.err.println("Advertencia: No se encontró el usuario ID " + idUsuario + " para actualizar la foto.");
+        }
+        
+    } catch (SQLException e) {
+        e.printStackTrace();
+        // LANZAR la excepción es vital para que el Servlet se entere.
+        throw new SQLException("Fallo SQL al actualizar la foto: " + e.getMessage(), e);
+    }
+}
 }
