@@ -20,10 +20,9 @@ List<Map<String, Object>> productos = new ArrayList<>();
 // NUEVAS LISTAS PARA LA GRÁFICA DE PRODUCTOS
 List<String> nombresProductos = new ArrayList<>();
 List<Double> ventasPorProducto = new ArrayList<>();
-
-    String url="jdbc:sqlserver:GERARDO\\SQLEXPRESS:1433;databaseName=panaderia;IntegratedSecurity=true;";
-
-
+String url = "jdbc:sqlserver://localhost:1433;databaseName=Panaderia;encrypt=false;";
+String usuarioDB = "sa";
+String claveDB = "TuContraseñaFuerte123";
 Connection con = null;
 PreparedStatement ps = null;
 ResultSet rs = null;
