@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
+
+* {
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ===== BODY ===== */
+body {
+    background: linear-gradient(135deg, #0f1020, #141632);
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    color: #f9fafb;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: radial-gradient(circle at 30% 30%, #1e1e2f, #0d0d1a);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid rgba(255,255,255,0.05);
+    box-shadow: 6px 0 22px rgba(0,0,0,0.45);
+}
+
+.sidebar-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 25px;
+}
+.sidebar-header .logo {
+    width: 120px;
+    filter: brightness(0) invert(1);
+    margin-bottom: 10px;
+}
+.sidebar-header h2 { color: #ffffff; font-size: 1.2rem; font-weight: 600; }
+
+.sidebar-menu { list-style: none; display: flex; flex-direction: column; gap: 12px; padding: 0; margin: 0; }
+.sidebar-menu a {
+    display: flex; align-items: center; gap: 10px; color: #ffffff;
+    text-decoration: none; font-size: 15px; padding: 12px 15px;
+    border-radius: 8px; transition: background 0.3s, transform 0.2s;
+}
+.sidebar-menu a:hover, .sidebar-menu a.active { background-color: #3a3a3a; transform: translateX(5px); }
+
+.logout { margin-top: auto; margin-bottom: 20px; display: flex; flex-direction: column; gap: 10px; }
+.logout a { color: #ff4444; text-decoration: none; font-size: 15px; padding: 10px 15px; border-radius: 8px; transition: background 0.3s, transform 0.2s; }
+.logout a:hover { background-color: #3a3a3a; transform: translateX(5px); }
+
+/* ===== MAIN CONTENT ===== */
+.admin-content {
+    margin-left: 260px;
+    width: calc(100% - 260px);
+    padding: 40px;
+}
+
+.admin-content-inner {
+    max-width: 500px;
+    margin: auto;
+    background: rgba(30,41,59,0.95);
+    padding: 35px 40px;
+    border-radius: 18px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.6);
+}
+
+.admin-content-inner h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+/* ===== FORM ===== */
+.form-admin {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-admin .input-icon {
+    position: relative;
+}
+.form-admin .input-icon i {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: rgba(255,255,255,0.5);
+    font-size: 16px;
+}
+.form-admin .input-icon input, .form-admin .input-icon select {
+    padding: 12px 15px 12px 40px;
+    border-radius: 14px;
+    border: none;
+    font-size: 15px;
+    outline: none;
+    background-color: rgba(255,255,255,0.05);
+    color: #fff;
+    transition: all 0.3s;
+}
+.form-admin .input-icon input:focus, .form-admin .input-icon select:focus {
+    background-color: rgba(124,58,237,0.15);
+    box-shadow: 0 5px 15px rgba(124,58,237,0.5);
+}
+
+/* ===== BUTTON ===== */
+.form-admin button {
+    background: linear-gradient(135deg,#7c3aed,#10b981);
+    color: white;
+    font-weight: 600;
+    border: none;
+    padding: 14px;
+    border-radius: 14px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+.form-admin button:hover {
+    background: linear-gradient(135deg,#10b981,#7c3aed);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px rgba(0,0,0,0.7);
+}
+
+/* ===== ERROR / SUCCESS MESSAGES ===== */
+.input-error { color: #ff4d4d; font-size: 13px; display: none; margin-top: -5px; margin-bottom: 5px; }
+.mensaje-exito, .mensaje-error {
+    padding: 15px;
+    border-radius: 12px;
+    margin-top: 20px;
+    font-weight: 600;
+}
+.mensaje-exito { background: rgba(0,255,0,0.15); color: #00b300; }
+.mensaje-error { background: rgba(255,0,0,0.15); color: #b30000; }
+
+/* ===== MEDIA QUERY ===== */
+@media (max-width: 600px) {
+    .admin-content { padding: 20px; }
+    .admin-content-inner { padding: 25px; }
+    .form-admin .input-icon input, .form-admin .input-icon select { padding-left: 35px; }
+}

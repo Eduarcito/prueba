@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // -----------------------------------------------------------------------
+    // **LÓGICA EXISTENTE DE LA APLICACIÓN TPV (CARRITO Y CATÁLOGO)**
+    // -----------------------------------------------------------------------
     const carritoList = document.getElementById('carrito-list');
     const productosGrid = document.getElementById('productos-grid');
     const subtotalDisplay = document.getElementById('subtotal');
@@ -24,6 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderCarrito() {
+        // Limpiamos el contenido simulado del carrito si lo hubiera
+        // Nota: En tu JSP inicial había un item simulado. Lo eliminamos al renderizar.
+        const itemsSimulados = carritoList.querySelectorAll('.carrito-item');
+        itemsSimulados.forEach(item => item.remove());
+        
         carritoList.innerHTML = ''; 
         
         carrito.forEach(item => {
@@ -93,5 +101,31 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // -----------------------------------------------------------------------
+    // **NUEVA LÓGICA PARA EL MENÚ DE USUARIO (CON ANIMACIÓN)**
+    // -----------------------------------------------------------------------
+    const menuToggle = document.getElementById('menu-toggle');
+    const userMenu = document.getElementById('user-menu');
+
+    if (menuToggle && userMenu) {
+        // Muestra/Oculta el menú al hacer clic en el botón hamburguesa
+        menuToggle.addEventListener('click', (event) => {
+            event.stopPropagation();
+            userMenu.classList.toggle('show');
+            // Agregamos la clase 'active' para la animación de la X
+            menuToggle.classList.toggle('active'); 
+        });
+
+        // Oculta el menú si se hace clic en cualquier otro lugar de la página
+        document.addEventListener('click', (event) => {
+            if (!userMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+                userMenu.classList.remove('show');
+                // Removemos la clase 'active' para que vuelva a ser hamburguesa
+                menuToggle.classList.remove('active'); 
+            }
+        });
+    }
+
+    // Inicialización
     renderCarrito();
 });

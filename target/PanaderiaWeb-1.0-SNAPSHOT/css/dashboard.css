@@ -7,120 +7,132 @@
     padding: 0;
 }
 
-/* ======== BODY ======== */
 body {
-    background-color: #0f1020;
-    min-height: 100vh;
-<<<<<<< HEAD
-    color: #fff;
+    background: linear-gradient(135deg, #0f1020, #141632);
+    color: #f9fafb;
     display: flex;
-=======
->>>>>>> parent of 94426cc (update)
+    min-height: 100vh;
 }
 
-/* ======== SIDEBAR ======== */
 .sidebar {
-    width: 220px;
-    background-color: #1b1c30;
+    width: 240px;
     height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: radial-gradient(circle at 30% 30%, #1e1e2f, #0d0d1a);
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    padding: 1.5rem 1rem;
+    border-right: 1px solid rgba(255,255,255,0.05);
+    box-shadow: 6px 0 22px rgba(0,0,0,0.45);
+    z-index: 50;
 }
 
-.sidebar h2 {
-    color: #fff;
-    text-align: center;
-    margin-bottom: 2rem;
+.sidebar-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 25px;
 }
 
-.sidebar ul {
+.sidebar-header .logo {
+    width: 120px;
+    filter: brightness(0) invert(1);
+    margin-bottom: 10px;
+}
+
+.sidebar-header h2 {
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.sidebar-menu {
     list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0;
+    margin: 0;
 }
 
-.sidebar ul li {
-    margin: 1rem 0;
-}
-
-.sidebar ul li a {
-    text-decoration: none;
-    color: #d1d5db;
+.sidebar-menu a {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 0.6rem;
-    border-radius: 8px;
-    transition: 0.3s;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 15px;
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: background 0.3s, transform 0.2s;
 }
 
-.sidebar ul li a:hover,
-.sidebar ul li a.active {
-    background-color: #4f46e5;
-    color: #fff;
+.sidebar-menu a:hover,
+.sidebar-menu a.active {
+    background-color: #3a3a3a;
+    transform: translateX(5px);
 }
 
 .logout {
-    color: #f87171;
-    text-align: center;
-    margin-top: 2rem;
+    margin-top: auto;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-/* ======== CONTENIDO PRINCIPAL ======== */
-<<<<<<< HEAD
-.main {
-    flex: 1;
-    padding: 2rem;
-=======
+.logout a {
+    color: #ff4444;
+    text-decoration: none;
+    font-size: 15px;
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.logout a:hover {
+    background-color: #3a3a3a;
+    transform: translateX(5px);
+}
+
 .main-content {
     margin-left: 260px;
     width: calc(100% - 260px);
-    padding: 40px 30px;
+    padding: 20px;
     box-sizing: border-box;
->>>>>>> parent of 94426cc (update)
+    min-height: 100vh;    
+    overflow: auto;
 }
 
-.main h1 {
+.main-header {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 30px;
 }
 
-<<<<<<< HEAD
-/* ======== GRID PRINCIPAL ======== */
-.dashboard-grid {
-    display: grid;
-    grid-template-columns: 70% 30%;
-    grid-template-rows: 60% 40%;
-    gap: 1.5rem;
-    height: 80vh;
-=======
 .main-header h1 {
     font-size: 1.8rem;
     font-weight: 600;
 }
 
-/* ======== LAYOUT DEL DASHBOARD ======== */
 .dashboard-grid {
     display: grid;
-    grid-template-columns: 4fr 1fr; /* 80% / 20% */
-    gap: 25px;
+    grid-template-columns: 72% 28%; 
+    gap: 20px; 
     width: 100%;
-    height: calc(100vh - 160px);
     align-items: stretch;
 }
 
-/* ======== IZQUIERDA (GRÁFICA + USUARIOS) ======== */
 .left-column {
     display: flex;
     flex-direction: column;
-    gap: 20px;
     height: 100%;
+    gap: 20px;
 }
 
-/* Card de gráfica */
 .chart-card {
-    flex: none;       /* eliminado flex anterior */
-    height: 60%;      /* ahora sí ocupa 60% */
+    flex: 1;
     background: linear-gradient(180deg, #111827 0%, #1e293b 100%);
     border-radius: 14px;
     padding: 20px;
@@ -128,6 +140,10 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.chart-card:hover {
+    transform: translateY(-5px);
 }
 
 .chart-header {
@@ -158,132 +174,63 @@ body {
 
 .chart-content canvas {
     width: 100% !important;
-    height: 100% !important;
-    max-height: 350px;
+    min-height: 170px;  
+    max-height: 290px;  
 }
 
-/* Card de usuarios registrados debajo de la gráfica */
-.card.usuarios-registrados {
-    flex: none;       /* eliminado flex anterior */
-    height: 40%;      /* ahora sí ocupa 40% */
-    background: linear-gradient(135deg,#2563eb,#1e40af);
-    border-radius: 12px;
-    padding: 18px 20px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-/* ======== DERECHA (PRODUCTOS + VENTAS) ======== */
 .cards-side {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    height: 100%;
->>>>>>> parent of 94426cc (update)
+    padding: 10px 30px;
+
 }
 
-/* ======== CARDS ======== */
 .card {
-    border-radius: 15px;
-    padding: 1rem;
-    color: #fff;
-<<<<<<< HEAD
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-}
-
-/* Colores sólidos diferentes */
-.card.ventas {
-    background-color: #1E88E5; /* Azul */
-}
-
-.card.productos {
-    background-color: #43A047; /* Verde */
-}
-
-.card.usuarios {
-    background-color: #FB8C00; /* Naranja */
-}
-
-.card.totales {
-    background-color: #8E24AA; /* Morado */
-}
-
-/* ======== TABLA PRODUCTOS ======== */
-.tabla-productos {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.tabla-productos th, 
-.tabla-productos td {
-    padding: 8px;
-    text-align: left;
-}
-
-.tabla-productos th {
-    color: #fff;
-}
-
-/* ======== GRAFICA ======== */
-.grafica {
-    width: 100%;
-    height: 100%;
-=======
-    border-radius: 12px;
-    padding: 18px 20px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    border-radius: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease;
+    flex: 1;
 }
 
-/* Hover cards */
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.55);
+    cursor: default;
+
 }
 
-/* Altura específica para cards derecha */
-.card.ventas-totales {
-    flex: none;
-    height: 40%;      /* mantiene 40% del alto */
+.card.productos-disponibles { background: #2563eb; flex: 1; }
+.card.ventas-totales { 
+    background: #059669; 
+    flex: 1; 
+    font-size: 1.5rem;
+    height: auto;
+}
+.card.usuarios-registrados { 
+    background: #f59e0b; 
+    flex: 1;
+    font-size: 1.5rem;
+    height: 25%;
+
 }
 
-.card.productos-disponibles {
-    flex: none;
-    height: 60%;      /* mantiene 60% del alto */
-}
-
-/* Contenedor interno para scroll */
 .products-card-content {
-    width: 100%;
+    margin-top: 10px;
     flex: 1;
     overflow-y: auto;
-    margin-top: 8px;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255,255,255,0.3) transparent;
+    height: 25%;
+
 }
 
-.products-card-content::-webkit-scrollbar {
-    width: 6px;
-}
-
-.products-card-content::-webkit-scrollbar-thumb {
-    background-color: rgba(255,255,255,0.3);
-    border-radius: 6px;
-}
-
-/* Estilo de la tablita dentro del card */
 .products-table {
     width: 100%;
     border-collapse: collapse;
-    display: block;
-    max-height: 200px;
-    overflow-y: auto;
+    font-size: 0.9rem;
 }
 
 .products-table th, .products-table td {
@@ -291,36 +238,127 @@ body {
     padding: 8px 12px;
 }
 
-.products-table th {
-    background-color: rgba(255,255,255,0.1);
-    position: sticky;
-    top: 0;
+.products-table th { background-color: rgba(255,255,255,0.15); }
+.products-table tr:nth-child(even) { background-color: rgba(255,255,255,0.1); }
+
+.cards-side .card p {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
     font-weight: 600;
 }
 
-.products-table tr:nth-child(even) {
-    background-color: rgba(255,255,255,0.05);
+.cards-side .card .count {
+    font-weight: bold;
+    font-size: 3rem;
+    margin: 0;
+}
+/* ===== MODAL EDITAR USUARIO ===== */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 100; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.6); 
 }
 
-/* Gradientes */
-.gradient-blue { background: linear-gradient(135deg,#2563eb,#1e40af); }
-.gradient-green { background: linear-gradient(135deg,#059669,#065f46); }
-.gradient-purple { background: linear-gradient(135deg,#7c3aed,#4c1d95); }
+.modal-content {
+    background: linear-gradient(180deg, #111827 0%, #1e293b 100%);
+    margin: 10% auto; 
+    padding: 20px;
+    border-radius: 14px;
+    width: 400px; 
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+    color: #f9fafb;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
 
-/* Responsive */
+.modal-content h2 {
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.modal-content input,
+.modal-content select,
+.modal-content button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.modal-content input,
+.modal-content select {
+    background: rgba(255,255,255,0.1);
+    color: #f9fafb;
+}
+
+.modal-content input::placeholder {
+    color: #d1d5db;
+}
+
+.modal-content button {
+    background: #2563eb;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.modal-content button:hover {
+    background: #1d4ed8;
+}
+
+.modal-content .button-reset {
+    background: #f59e0b;
+}
+
+.modal-content .button-reset:hover {
+    background: #d97706;
+}
+
+.close-modal {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-modal:hover {
+    color: #f59e0b;
+}
+
+@media (max-width: 480px){
+    .modal-content {
+        width: 90%;
+        margin-top: 20%;
+    }
+}
+
 @media (max-width: 1024px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+
     .cards-side {
         flex-direction: row;
-        justify-content: center;
-        gap: 12px;
-        height: auto;
+        flex-wrap: wrap;
     }
-    .card.ventas-totales,
-    .card.productos-disponibles,
-    .card.usuarios-registrados,
-    .chart-card {
-        flex: 1;
-        height: auto;
+
+    .card {
+        flex: 1 1 45%;
     }
->>>>>>> parent of 94426cc (update)
 }

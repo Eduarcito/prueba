@@ -178,3 +178,10 @@ body.login-page {
     text-align: center;
     color: #fff;
 }
+.reverse-layout {
+  flex-direction: row-reverse;
+}
+
+.reverse-layout .login-container {
+  border-radius: 0 20px 20px 0;
+}

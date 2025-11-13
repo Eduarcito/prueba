@@ -11,7 +11,9 @@ CREATE TABLE Usuarios (
     telefono VARCHAR(20),
     direccion VARCHAR(150),
     rol VARCHAR(20) NOT NULL CHECK (rol IN ('Administrador', 'Panadero', 'Empleado')),
-    activo BIT DEFAULT 1
+    activo BIT DEFAULT 1,
+    username_temporal VARCHAR(50) NULL,
+    password_temporal VARCHAR(255) NULL
 );
 GO
 
@@ -63,7 +65,27 @@ CREATE TABLE DetalleVenta (
     FOREIGN KEY (id_producto) REFERENCES Productos(id_producto)
 );
 GO
---actualizar el stock cuando se registre una nueva producción
+CREATE TYPE DetalleVentaType AS TABLE
+(
+    id_producto INT,
+    cantidad INT,
+    precio_unitario DECIMAL(10,2),
+    subtotal_linea DECIMAL(10,2)
+);
+GO
+INSERT INTO Productos (nombre, tipo, precio_unitario, stock_actual, categoria, imagen_url)
+VALUES
+('Concha', 'pan Dulce', 0.25, 0, 'Panadería', NULL),
+('Maria luisa', 'Pan Dulce', 0.30, 0, 'Panadería', NULL),
+('Quesadilla', 'Pan Dulce', 0.35, 0, 'Panaderia', NULL),
+('Roseta', 'Pan Dulce', 0.20, 0, 'Panaderia', NULL);
+
+INSERT INTO Produccion (cantidad_producida, id_panadero, id_producto)
+VALUES (200, 2, 1),
+       (200, 2, 2),
+       (200, 2, 3),
+       (200, 2, 4);
+
 CREATE TRIGGER trg_AumentarStock_Produccion
 ON Produccion
 AFTER INSERT
@@ -77,3 +99,71 @@ BEGIN
     INNER JOIN inserted i ON p.id_producto = i.id_producto;
 END;
 GO
+
+CREATE PROCEDURE sp_RegistrarVenta
+    @tipo_pago VARCHAR(20),
+    @id_cajero INT,
+    @detalleVenta DetalleVentaType READONLY
+AS
+BEGIN
+    SET NOCOUNT ON;
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        DECLARE @idVenta INT;
+        DECLARE @total DECIMAL(10,2);
+
+        SELECT @total = ISNULL(SUM(subtotal_linea), 0) FROM @detalleVenta;
+
+        INSERT INTO Ventas (fecha_hora, total, tipo_pago, id_cajero)
+        VALUES (GETDATE(), @total, @tipo_pago, @id_cajero);
+
+        SET @idVenta = SCOPE_IDENTITY();
+
+        INSERT INTO DetalleVenta (cantidad, precio_unitario, subtotal_linea, id_venta, id_producto)
+        SELECT cantidad, precio_unitario, subtotal_linea, @idVenta, id_producto
+        FROM @detalleVenta;
+
+        UPDATE p
+        SET p.stock_actual = p.stock_actual - d.cantidad
+        FROM Productos p
+        INNER JOIN @detalleVenta d ON p.id_producto = d.id_producto;
+
+        COMMIT TRANSACTION;
+
+        SELECT @idVenta AS idVentaGenerado;
+    END TRY
+    BEGIN CATCH
+        IF XACT_STATE() <> 0
+            ROLLBACK TRANSACTION;
+
+        DECLARE @msg NVARCHAR(4000) = ERROR_MESSAGE();
+        RAISERROR('sp_RegistrarVenta failed: %s', 16, 1, @msg);
+    END CATCH
+END;
+GO
+
+BEGIN TRANSACTION;
+DECLARE @idVenta INT;
+
+INSERT INTO Ventas (fecha_hora, total, tipo_pago, id_cajero)
+VALUES (GETDATE(), 110.00, 'Efectivo', 3);
+
+SET @idVenta = SCOPE_IDENTITY();
+
+INSERT INTO DetalleVenta (cantidad, precio_unitario, subtotal_linea, id_venta, id_producto)
+VALUES (100, 0.25, 25.00, @idVenta, 1),
+       (100, 0.30, 30.00, @idVenta, 2),
+       (100, 0.35, 35.00, @idVenta, 3),
+       (100, 0.20, 20.00, @idVenta, 4);
+
+UPDATE Productos SET stock_actual = stock_actual - 2 WHERE id_producto = 1;
+UPDATE Productos SET stock_actual = stock_actual - 1 WHERE id_producto = 3;
+
+COMMIT TRANSACTION;
+
+SELECT*FROM Usuarios;
+SELECT*FROM Productos;
+SELECT*FROM Produccion;
+SELECT*FROM Ventas;
+SELECT*FROM DetalleVenta;

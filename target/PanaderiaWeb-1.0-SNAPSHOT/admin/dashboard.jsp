@@ -13,13 +13,16 @@ if (user == null || !"Administrador".equals(user.getRol())) {
 int totalUsuarios = 0;
 double ventasTotales = 0.0;
 
-List<String> meses = new ArrayList<>();
+List<String> dias = new ArrayList<>();
 List<Double> totales = new ArrayList<>();
 List<Map<String, Object>> productos = new ArrayList<>();
 
-String url = "jdbc:sqlserver://localhost:1433;databaseName=Panaderia;encrypt=false;";
-String usuarioDB = "sa";
-String claveDB = "TuContraseñaFuerte123";
+// NUEVAS LISTAS PARA LA GRÁFICA DE PRODUCTOS
+List<String> nombresProductos = new ArrayList<>();
+List<Double> ventasPorProducto = new ArrayList<>();
+
+    String url="jdbc:sqlserver:GERARDO\\SQLEXPRESS:1433;databaseName=panaderia;IntegratedSecurity=true;";
+
 
 Connection con = null;
 PreparedStatement ps = null;
@@ -41,15 +44,22 @@ try {
     if (rs.next()) ventasTotales = rs.getDouble("total");
     rs.close(); ps.close();
 
-    // Ventas mensuales
+    // Ventas por día (últimos 7 días) — incluye días sin ventas (devuelve 0)
     ps = con.prepareStatement(
-        "SELECT DATENAME(MONTH, fecha_hora) AS mes, SUM(total) AS total " +
-        "FROM Ventas GROUP BY DATENAME(MONTH, fecha_hora), MONTH(fecha_hora) " +
-        "ORDER BY MONTH(fecha_hora)"
+        "WITH fechas AS ( " +
+        "  SELECT CAST(DATEADD(DAY, -6, CAST(GETDATE() AS DATE)) AS DATE) AS d " +
+        "  UNION ALL " +
+        "  SELECT DATEADD(DAY, 1, d) FROM fechas WHERE d < CAST(GETDATE() AS DATE) " +
+        ") " +
+        "SELECT CONVERT(VARCHAR(10), f.d, 103) AS dia, ISNULL(SUM(v.total), 0) AS total " +
+        "FROM fechas f " +
+        "LEFT JOIN Ventas v ON CAST(v.fecha_hora AS DATE) = f.d " +
+        "GROUP BY f.d " +
+        "ORDER BY f.d"
     );
     rs = ps.executeQuery();
     while (rs.next()) {
-        meses.add(rs.getString("mes"));
+        dias.add(rs.getString("dia"));
         totales.add(rs.getDouble("total"));
     }
     rs.close(); ps.close();
@@ -65,20 +75,49 @@ try {
     }
     rs.close(); ps.close();
 
+    // Ventas por producto (usando DetalleVenta) — suma cantidad * precio_unitario
+    // LEFT JOIN para incluir productos sin ventas (total = 0)
+    ps = con.prepareStatement(
+        "SELECT p.nombre, ISNULL(SUM(d.cantidad * d.precio_unitario), 0) AS total " +
+        "FROM Productos p " +
+        "LEFT JOIN DetalleVenta d ON p.id_producto = d.id_producto " +
+        "LEFT JOIN Ventas v ON d.id_venta = v.id_venta AND YEAR(v.fecha_hora) = YEAR(GETDATE()) " +
+        "GROUP BY p.nombre " +
+        "ORDER BY total DESC"
+    );
+    rs = ps.executeQuery();
+    while (rs.next()) {
+        nombresProductos.add(rs.getString("nombre"));
+        ventasPorProducto.add(rs.getDouble("total"));
+    }
+    rs.close(); ps.close();
+
 } catch (Exception e) {
     e.printStackTrace();
 } finally {
     try { if (rs != null) rs.close(); if (ps != null) ps.close(); if (con != null) con.close(); } catch (Exception e) {}
 }
 
-StringBuilder sbMeses = new StringBuilder();
+// Preparar datos para JS — convierto listas a literales JS (evitar NPE)
+StringBuilder sbDias = new StringBuilder();
 StringBuilder sbTotales = new StringBuilder();
-for (int i = 0; i < meses.size(); i++) {
-    sbMeses.append("\"").append(meses.get(i)).append("\"");
+for (int i = 0; i < dias.size(); i++) {
+    sbDias.append("\"").append(dias.get(i)).append("\"");
     sbTotales.append(totales.get(i));
-    if (i < meses.size() - 1) {
-        sbMeses.append(",");
+    if (i < dias.size() - 1) {
+        sbDias.append(",");
         sbTotales.append(",");
+    }
+}
+
+StringBuilder sbNombresProductos = new StringBuilder();
+StringBuilder sbVentasPorProducto = new StringBuilder();
+for (int i = 0; i < nombresProductos.size(); i++) {
+    sbNombresProductos.append("\"").append(nombresProductos.get(i).replace("\"","\\\"")).append("\"");
+    sbVentasPorProducto.append(ventasPorProducto.get(i));
+    if (i < nombresProductos.size() - 1) {
+        sbNombresProductos.append(",");
+        sbVentasPorProducto.append(",");
     }
 }
 %>
@@ -117,25 +156,26 @@ for (int i = 0; i < meses.size(); i++) {
 
     <section class="dashboard-grid">
         <div class="left-column">
-            <!-- Gráfica -->
+
             <div class="chart-card gradient-purple">
                 <div class="chart-header">
-                    <h2><i class="fas fa-chart-line"></i> Ventas Mensuales</h2>
+                    <h2><i class="fas fa-chart-line"></i> Ventas Diarias (últimos 7 días)</h2>
                 </div>
                 <div class="chart-content">
                     <canvas id="salesChart"></canvas>
                 </div>
             </div>
 
-            <!-- Usuarios Registrados debajo de la gráfica -->
-            <div class="card gradient-blue">
-                <i class="fas fa-users icon"></i>
-                <h3>Usuarios Registrados</h3>
-                <p class="count"><%= totalUsuarios %></p>
+            <div class="chart-card gradient-blue">
+                <div class="chart-header">
+                    <h2><i class="fas fa-chart-pie"></i> Ventas por Producto (Año actual)</h2>
+                </div>
+                <div class="chart-content">
+                    <canvas id="productosChart"></canvas>
+                </div>
             </div>
         </div>
 
-        <!-- Columna derecha: Productos + Ventas Totales -->
         <div class="cards-side">
             <div class="card productos-disponibles gradient-purple">
                 <i class="fas fa-bread-slice icon"></i>
@@ -165,12 +205,18 @@ for (int i = 0; i < meses.size(); i++) {
                 <h3>Ventas Totales (Año)</h3>
                 <p class="count">$<%= String.format("%.2f", ventasTotales) %></p>
             </div>
+            
+            <div class="card usuarios-registrados">
+                <i class="fas fa-users icon"></i>
+                <h3>Usuarios Registrados</h3>
+                <p class="count"><%= totalUsuarios %></p>
+            </div>
         </div>
     </section>
 </main>
 
 <script>
-const labels = [<%= sbMeses.toString() %>];
+const labels = [<%= sbDias.toString() %>];
 const dataValues = [<%= sbTotales.toString() %>];
 const ctx = document.getElementById('salesChart').getContext('2d');
 
@@ -204,6 +250,44 @@ new Chart(ctx, {
             x: { ticks: { color: '#d1d5db' }, grid: { color: 'rgba(255,255,255,0.1)' } },
             y: { ticks: { color: '#d1d5db' }, grid: { color: 'rgba(255,255,255,0.1)' } }
         }
+    }
+});
+
+const prodLabels = [<%= sbNombresProductos.toString() %>];
+const prodData = [<%= sbVentasPorProducto.toString() %>];
+const ctxProd = document.getElementById('productosChart').getContext('2d');
+
+new Chart(ctxProd, {
+    type: 'doughnut',
+    data: {
+        labels: prodLabels,
+        datasets: [{
+            data: prodData,
+            backgroundColor: [
+                '#7c3aed', '#2563eb', '#10b981', '#f59e0b', '#ef4444', '#14b8a6', '#8b5cf6'
+            ],
+            borderWidth: 2,
+            borderColor: '#fff'
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: true,
+                labels: { color: '#e5e7eb', font: { size: 13 } }
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        let label = context.label || '';
+                        let value = context.formattedValue || '0';
+                        return label + ': $' + value;
+                    }
+                }
+            }
+        },
+        cutout: '65%'
     }
 });
 </script>
