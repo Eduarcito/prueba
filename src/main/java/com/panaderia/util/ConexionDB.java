@@ -4,8 +4,8 @@ import java.sql.DriverManager;
 
 public class ConexionDB {
     private static final String URL = "jdbc:sqlserver://localhost:1433;databaseName=panaderia;encrypt=true;trustServerCertificate=true;";
-    private static final String USER = "sa";
-    private static final String PASS = "TuContraseñaFuerte123";
+    private static final String USER = "sqlUser";
+    private static final String PASS = "hola123*";
 
     public static Connection getConnection() {
         try {

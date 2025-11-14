@@ -22,8 +22,8 @@ List<String> nombresProductos = new ArrayList<>();
 List<Double> ventasPorProducto = new ArrayList<>();
 
 String url = "jdbc:sqlserver://localhost:1433;databaseName=Panaderia;encrypt=false;";
-String usuarioDB = "sa";
-String claveDB = "TuContraseñaFuerte123";
+String usuarioDB = "sqlUser";
+String claveDB = "hola123*";
 
 Connection con = null;
 PreparedStatement ps = null;

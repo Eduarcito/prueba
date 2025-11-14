@@ -18,8 +18,8 @@ public class GenerarReporte extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private final String url = "jdbc:sqlserver://localhost:1433;databaseName=Panaderia;encrypt=false;";
-    private final String usuarioDB = "sa";
-    private final String claveDB = "TuContraseñaFuerte123";
+    private final String usuarioDB = "sqlUser";
+    private final String claveDB = "hola123*";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

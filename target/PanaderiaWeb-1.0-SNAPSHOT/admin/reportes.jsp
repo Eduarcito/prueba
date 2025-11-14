@@ -8,8 +8,8 @@
     }
 
     String url = "jdbc:sqlserver://localhost:1433;databaseName=Panaderia;encrypt=false;";
-    String usuarioDB = "sa";
-    String claveDB = "TuContraseñaFuerte123";
+    String usuarioDB = "sqlUser";
+    String claveDB = "hola123*";
 
     String fechaFiltro = request.getParameter("fecha");
     if(fechaFiltro == null) fechaFiltro = "";
