@@ -1,4 +1,5 @@
 com/panaderia/controller/ResetPasswordServlet.class
+com/panaderia/controller/AvatarServlet.class
 com/panaderia/controller/EditarUsuarioServlet.class
 com/panaderia/controller/GenerarReporte.class
 com/panaderia/util/TestConexion.class
@@ -11,6 +12,7 @@ com/panaderia/model/Usuario.class
 com/panaderia/dao/UsuarioDAO.class
 com/panaderia/controller/RegistrarPanaderoServlet.class
 com/panaderia/controller/EliminarUsuarioServlet.class
+com/panaderia/controller/UploadAvatarServlet.class
 com/panaderia/util/TestUsuario.class
 com/panaderia/util/ConexionDB.class
 com/panaderia/controller/RegistrarEmpleadoServlet.class
