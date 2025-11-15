@@ -6,10 +6,9 @@
         response.sendRedirect("../login.jsp");
         return;
     }
-
-    String url = "jdbc:sqlserver://DESKTOP-2NOT164\\SQLEXPRESS:1433;databaseName=Panaderia;encrypt=false;";
-    String usuarioDB = "userDS1";
-    String claveDB = "newPassword";
+String url = "jdbc:sqlserver://localhost:1433;databaseName=Panaderia;encrypt=false;";
+String usuarioDB = "sa";
+String claveDB = "TuContraseñaFuerte123";
 
     String fechaFiltro = request.getParameter("fecha");
     if(fechaFiltro == null) fechaFiltro = "";

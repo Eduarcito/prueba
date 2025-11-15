@@ -3,9 +3,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class ConexionDB {
-    private static final String URL = "jdbc:sqlserver://DESKTOP-2NOT164\\SQLEXPRESS:1433;databaseName=panaderia;encrypt=true;trustServerCertificate=true;";
-    private static final String USER = "userDS1";
-    private static final String PASS = "newPassword";
+    private static final String URL = "jdbc:sqlserver://localhost:1433;databaseName=panaderia;encrypt=true;trustServerCertificate=true;";
+    private static final String USER = "sa";
+    private static final String PASS = "TuContraseñaFuerte123";
 
     public static Connection getConnection() {
         try {
