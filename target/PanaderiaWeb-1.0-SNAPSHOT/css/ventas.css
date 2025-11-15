@@ -238,6 +238,7 @@ body {
 .productos-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     gap: 18px;
 }
 
@@ -496,7 +497,6 @@ body {
   -webkit-backface-visibility: hidden;
   filter: none !important;
 }
-
 .logo-coin::after {
   content: "";
   position: absolute;
