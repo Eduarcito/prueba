@@ -41,35 +41,37 @@ public class UsuarioDAO {
 
     // Validar login
     public Usuario validarLogin(String username, String password) throws SQLException {
-        String sql = "SELECT id_usuario, nombre, apellido, username, rol, telefono, direccion, activo, password_hash, username_temporal, password_temporal "
-                   + "FROM Usuarios WHERE username = ?";
-        try (Connection con = ConexionDB.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+    String sql = "SELECT id_usuario, nombre, apellido, username, rol, telefono, direccion, activo, username_temporal, password_temporal, foto_url "
+               + "FROM Usuarios WHERE username = ? AND password_hash = ? AND activo = 1";
 
-            ps.setString(1, username);
-            ResultSet rs = ps.executeQuery();
+    try (Connection con = ConexionDB.getConnection();
+         PreparedStatement ps = con.prepareStatement(sql)) {
 
-            if (rs.next()) {
-                String storedHash = rs.getString("password_hash");
+        ps.setString(1, username);
+        ps.setString(2, hashPassword(password));
 
-                if (hashPassword(password).equals(storedHash) && rs.getBoolean("activo")) {
-                    Usuario u = new Usuario();
-                    u.setId(rs.getInt("id_usuario"));
-                    u.setNombre(rs.getString("nombre"));
-                    u.setApellido(rs.getString("apellido"));
-                    u.setUsername(rs.getString("username"));
-                    u.setRol(rs.getString("rol"));
-                    u.setTelefono(rs.getString("telefono"));
-                    u.setDireccion(rs.getString("direccion"));
-                    u.setActivo(true);
-                    u.setUsernameTemporal(rs.getBoolean("username_temporal"));
-                    u.setPasswordTemporal(rs.getBoolean("password_temporal"));
-                    return u;
-                }
-            }
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            Usuario u = new Usuario();
+            u.setId(rs.getInt("id_usuario"));
+            u.setNombre(rs.getString("nombre"));
+            u.setApellido(rs.getString("apellido"));
+            u.setUsername(rs.getString("username"));
+            u.setRol(rs.getString("rol"));
+            u.setTelefono(rs.getString("telefono"));
+            u.setDireccion(rs.getString("direccion"));
+            u.setActivo(true);
+            u.setUsernameTemporal(rs.getBoolean("username_temporal"));
+            u.setPasswordTemporal(rs.getBoolean("password_temporal"));
+            u.setFotoUrl(rs.getString("foto_url")); // Puede ser null
+
+            return u;
         }
-        return null;
     }
+    return null;
+}
+
 
     // Cambiar username y/o contraseña
     public boolean actualizarCredenciales(int idUsuario, String nuevoUsername, String nuevaContrasena) throws SQLException {
@@ -115,7 +117,7 @@ public class UsuarioDAO {
     // Listar todos los usuarios
     public List<Usuario> listarUsuarios() throws SQLException {
         List<Usuario> usuarios = new ArrayList<>();
-        String sql = "SELECT id_usuario, nombre, apellido, username, rol, telefono, direccion, activo FROM Usuarios";
+        String sql = "SELECT id_usuario, nombre, apellido, username, rol, telefono, direccion, activo, foto_url FROM Usuarios";
 
         try (Connection con = ConexionDB.getConnection();
              PreparedStatement ps = con.prepareStatement(sql);
@@ -131,6 +133,9 @@ public class UsuarioDAO {
                 u.setTelefono(rs.getString("telefono"));
                 u.setDireccion(rs.getString("direccion"));
                 u.setActivo(rs.getBoolean("activo"));
+
+                // Asignar foto URL
+                //u.setFotoUrl(rs.getString("foto_url"));
                 usuarios.add(u);
             }
         }
@@ -177,6 +182,29 @@ public void actualizarContrasenaTemporal(int id, String nuevaClave) throws SQLEx
         ps.setString(1, hashPassword(nuevaClave));
         ps.setInt(2, id);
         ps.executeUpdate();
+    }
+}
+
+public boolean actualizarFotoUrl(int idUsuario, String nuevaFotoUrl) throws SQLException {
+    String sql = "UPDATE Usuarios SET foto_url=? WHERE id_usuario=?";
+
+    try (Connection con = ConexionDB.getConnection();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        if (con == null) {
+            throw new SQLException("No se pudo establecer conexión a la base de datos.");
+        }
+
+        ps.setString(1, nuevaFotoUrl);
+        ps.setInt(2, idUsuario);
+
+        int rows = ps.executeUpdate();
+        return rows > 0;
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        throw new SQLException("Error al actualizar la foto del usuario en la base de datos. "
+                               + e.getMessage(), e);
     }
 }
 
