@@ -36,7 +36,7 @@ if (user == null || !"Empleado".equals(user.getRol())) {
 
                 <nav class="top-nav">
                     <ul>
-                        <li><a href="#" class="nav-link">Cobros</a></li>
+                        <li> Cajero </li>
 
                         <li class="menu-usuario-contenedor">
                             <button class="menu-toggle" id="menu-toggle" aria-label="Menú de Usuario">
