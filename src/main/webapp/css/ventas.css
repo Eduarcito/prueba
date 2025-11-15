@@ -478,6 +478,7 @@ body {
     color: #f9fafb;
     font-weight: 500;
     width: 100%;     
+    border-radius: 0;
     transition: all 0.3s ease-out;
     transform: none; 
 }
@@ -570,8 +571,8 @@ Logo original con efecto moneda giratoria
 ==========================================*/
 
 .logo-coin {
-  width: 52px;
-  height: 52px;
+  width: 75px;
+  height: 75px;
   display: inline-block;
   perspective: 900px;
   margin-right: 10px;

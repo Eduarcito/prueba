@@ -29,8 +29,9 @@ String claveDB = "TuContraseñaFuerte123";
 <!-- === SIDEBAR (sin cambios) === -->
 <aside class="sidebar">
     <div class="sidebar-header">
-        <img src="../img/logo.png" alt="Logo" class="logo">
-        <h2>PANADERIA USO</h2>
+                        <div class="coin-surface">
+                            <img src="../img/logoBlanco.png" alt="Logo Panadería" class="app-logo-coin">
+                        </div>        <h2>PANADERIA USO</h2>
     </div>
     <nav class="menu">
         <a href="dashboard.jsp"><i class="fas fa-chart-line"></i> Dashboard</a>
