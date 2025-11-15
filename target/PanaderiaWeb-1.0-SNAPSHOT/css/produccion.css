@@ -65,8 +65,8 @@ body {
     display: flex;
     padding: 28px;
     gap: 24px;
-    height: calc(100vh - 90px); /* altura total disponible */
-    overflow: hidden;           /* sin scroll interno */
+    height: calc(100vh - 90px); 
+    overflow: hidden;         
 }
 .carrito-panel {
     flex: 1;
@@ -76,8 +76,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    height: 100%;          /* ← ocupa todo el alto */
-    overflow: hidden;      /* ← sin scroll */
+    height: 100%;       
+    overflow: hidden;      
 }
 .carrito-panel h3 {
     font-size: 1.2rem;
@@ -86,7 +86,7 @@ body {
 }
 .carrito-list {
     flex: 1;
-    overflow: auto;        /* si hay demasiados productos, aparece scroll SOLO aquí */
+    overflow: auto;        
     padding-right: 5px;
 }
 
@@ -158,16 +158,14 @@ body {
     transform: translateY(-2px); 
 }
 
-/* ========================================================= */
-/* PANEL DEL CATÁLOGO Y CARDS — CAMBIOS DESDE AQUÍ */
-/* ========================================================= */
+
 .catalogo-panel {
     flex: 2;
     display: flex;
     flex-direction: column;
     gap: 15px;
     height: 100%;
-    overflow: hidden; /* SIN SCROLL INTERNO */
+    overflow: hidden; 
 }
 
 .categorias-nav {
@@ -204,17 +202,13 @@ body {
     font-weight:700;
     color:#f8fafc;
 }
-
-/* === GRID DE PRODUCTOS AJUSTADO A 50% x 50% === */
 .productos-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 50% ancho */
-    grid-template-rows: repeat(2, 1fr);    /* 50% alto */
+    grid-template-columns: repeat(2, 1fr); 
+    grid-template-rows: repeat(2, 1fr);    
     gap: 18px;
-    height: 100%; /* ← ocupa TODA la altura disponible */
+    height: 100%; 
 }
-
-/* === CARDS AJUSTADAS AL 50% === */
 .producto-card {
     height: 100%;
     min-height: unset;
@@ -246,10 +240,6 @@ body {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0,0,0,0.5);
 }
-/* ========================================================= */
-/* FIN DE CAMBIOS */
-/* ========================================================= */
-
 @media (max-width: 1100px) {
     .productos-grid { grid-template-columns: repeat(2, 1fr); }
     .carrito-panel { width: 340px; min-width: 280px; }
