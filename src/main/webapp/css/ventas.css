@@ -1,26 +1,34 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
 
-/*==========================================
-Body y Navegacion
-==========================================*/
-* { font-family: 'Poppins', sans-serif; box-sizing: border-box; margin: 0; padding: 0; }
+/* ============================= */
+/*          BASE GLOBAL          */
+/* ============================= */
+* { 
+    font-family: 'Poppins', sans-serif; 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+}
 
+/* ===== BODY (alturas corregidas) ===== */
 body {
+    height: 100vh;              /* <--- ANTES NO LO TENÍAS */
+    overflow: hidden;           /* <--- EVITA QUE LA PANTALLA CREZCA INFINITO */
     background: linear-gradient(135deg, #0f1020, #141632);
     color: #f9fafb;
-    min-height: 100vh; 
     display: flex;
     flex-direction: column;
 }
 
+/* ============================= */
+/*            HEADER             */
+/* ============================= */
 .top-nav ul {
     display: flex;
     align-items: center;
     gap: 18px; 
     list-style: none;
-    margin: 0;
-    padding: 0;
 }
 
 .top-nav li {
@@ -28,13 +36,6 @@ body {
     align-items: center;
 }
 
-.menu-toggle {
-    margin-left: 0; 
-}
-
-/*==========================================
-Header
-==========================================*/
 .header-tpv {
     background: linear-gradient(135deg, #1e1e2f, #0d0d1a);
     padding: 15px 25px;
@@ -43,8 +44,9 @@ Header
     justify-content: space-between;
     border-bottom: 1px solid rgba(255,255,255,0.06);
     box-shadow: 0 4px 18px rgba(0,0,0,0.5);
-    flex-shrink: 0;
+    flex-shrink: 0; /* <--- IMPORTANTE */
 }
+
 .header-content { 
     display:flex; 
     justify-content:space-between; 
@@ -69,26 +71,23 @@ Header
     color:#fff; 
 }
 
-/*==========================================
-Main Layout
-==========================================*/
-/* MAIN LAYOUT */
+/* ============================= */
+/*        MAIN (alturas)         */
+/* ============================= */
 .main-content {
-    flex: 1;    
     display: flex;
-    align-items: flex-start; 
     padding: 28px;
     gap: 24px;
+    height: calc(100vh - 90px);   /* <--- ESTA LÍNEA ES CLAVE */
+    overflow: hidden;             /* <--- SIN ESTO TODO SE EXPLODÍA */
 }
-/*==========================================
-CARRITO - VENTAS
-==========================================*/
-/* CARRITO - VENTAS */
+
+/* ============================= */
+/*       PANEL DEL CARRITO       */
+/* ============================= */
 .carrito-panel {
-    align-self: stretch;    
     width: 360px;
-    min-width: 300px;
-    margin-top: 0;    
+    min-width: 300px;    
     background: linear-gradient(180deg, rgba(124,58,237,0.08), rgba(12,15,30,0.24));
     border-radius: 14px;
     padding: 20px;
@@ -98,11 +97,9 @@ CARRITO - VENTAS
     box-shadow: 0 10px 30px rgba(10,10,12,0.6);
     border: 1px solid rgba(124,58,237,0.12);
     backdrop-filter: blur(6px);
+    overflow: hidden;             /* <--- NECESARIO */
 }
 
-/*==========================================
-Carrito: Titulo y busqueda
-==========================================*/
 .search-bar input {
     width: 100%;
     padding: 12px;
@@ -114,17 +111,15 @@ Carrito: Titulo y busqueda
     outline: none;
 }
 
-/* Lista de items del carrito con tarjetas pequeñas */
 .carrito-list {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    overflow-y: auto;
+    overflow-y: auto;            /* <--- SCROLL DEL CARRITO */
     padding-right: 6px;
 }
 
-/* Item del carrito */
 .carrito-item {
     display: flex;
     justify-content: space-between;
@@ -136,9 +131,6 @@ Carrito: Titulo y busqueda
     border: 1px solid rgba(255,255,255,0.04);
 }
 
-/*==========================================
-Controles dentro del carrito
-==========================================*/
 .carrito-item .controles { 
     display:flex; 
     gap:6px; 
@@ -160,7 +152,6 @@ Controles dentro del carrito
     transform: translateY(-1px); 
 }
 
-/* totales */
 .resumen-totales p { 
     margin: 4px 0; 
     font-weight:500; 
@@ -173,9 +164,6 @@ Controles dentro del carrito
     color:#fff; 
 }
 
-/*==========================================
-Botones principales
-==========================================*/
 .botones-accion { 
     display:flex; 
     gap:12px; 
@@ -190,9 +178,10 @@ Botones principales
     font-weight:700; 
     cursor:pointer; 
 }
+
 .btn.cobrar { 
     background: linear-gradient(90deg,#7c3aed,#5b21b6); 
-    color:#fff; 
+    color:#fff;
     box-shadow: 0 6px 14px rgba(92,36,195,0.18); 
 }
 
@@ -210,18 +199,18 @@ Botones principales
     transform: translateY(-3px); 
 }
 
-/*==========================================
-Catalogo - seccion Nuestro Pan
-==========================================*/
+/* ============================= */
+/*       CATÁLOGO PRODUCTOS      */
+/* ============================= */
 .catalogo-panel {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 16px;
     height: 100%;
+    overflow: hidden;            /* <--- NUEVO */
 }
 
-/* Título de sección */
 .section-hero {
     display:flex;
     align-items:center;
@@ -229,47 +218,47 @@ Catalogo - seccion Nuestro Pan
     margin-bottom: 6px;
     padding: 0 18px;
 }
+
 .section-hero h2 {
     font-size:1.6rem;
     font-weight:700;
     color:#f8fafc;
 }
 
-/* contenedor estilo plantilla */
 .productos-wrap {
     background: linear-gradient(180deg, rgba(124,58,237,0.03), rgba(255,255,255,0.01));
     padding: 18px;
     border-radius: 12px;
     border: 1px solid rgba(255,255,255,0.03);
     box-shadow: 0 8px 28px rgba(2,6,23,0.6);
+    flex: 1;
+    overflow-y: auto;            /* <--- SCROLL DE PRODUCTOS */
 }
 
 .productos-grid {
-    flex: 1;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     gap: 18px;
 }
 
-/*==========================================
-Tarjeta de productos
-==========================================*/
+/* ============================= */
+/*          PRODUCTO CARD        */
+/* ============================= */
 .producto-card {
-    background: linear-gradient(180deg, #fff, #fff);
+    background: #fff;
     color: #0b1220;
     border-radius: 12px;
     padding: 10px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    align-items: flex-start;
     cursor: pointer;
     transition: transform .18s, box-shadow .18s;
     min-height: 290px;
     border: 1px solid rgba(12,16,30,0.06);
 }
 
-/* imagen destacada */
 .producto-card .thumb {
     width:100%;
     height:300px;
@@ -280,13 +269,13 @@ Tarjeta de productos
     justify-content:center;
     background: #f3f4f6;
 }
+
 .producto-card .thumb img {
     width:100%;
     height:100%;
     object-fit:cover;
 }
 
-/* contenido de la tarjeta */
 .producto-card .content {
     width:100%;
     display:flex;
@@ -294,25 +283,26 @@ Tarjeta de productos
     gap:8px;
     padding: 0 4px;
 }
+
 .producto-card .nombre-producto {
     font-weight:700;
     font-size:1.05rem;
 }
+
 .producto-card .descripcion-producto {
     font-size:0.88rem;
     color:#374151;
     line-height:1.2;
     min-height:40px;
 }
+
 .producto-card .precio-producto {
     font-weight:800;
     margin-top:auto;
     font-size:1rem;
 }
 
-/* botón añadir */
 .producto-card .add-btn {
-    align-self:stretch;
     margin-top:8px;
     padding:10px;
     border-radius:10px;
@@ -323,12 +313,29 @@ Tarjeta de productos
     cursor:pointer;
     transition: transform .12s, box-shadow .12s;
 }
-.producto-card .add-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(234,88,12,0.12); }
 
-/* hover tarjeta */
-.producto-card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(2,6,23,0.5); }
+.producto-card .add-btn:hover { 
+    transform: translateY(-2px); 
+    box-shadow: 0 8px 20px rgba(234,88,12,0.12); 
+}
 
-/* Responsivo */
+.producto-card:hover { 
+    transform: translateY(-6px); 
+    box-shadow: 0 18px 40px rgba(2,6,23,0.5); 
+}
+
+/* ============================= */
+/*      SCROLLBARS GLOBALES      */
+/* ============================= */
+.main-content::-webkit-scrollbar { width: 8px; }
+.main-content::-webkit-scrollbar-thumb { 
+    background-color: rgba(255,255,255,0.14); 
+    border-radius: 6px; 
+}
+
+/* ============================= */
+/*      RESPONSIVE MOBILE        */
+/* ============================= */
 @media (max-width: 1100px) {
     .productos-grid { grid-template-columns: repeat(2, 1fr); }
     .carrito-panel { width: 340px; min-width: 280px; }
@@ -336,26 +343,20 @@ Tarjeta de productos
 
 @media (max-width: 700px) {
     .main-content { flex-direction: column; padding: 14px; }
-    .carrito-panel { width: 100%; max-height: 320px; order: 2; position: relative; top: auto; }
+    .carrito-panel { 
+        width: 100%; 
+        max-height: 320px; 
+        order: 2; 
+        overflow-y: auto;
+    }
     .catalogo-panel { order: 1; }
     .productos-grid { grid-template-columns: 1fr; }
     .producto-card { min-height: 240px; }
 }
 
-/*==========================================
-Scrollbar
-==========================================*/
-.main-content::-webkit-scrollbar { 
-    width: 8px; 
-}
-.main-content::-webkit-scrollbar-thumb { 
-    background-color: rgba(255,255,255,0.14); 
-    border-radius: 6px; 
-}
-
-/*==========================================
-Menu flotante de perfil
-==========================================*/
+/* ============================= */
+/*         MENÚ DE USUARIO       */
+/* ============================= */
 .menu-usuario-contenedor { 
     position: relative; 
     list-style: none; 
