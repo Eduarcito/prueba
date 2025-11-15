@@ -208,7 +208,7 @@ body {
     flex-direction: column;
     gap: 16px;
     height: 100%;
-    overflow: hidden;            /* <--- NUEVO */
+    overflow: hidden;
 }
 
 .section-hero {

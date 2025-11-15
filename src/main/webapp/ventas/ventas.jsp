@@ -93,10 +93,6 @@ if (user == null || !"Empleado".equals(user.getRol())) {
                 </div>
             </aside>
             <section class="catalogo-panel">
-                <div class="section-hero">
-                    <h2>Nuestro Pan</h2>
-                </div>
-
                 <div class="productos-wrap">
                     <div class="productos-grid" id="productos-grid">
 
