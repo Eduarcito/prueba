@@ -23,15 +23,12 @@ if (user == null || !"Empleado".equals(user.getRol())) {
         <header class="header-tpv">
             <div class="header-content">
                 <div class="app-branding">
-                    
-<!-- Logo convertido en "moneda" giratoria -->
-<div class="logo-coin" aria-hidden="false" title="Panadería USO">
-  <div class="coin-surface">
-    <img src="../img/logoBlanco.png" alt="Logo Panadería" class="app-logo-coin">
-  </div>
-</div>
-
-                    <h1>Panadería USO</h1>
+                    <div class="logo-coin" aria-hidden="false" title="Panadería USO">
+                        <div class="coin-surface">
+                            <img src="../img/logoBlanco.png" alt="Logo Panadería" class="app-logo-coin">
+                        </div>
+                    </div>
+                        <h1>Panadería USO</h1>
                 </div>
 
                 <nav class="top-nav">
@@ -75,7 +72,6 @@ if (user == null || !"Empleado".equals(user.getRol())) {
 
         <div class="main-content">
 
-            <!-- PANEL CARRITO (sticky/integrado) -->
             <aside class="carrito-panel" aria-label="Panel de cobros">
                 <div class="search-bar">
                     <input type="text" placeholder="Buscar Producto..." id="buscar-producto-input">
@@ -96,17 +92,9 @@ if (user == null || !"Empleado".equals(user.getRol())) {
                     <button class="btn cancelar" id="btn-cancelar">CANCELAR</button>
                 </div>
             </aside>
-
-            <!-- CATALOGO -->
             <section class="catalogo-panel">
                 <div class="section-hero">
                     <h2>Nuestro Pan</h2>
-                    <div class="categorias-nav">
-                        <span style="color: #cbd5e1; margin-right:8px;">Categorías:</span>
-                        <button class="categoria-btn active">Pan Dulce</button>
-                        <button class="categoria-btn">Pasteles</button>
-                        <button class="categoria-btn">Bebidas</button>
-                    </div>
                 </div>
 
                 <div class="productos-wrap">

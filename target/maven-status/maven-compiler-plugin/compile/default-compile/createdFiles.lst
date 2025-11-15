@@ -9,6 +9,7 @@ com/panaderia/controller/ActualizarCredencialesServlet.class
 com/panaderia/controller/RegistrarAdministradorServlet.class
 com/panaderia/controller/LoginServlet.class
 com/panaderia/model/Usuario.class
+com/panaderia/controller/ProduccionServlet.class
 com/panaderia/dao/UsuarioDAO.class
 com/panaderia/controller/RegistrarPanaderoServlet.class
 com/panaderia/controller/EliminarUsuarioServlet.class
