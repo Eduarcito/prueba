@@ -17,9 +17,9 @@ import com.itextpdf.text.pdf.*;
 public class GenerarReporte extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    private final String url = "jdbc:sqlserver://localhost:1433;databaseName=Panaderia;encrypt=false;";
-    private final String usuarioDB = "sa";
-    private final String claveDB = "TuContraseñaFuerte123";
+    private final String url = "jdbc:sqlserver://DESKTOP-2NOT164\\SQLEXPRESS:1433;databaseName=Panaderia;encrypt=false;";
+    private final String usuarioDB = "userDS1";
+    private final String claveDB = "newPassword";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

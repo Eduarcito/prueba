@@ -54,10 +54,32 @@ if (user == null || !"Empleado".equals(user.getRol())) {
                                     <p class="user-fullname"><%= user.getNombre() %> <%= user.getApellido() != null ? user.getApellido() : "" %></p>
                                     <p class="user-username">@<%= user.getUsername() %></p>
                                 </div>
-                                <ul class="menu-opciones">
-                                    <li><a href="#" id="cambiar-foto-btn" class="nav-link">📸 Cambiar Foto</a></li>
-                                    <li><a href="../login.jsp" class="logout-btn">🚪 Cerrar Sesión</a></li>
-                                </ul>
+                                
+                                    <ul class="menu-opciones">
+                                        <li class="menu-element">
+                                            <a href="#" id="cambiar-foto-btn" class="nav-link">
+                                                <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+                                                <span class="label">Cambiar Foto</span>
+                                            </a>
+                                        </li>
+
+                                        <li class="menu-element">
+                                            <a href="../historial.jsp" class="nav-link">
+                                                <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                                <span class="label">Historial</span>
+                                            </a>
+                                        </li>
+
+                                        <li class="separator"></li> 
+
+                                        <li class="menu-element delete">
+                                            <a href="../login.jsp" class="logout-btn">
+                                                <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+                                                <span class="label">Cerrar Sesión</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+
 
                                 <form id="upload-form" action="../UploadAvatarServlet" method="post" enctype="multipart/form-data" style="display: none;">
                                     <input type="hidden" name="userId" value="<%= user.getId() %>">
