@@ -496,6 +496,7 @@ body {
   -webkit-backface-visibility: hidden;
   filter: none !important;
 }
+
 .logo-coin::after {
   content: "";
   position: absolute;

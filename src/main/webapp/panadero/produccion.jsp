@@ -75,8 +75,11 @@ if (user == null || !"Panadero".equals(user.getRol())) {
         <div id="produccion-list" class="carrito-list">
             <p>Selecciona uno o varios panes del catálogo para registrar su producción</p>
         </div>
+        <div class="carrito-botones">
             <button id="registrar-produccion" class="btn cobrar">Registrar Producción</button>
             <button class="btn cancelar" id="btn-cancelar">CANCELAR</button>
+        </div>
+
 
     </div>
 

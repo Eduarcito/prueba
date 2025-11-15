@@ -10,7 +10,7 @@
 body {
     background: linear-gradient(135deg, #0f1020, #141632);
     color: #f9fafb;
-    min-height: 100vh; 
+    min-height: 50vh; 
     display: flex;
     flex-direction: column;
     overflow-y: auto;
@@ -65,6 +65,8 @@ body {
     display: flex;
     padding: 28px;
     gap: 24px;
+    height: calc(100vh - 90px); 
+    overflow: hidden;         
 }
 .carrito-panel {
     flex: 1;
@@ -74,9 +76,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    max-height: none;
-    overflow-y: visible;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    height: 100%;       
+    overflow: hidden;      
 }
 .carrito-panel h3 {
     font-size: 1.2rem;
@@ -85,10 +86,7 @@ body {
 }
 .carrito-list {
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    overflow-y: visible;
+    overflow: auto;        
     padding-right: 5px;
 }
 
@@ -117,6 +115,18 @@ body {
     border-radius: 6px;
     border: none;
 }
+.carrito-botones {
+    display: flex;
+    gap: 12px;
+    margin-top: auto;
+}
+
+.carrito-botones .btn {
+    width: 50%;
+    padding: 12px;
+    text-align: center;
+    font-weight: 600;
+}
 .btn.cobrar {
     background: #7c3aed;
     color: #fff;
@@ -131,21 +141,31 @@ body {
 .btn.cobrar:hover {
     background: #5b21b6;
     transform: translateY(-2px);
-}.btn.cancelar { 
-    background: linear-gradient(90deg,#b91c1c,#8b1a1a); 
+}
+.btn.cancelar { 
+    background:#b91c1c; 
     color:#fff; 
     box-shadow: 0 6px 14px rgba(185,28,28,0.12); 
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s, transform 0.2s;
 }
 .btn.cancelar:hover { 
-    transform: translateY(-3px); 
+    background: #8b1a1a;
+    transform: translateY(-2px); 
 }
+
+
 .catalogo-panel {
     flex: 2;
     display: flex;
     flex-direction: column;
     gap: 15px;
     height: 100%;
-    overflow: hidden;
+    overflow: hidden; 
 }
 
 .categorias-nav {
@@ -168,7 +188,9 @@ body {
 .categoria-btn.active,
 .categoria-btn:hover {
     background: #7c3aed;
-}.section-hero {
+}
+
+.section-hero {
     display:flex;
     align-items:center;
     justify-content:space-between;
@@ -182,31 +204,30 @@ body {
 }
 .productos-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 columnas = 50% ancho cada una */
-    grid-auto-rows: 50vh; /* <-- Cada fila mide 50% de la pantalla */
+    grid-template-columns: repeat(2, 1fr); 
+    grid-template-rows: repeat(2, 1fr);    
     gap: 18px;
+    height: 100%; 
 }
-
-
 .producto-card {
-    height: 100%;  
-    min-height: unset;  
+    height: 100%;
+    min-height: unset;
     background: linear-gradient(135deg,#111827,#1e293b);
     border-radius: 12px;
     padding: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
     gap: 8px;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .producto-card img {
-    width: 80px;
-    height: 80px;
+    width: 300px;
+    height: 300px;
     object-fit: contain;
-    flex: 0 0 60%; 
 }
 
 .producto-card p.nombre-producto {
@@ -219,7 +240,6 @@ body {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0,0,0,0.5);
 }
-
 @media (max-width: 1100px) {
     .productos-grid { grid-template-columns: repeat(2, 1fr); }
     .carrito-panel { width: 340px; min-width: 280px; }
@@ -229,9 +249,10 @@ body {
     .main-content { flex-direction: column; padding: 14px; }
     .carrito-panel { width: 100%; max-height: 320px; order: 2; position: relative; top: auto; }
     .catalogo-panel { order: 1; }
-    .productos-grid { grid-template-columns: 1fr; }
+    .productos-grid { grid-template-columns: 1fr; grid-template-rows: unset; height: auto; }
     .producto-card { min-height: 240px; }
 }
+
 .main-content::-webkit-scrollbar { 
     width: 8px; 
 }
