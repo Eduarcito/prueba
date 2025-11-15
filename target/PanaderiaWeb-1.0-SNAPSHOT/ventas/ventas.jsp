@@ -63,14 +63,12 @@ if (user == null || !"Empleado".equals(user.getRol())) {
                                             </a>
                                         </li>
 
-                                        <li class="menu-element">
+                                        <li class="menu-element menu-element-historial">
                                             <a href="../historial.jsp" class="nav-link">
                                                 <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                                                 <span class="label">Historial</span>
                                             </a>
                                         </li>
-
-                                        <li class="separator"></li> 
 
                                         <li class="menu-element delete">
                                             <a href="../login.jsp" class="logout-btn">

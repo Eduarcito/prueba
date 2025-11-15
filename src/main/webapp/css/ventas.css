@@ -448,6 +448,8 @@ body {
 
 /* Lista de opciones (la ul) */
 .menu-opciones {
+    align-items: flex-start;
+    text-align: left;
     list-style-type: none;
     padding: 10px 0; 
     display: flex;
@@ -457,20 +459,25 @@ body {
 
 /* Elemento de menú individual (la li) */
 .menu-opciones .menu-element {
-    padding: 0 20px; 
+    padding: 0 20px;
+    width: 100%;
+    text-align: left;
+    display: flex;
+    justify-content: flex-start; 
 }
 
 .menu-opciones .menu-element a {
     display: flex; 
     align-items: center;
+    text-align: center;
     gap: 12px;
     justify-content: flex-start; 
-    padding: 10px 0;   
+    padding: 10px 15px;
+    border-radius: 6px;
     text-decoration: none;
     color: #f9fafb;
     font-weight: 500;
     width: 100%;     
-    border-radius: 0;
     transition: all 0.3s ease-out;
     transform: none; 
 }
@@ -478,43 +485,84 @@ body {
 /* Iconos (usamos la clase 'icon' que definimos en el HTML) */
 .menu-opciones .menu-element .icon {
     stroke: #a0aec0;
-    min-width: 20px;
-    height: 20px;
-    transition: stroke 0.3s ease-out;
 }
-
-/* Hover de la opción */
 .menu-opciones .menu-element:hover a {
-    background-color: rgba(124, 58, 237, 0.2); 
-    transform: none; 
+    background-color: #4fa336;
+    transform: translateX(5px)
 }
 
 .menu-opciones .menu-element:hover .icon {
-    stroke: #fff; 
+    stroke: #ffffff;
 }
-
-/* Opción de Cerrar Sesión */
+/* Hover de la opción */
+.menu-element.delete{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    text-align: left;
+    display: flex;
+    justify-content: flex-start; 
+}
 .menu-opciones .menu-element.delete a {
-    color: #ef4444 !important;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px 15px;
+    border-radius: 6px;
+    justify-content: flex-start;
+    text-align: left ;
+    transition: background 0.3s, transform 0.2s;
 }
 
 .menu-opciones .menu-element.delete .icon {
-    stroke: #ef4444; 
+    stroke: #ffffff; 
 }
 
 .menu-opciones .menu-element.delete:hover a {
-    background-color: rgba(239, 68, 68, 0.12) !important;
+    background-color: #ff4444;
+    transform: translateX(5px)
 }
 
 .menu-opciones .menu-element.delete:hover .icon {
-    stroke: #fff;
+    stroke: #ffffff;
+}
+/*historial*/
+.menu-opciones .menu-element-historial {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    justify-content: flex-start;
+    text-align: left;
 }
 
-.menu-opciones .separator {
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    margin: 8px 0; 
-    height: 0;
-    padding: 0;
+.menu-opciones .menu-element-historial a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px 15px;
+    border-radius: 6px;
+    justify-content: flex-start;
+    text-align: left ;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.menu-opciones .menu-element-historial .icon {
+    stroke: #ffffff; 
+}
+
+.menu-opciones .menu-element-historial:hover a {
+    background-color: #ff9e44;
+    transform: translateX(5px)
+}
+
+.menu-opciones .menu-element-historial:hover .icon {
+    stroke: #ffffff;
 }
 
 /*==========================================
