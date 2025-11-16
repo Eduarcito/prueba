@@ -368,19 +368,126 @@ body {
         margin-top: 20%;
     }
 }
-
+/* ===== TABLET ===== */
 @media (max-width: 1024px) {
+
+    /* Sidebar más delgada */
+    .sidebar {
+        width: 200px;
+        padding: 15px;
+    }
+
+    .main-content {
+        margin-left: 210px;
+        width: calc(100% - 210px);
+    }
+
+    /* Dashboard ahora en una sola columna */
     .dashboard-grid {
         grid-template-columns: 1fr;
-        height: auto;
     }
 
     .cards-side {
         flex-direction: row;
         flex-wrap: wrap;
+        padding: 10px 0;
     }
 
     .card {
-        flex: 1 1 45%;
+        flex: 1 1 48%;
+        min-height: 130px;
+    }
+}
+/* ===== TABLETS PEQUEÑAS Y MOVIL GRANDE ===== */
+@media (max-width: 768px) {
+
+    body {
+        flex-direction: column;
+    }
+
+    /* Sidebar se mueve arriba en móvil tipo app */
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        overflow-x: auto;
+        display: flex;
+        padding: 10px;
+    }
+
+    .sidebar-header {
+        display: none; /* Ocultamos logo para ahorrar espacio */
+    }
+
+    .sidebar-menu {
+        flex-direction: row;
+        gap: 15px;
+        width: 100%;
+        justify-content: space-around;
+    }
+
+    .logout {
+        display: none; /* Se puede mover a menú móvil si quieres */
+    }
+
+    /* Contenido principal ya no necesita margen */
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    /* Dashboard se apila vertical */
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        flex: 1 1 100%;
+        font-size: 1rem;
+    }
+
+    .cards-side {
+        flex-direction: column;
+        padding: 0;
+    }
+
+    .chart-content canvas {
+        min-height: 130px;
+        max-height: 240px;
+    }
+}
+/* ===== MOVIL PEQUEÑO ===== */
+@media (max-width: 480px) {
+
+    .main-header h1 {
+        font-size: 1.4rem;
+    }
+
+    .card {
+        font-size: 0.9rem;
+        padding: 15px;
+    }
+
+    .card .count {
+        font-size: 2rem;
+    }
+
+    .products-table th,
+    .products-table td {
+        padding: 6px;
+        font-size: 0.75rem;
+    }
+
+    .chart-card {
+        padding: 15px;
+    }
+
+    .chart-header h2 {
+        font-size: 15px;
+    }
+
+    .chart-content canvas {
+        min-height: 110px;
     }
 }
