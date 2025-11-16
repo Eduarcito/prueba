@@ -169,6 +169,48 @@ body {
     gap:12px; 
     margin-top:6px; 
 }
+.carrito-item img.img-mini { width: 40px; height: 40px; object-fit: contain; } 
+/* ============================= */
+/*     INPUT DE CANTIDAD (SIN FLECHAS)     */
+/* ============================= */
+
+/* Quitar flechas en Chrome, Edge, Safari */
+.carrito-item .cantidad-input::-webkit-inner-spin-button,
+.carrito-item .cantidad-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Quitar flechas en Firefox */
+.carrito-item .cantidad-input {
+    -moz-appearance: textfield;
+}
+
+/* Estilo del input */
+.carrito-item .cantidad-input {
+    width: 40px;
+    height: 32px;
+    text-align: center;
+    border-radius: 8px;
+    border: none;
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.95rem;
+    outline: none;
+    transition: background .2s, transform .15s;
+}
+
+/* Hover */
+.carrito-item .cantidad-input:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+/* Focus */
+.carrito-item .cantidad-input:focus {
+    background: rgba(255,255,255,0.22);
+    transform: scale(1.05);
+}
 
 .btn { 
     flex:1; 
@@ -177,6 +219,29 @@ body {
     border:none; 
     font-weight:700; 
     cursor:pointer; 
+}
+/* BOTÓN + (verde) */
+.carrito-item .controles .mas {
+    background: rgba(0, 150, 0, 0.65);
+}
+.carrito-item .controles .mas:hover {
+    background: rgba(0, 200, 0, 0.85);
+}
+
+/* BOTÓN - (anaranjado) */
+.carrito-item .controles .menos {
+    background: rgba(255, 140, 0, 0.65);
+}
+.carrito-item .controles .menos:hover {
+    background: rgba(255, 165, 0, 0.85);
+}
+
+/* BOTÓN X (rojo) */
+.carrito-item .controles .eliminar {
+    background: rgba(200, 0, 0, 0.6);
+}
+.carrito-item .controles .eliminar:hover {
+    background: rgba(255, 0, 0, 0.85);
 }
 
 .btn.cobrar { 

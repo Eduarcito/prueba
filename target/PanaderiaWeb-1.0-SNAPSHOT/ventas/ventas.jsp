@@ -116,7 +116,7 @@ if (user == null || !"Empleado".equals(user.getRol())) {
                 <div class="productos-wrap">
                     <div class="productos-grid" id="productos-grid">
 
-                        <div class="producto-card" data-id="1" data-name="Concha" data-price="0.25">
+                        <div class="producto-card" data-id="1" data-name="Concha" data-price="0.25" data-im="../img/concha.png">
                             <div class="thumb">
                                 <img src="../img/concha.png" alt="Concha">
                             </div>
@@ -125,43 +125,43 @@ if (user == null || !"Empleado".equals(user.getRol())) {
                                 <p class="descripcion-producto">Pan dulce tradicional con cobertura azucarada — ideal para acompañar café.</p>
                                 <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; width:100%;">
                                     <p class="precio-producto">$0.25</p>
-                                    <button class="add-btn" data-id="1" data-name="Concha" data-price="0.25">AÑADIR AL CARRITO</button>
+                                    <button class="add-btn" data-id="1" data-name="Concha" data-price="0.25" data-im="../img/concha.png">AÑADIR AL CARRITO</button>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="producto-card" data-id="2" data-name="Maria Luisa" data-price="0.30">
+                        <div class="producto-card" data-id="2" data-name="Maria Luisa" data-price="0.30" data-im="../img/marialuisa.png">
                             <div class="thumb"><img src="../img/marialuisa.png" alt="Maria Luisa"></div>
                             <div class="content">
                                 <p class="nombre-producto">Maria Luisa</p>
                                 <p class="descripcion-producto">Galleta suave y esponjosa, perfecta como snack.</p>
                                 <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; width:100%;">
                                     <p class="precio-producto">$0.30</p>
-                                    <button class="add-btn" data-id="2" data-name="Maria Luisa" data-price="0.30">AÑADIR AL CARRITO</button>
+                                    <button class="add-btn" data-id="2" data-name="Maria Luisa" data-price="0.30" data-im="../img/marialuisa.png">AÑADIR AL CARRITO</button>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="producto-card" data-id="3" data-name="Quesadilla" data-price="0.35">
+                        <div class="producto-card" data-id="3" data-name="Quesadilla" data-price="0.35" data-im="../img/quesadilla.png">
                             <div class="thumb"><img src="../img/quesadilla.png" alt="Quesadilla"></div>
                             <div class="content">
                                 <p class="nombre-producto">Quesadilla</p>
                                 <p class="descripcion-producto">Recién horneada con queso y textura crujiente.</p>
                                 <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; width:100%;">
                                     <p class="precio-producto">$0.35</p>
-                                    <button class="add-btn" data-id="3" data-name="Quesadilla" data-price="0.35">AÑADIR AL CARRITO</button>
+                                    <button class="add-btn" data-id="3" data-name="Quesadilla" data-price="0.35" data-im="../img/quesadilla.png">AÑADIR AL CARRITO</button>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="producto-card" data-id="4" data-name="Roseta" data-price="0.20">
+                        <div class="producto-card" data-id="4" data-name="Roseta" data-price="0.20" data-im="../img/roseta.png">
                             <div class="thumb"><img src="../img/roseta.png" alt="Roseta"></div>
                             <div class="content">
                                 <p class="nombre-producto">Roseta</p>
                                 <p class="descripcion-producto">Clásico panecillo con un toque de mantequilla.</p>
                                 <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; width:100%;">
                                     <p class="precio-producto">$0.20</p>
-                                    <button class="add-btn" data-id="4" data-name="Roseta" data-price="0.20">AÑADIR AL CARRITO</button>
+                                    <button class="add-btn" data-id="4" data-name="Roseta" data-price="0.20" data-im="../img/roseta.png">AÑADIR AL CARRITO</button>
                                 </div>
                             </div>
                         </div>
