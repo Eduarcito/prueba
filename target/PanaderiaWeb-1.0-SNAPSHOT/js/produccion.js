@@ -187,42 +187,32 @@ document.addEventListener('click', e => {
 
 // Cambiar foto de avatar
 const cambiarFotoBtn = document.getElementById('cambiar-foto-btn');
-const avatarInput = document.getElementById('avatar-input');
-const uploadForm = document.getElementById('upload-form');
-const currentAvatar = document.getElementById('current-avatar');
+    const avatarInput = document.getElementById('avatar-input');
+    const uploadForm = document.getElementById('upload-form');
+    const currentAvatar = document.getElementById('current-avatar');
 
-if (cambiarFotoBtn && avatarInput && uploadForm && currentAvatar) {
-    cambiarFotoBtn.addEventListener('click', e => {
-        e.preventDefault();
-        e.stopPropagation();
-        avatarInput.click();
-    });
+    if (cambiarFotoBtn && avatarInput && uploadForm && currentAvatar) {
+        cambiarFotoBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            avatarInput.click();
+        });
 
-    avatarInput.addEventListener('change', () => {
-        if (avatarInput.files.length > 0) {
-            const file = avatarInput.files[0];
-            const reader = new FileReader();
-            reader.onload = e => currentAvatar.src = e.target.result;
-            reader.readAsDataURL(file);
+        avatarInput.addEventListener('change', () => {
+            if (avatarInput.files.length > 0) {
+                const file = avatarInput.files[0];
+                const reader = new FileReader();
+                reader.onload = e => currentAvatar.src = e.target.result;
+                reader.readAsDataURL(file);
 
-            const formData = new FormData(uploadForm);
-            fetch(`${contextPath}/UploadAvatarServlet`, {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                if (!response.ok) {
-                    console.error("[ERROR] Subida avatar:", response.statusText);
-                    alert("No se pudo guardar la imagen.");
-                }
-            })
-            .catch(error => {
-                console.error("[ERROR] Fallo de red al subir avatar:", error);
-                alert("Fallo de conexión al subir avatar.");
-            });
-        }
-    });
-}
+                const formData = new FormData(uploadForm);
+                fetch('../UploadAvatarServlet', {
+                    method: 'POST',
+                    body: formData
+                });
+            }
+        });
+    }
 
 // Render inicial
 renderProduccion();
