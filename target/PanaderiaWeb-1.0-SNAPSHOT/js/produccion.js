@@ -3,6 +3,7 @@ const contextPath = '<%= request.getContextPath() %>';
 const productosGrid = document.getElementById('productos-grid');
 const produccionList = document.getElementById('produccion-list');
 const registrarBtn = document.getElementById('registrar-produccion');
+const buscarInput = document.getElementById('buscar-producto-input');
 let produccion = [];
 
 // Renderizar lista de producción
@@ -24,15 +25,58 @@ function renderProduccion() {
                 <div style="flex:1; display:flex; flex-direction:column; gap:4px;">
                     <strong style="font-size:0.95rem;">${item.name}</strong>
                 </div>
-                <div style="display:flex; align-items:center; gap:4px;">
-                    <label style="font-size:0.85rem;">Cantidad:</label>
-                    <input type="number" class="cantidad-produccion" value="${item.cantidad}" min="1" style="width:50px;">
+                <div class="controles" style="display:flex; align-items:center; gap:6px;">
+                    <button class="control-btn menos" data-id="${item.id}">-</button>
+                    <input type="number" 
+                           class="input-cantidad" 
+                           data-id="${item.id}"
+                           value="${item.cantidad}"
+                           min="0"
+                           style="width:45px; text-align:center; padding:4px 6px; border-radius:6px; border:none;">
+                    <button class="control-btn mas" data-id="${item.id}">+</button>
+                    <button class="control-btn eliminar" data-id="${item.id}">🗑️</button>
                 </div>
             </div>
         `;
         produccionList.appendChild(div);
     });
 }
+produccionList.addEventListener('click', (e) => {
+    const btn = e.target.closest('.control-btn');
+    if (!btn) return;
+
+    const id = btn.dataset.id;
+    const item = produccion.find(i => i.id === id);
+    if (!item) return;
+
+    if (btn.classList.contains('mas')) item.cantidad++;
+    else if (btn.classList.contains('menos')) {
+        item.cantidad--;
+        if (item.cantidad <= 0) produccion = produccion.filter(i => i.id !== id);
+    } else if (btn.classList.contains('eliminar')) {
+        produccion = produccion.filter(i => i.id !== id);
+    }
+
+    renderProduccion();
+});
+
+// Editar cantidad manualmente
+produccionList.addEventListener('input', (e) => {
+    const input = e.target.closest('.input-cantidad');
+    if (!input) return;
+
+    const id = input.dataset.id;
+    const item = produccion.find(i => i.id === id);
+    if (!item) return;
+
+    let value = parseInt(input.value);
+    if (isNaN(value) || value < 0) value = 0;
+
+    item.cantidad = value;
+
+    if (value === 0) produccion = produccion.filter(i => i.id !== id);
+});
+
 
 // Selección de productos
 productosGrid.addEventListener('click', e => {
@@ -99,6 +143,24 @@ registrarBtn.addEventListener('click', async () => {
         alert("Error al conectar con el servidor. Revisa la consola.");
     }
 });
+if (buscarInput) {
+    buscarInput.addEventListener('input', (e) => {
+        const q = (e.target.value || '').trim().toLowerCase();
+        const cards = productosGrid.querySelectorAll('.producto-card');
+
+        cards.forEach(card => {
+            const name = (card.dataset.name || '').toLowerCase();
+            const desc = (card.querySelector('.descripcion-producto')?.textContent || '').toLowerCase();
+
+            // Solo ocultar o mostrar; no cambiar display flex
+            if (name.includes(q) || desc.includes(q)) {
+                card.style.display = ''; // Deja que el CSS original aplique (flex)
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+}
 
 // Cancelar selección
 document.getElementById('btn-cancelar').addEventListener('click', () => {

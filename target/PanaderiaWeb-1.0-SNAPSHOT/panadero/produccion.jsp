@@ -87,6 +87,9 @@ if (user == null || !"Panadero".equals(user.getRol())) {
 
 <div class="main-content">
     <div class="carrito-panel">
+                <div class="search-bar">
+                    <input type="text" placeholder="Buscar Producto..." id="buscar-producto-input">
+                </div>
         <h3>Panes Seleccionados</h3>
         <div id="produccion-list" class="carrito-list">
             <p>Selecciona uno o varios panes del catálogo para registrar su producción</p>

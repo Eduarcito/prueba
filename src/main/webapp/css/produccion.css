@@ -68,15 +68,19 @@ body {
     height: calc(100vh - 90px); 
     overflow: hidden;         
 }
+/* Panel del carrito de producción */
 .carrito-panel {
-    flex: 1;
-    background: linear-gradient(135deg,#2563eb,#1e40af);
-    border-radius: 12px;
+    width: 400px;
+    min-width: 300px;    
+    background: linear-gradient(180deg, rgba(124,58,237,0.08), rgba(12,15,30,0.24));
+    border-radius: 14px;
     padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    height: 100%;       
+    gap: 14px;
+    box-shadow: 0 10px 30px rgba(10,10,12,0.6);
+    border: 1px solid rgba(124,58,237,0.12);
+    backdrop-filter: blur(6px);
     overflow: hidden;      
 }
 .carrito-panel h3 {
@@ -86,17 +90,139 @@ body {
 }
 .carrito-list {
     flex: 1;
-    overflow: auto;        
-    padding-right: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;            /* <--- SCROLL DEL CARRITO */
+    padding-right: 6px;
+}
+.search-bar input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    margin-bottom: 6px;
+    background: rgba(255,255,255,0.06);
+    color: #fff;
+    outline: none;
+}
+/* Items de producción estilo carrito */
+.carrito-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.18));
+    border-radius: 10px;
+    padding: 10px;
+    gap: 8px;
+    border: 1px solid rgba(255,255,255,0.04);
+}
+.carrito-item > div.controles {
+    margin-left: auto;
+    justify-items: end;
+}
+
+.carrito-item img.img-mini {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border-radius: 6px;
+    align-items: center;
+}
+.carrito-botones {
+    display: flex;
+    justify-content: flex-end; /* Alinea los botones a la derecha */
+    gap: 12px; /* Mantiene separación entre botones */
+    margin-top: auto;
+}
+
+/* Controles (botones +, -, eliminar e input) */
+.carrito-item .controles {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.carrito-item .controles button {
+    background: rgba(40,40,40,0.7);
+    color: #fff;
+    border: none;
+    padding: 6px 9px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.12s;
+}
+
+.carrito-item .controles button:hover {
+    background: rgba(60,60,60,0.85);
+    transform: translateY(-1px);
+}
+
+.carrito-item .controles .mas {
+    background: rgba(0,150,0,0.65);
+}
+.carrito-item .controles .mas:hover {
+    background: rgba(0,200,0,0.85);
+}
+
+.carrito-item .controles .menos {
+    background: rgba(255,140,0,0.65);
+}
+.carrito-item .controles .menos:hover {
+    background: rgba(255,165,0,0.85);
+}
+
+.carrito-item .controles .eliminar {
+    background: rgba(200,0,0,0.6);
+    color: #fff;
+}
+.carrito-item .controles .eliminar:hover {
+    background: rgba(255,0,0,0.85);
+}
+
+/* Input editable estilo carrito */
+.input-cantidad {
+    width: 45px;
+    text-align: center;
+    padding: 4px 6px;
+    border-radius: 6px;
+    border: none;
+    background: rgba(40,40,40,0.7);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.95rem;
+    outline: none;
+    transition: background 0.2s, transform 0.15s;
+}
+
+.input-cantidad:hover {
+    background: rgba(60,60,60,0.85);
+}
+
+.input-cantidad:focus {
+    background: rgba(80,80,80,0.9);
+    transform: scale(1.05);
+}
+
+/* Quitar flechas del input */
+.input-cantidad::-webkit-inner-spin-button,
+.input-cantidad::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.input-cantidad {
+    -moz-appearance: textfield;
 }
 
 .carrito-item {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 10px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 8px;
-    padding: 8px 10px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.18));
+    border-radius: 10px;
+    padding: 10px;
+    gap: 8px;
+    border: 1px solid rgba(255,255,255,0.04);
 }
 .carrito-item img.img-mini {
     width: 40px;
@@ -228,6 +354,7 @@ body {
     width: 300px;
     height: 300px;
     object-fit: contain;
+    align-items: center;
 }
 
 .producto-card p.nombre-producto {
@@ -541,4 +668,17 @@ Logo original con efecto moneda giratoria
 }
 @media (max-width:700px) {
   .logo-coin { width: 44px; height: 44px; }
+}
+
+.carrito-item > div:first-child {
+    width: 100%;
+}
+
+.carrito-item > div:first-child > div:nth-child(2) {
+    flex-grow: 1 !important; 
+    margin-right: auto; 
+}
+
+.carrito-item .controles {
+    flex-shrink: 0; 
 }

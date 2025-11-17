@@ -170,41 +170,56 @@ body {
     margin-top:6px; 
 }
 .carrito-item img.img-mini { width: 40px; height: 40px; object-fit: contain; } 
-/* ============================= */
-/*     INPUT DE CANTIDAD (SIN FLECHAS)     */
-/* ============================= */
 
+.carrito-item .controles .eliminar {
+    background: rgba(200, 0, 0, 0.6);
+    color: #fff; /* Esto hará que el emoji sea blanco */
+    font-size: 1rem; /* Ajusta tamaño del emoji si quieres */
+}
+.carrito-item .controles .eliminar:hover {
+    background: rgba(255, 0, 0, 0.85);
+}
+.carrito-item .controles .mas,
+.carrito-item .controles .menos {
+    background: rgba(40, 40, 40, 0.7); /* color base oscuro */
+    color: #fff;
+}
+
+.carrito-item .controles .mas:hover,
+.carrito-item .controles .menos:hover {
+    background: rgba(60, 60, 60, 0.85); /* hover más intenso */
+}
 /* Quitar flechas en Chrome, Edge, Safari */
-.carrito-item .cantidad-input::-webkit-inner-spin-button,
-.carrito-item .cantidad-input::-webkit-outer-spin-button {
+.input-cantidad::-webkit-inner-spin-button,
+.input-cantidad::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
 /* Quitar flechas en Firefox */
-.carrito-item .cantidad-input {
+.input-cantidad {
     -moz-appearance: textfield;
-}
-
-/* Estilo del input */
-.carrito-item .cantidad-input {
-    width: 40px;
-    height: 32px;
-    text-align: center;
-    border-radius: 8px;
-    border: none;
-    background: rgba(255,255,255,0.08);
+    background: rgba(40,40,40,0.7); /* fondo oscuro */
     color: #fff;
     font-weight: 600;
     font-size: 0.95rem;
+    text-align: center;
+    border: none;
+    border-radius: 6px;
+    padding: 4px 6px;
     outline: none;
-    transition: background .2s, transform .15s;
+    transition: background 0.2s, transform 0.15s;
 }
 
-/* Hover */
-.carrito-item .cantidad-input:hover {
-    background: rgba(255,255,255,0.15);
+.input-cantidad:hover {
+    background: rgba(60,60,60,0.85);
 }
+
+.input-cantidad:focus {
+    background: rgba(80,80,80,0.9);
+    transform: scale(1.05);
+}
+
 
 /* Focus */
 .carrito-item .cantidad-input:focus {
