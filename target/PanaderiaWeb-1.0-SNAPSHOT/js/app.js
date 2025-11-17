@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                    style="width:45px; text-align:center; padding:4px 6px; border-radius:6px; border:none;">
 
                             <button class="control-btn mas" data-id="${item.id}">+</button>
-                            <button class="control-btn eliminar" data-id="${item.id}">✕</button>
+                            <button class="control-btn eliminar" data-id="${item.id}">🗑️</button>
                         </div>
                     </div>
                 `;

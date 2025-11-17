@@ -19,20 +19,83 @@ function renderProduccion() {
         div.dataset.id = item.id;
 
         div.innerHTML = `
-            <div style="display:flex; justify-content:space-between; align-items:center; gap:10px;">
-                <img src="${item.img}" alt="${item.name}" class="img-mini" style="width:50px; height:50px; object-fit:cover; border-radius:6px;">
-                <div style="flex:1; display:flex; flex-direction:column; gap:4px;">
-                    <strong style="font-size:0.95rem;">${item.name}</strong>
-                </div>
-                <div style="display:flex; align-items:center; gap:4px;">
-                    <label style="font-size:0.85rem;">Cantidad:</label>
-                    <input type="number" class="cantidad-produccion" value="${item.cantidad}" min="1" style="width:50px;">
-                </div>
-            </div>
-        `;
+    <div class="carrito-item">
+
+        <img src="${item.img}" alt="${item.name}" class="img-mini">
+
+        <div style="flex:1;">
+            <strong>${item.name}</strong>
+        </div>
+
+        <div class="controles">
+            <button class="menos control-btn" data-id="${item.id}">
+                <i class="fa-solid fa-minus"></i>
+            </button>
+
+            <input type="number"
+                class="cantidad-input input-cantidad"
+                data-id="${item.id}"
+                value="${item.cantidad}"
+                min="1">
+
+            <button class="mas control-btn" data-id="${item.id}">
+                <i class="fa-solid fa-plus"></i>
+            </button>
+
+            <button class="eliminar control-btn" data-id="${item.id}">
+                <i class="fa-solid fa-trash"></i>
+            </button>
+        </div>
+
+    </div>
+`;
+
         produccionList.appendChild(div);
     });
 }
+// Controles + - 🗑
+produccionList.addEventListener("click", (e) => {
+    const btn = e.target.closest(".btn-control");
+    if (!btn) return;
+
+    const id = btn.dataset.id;
+    const item = produccion.find(p => p.id === id);
+    if (!item) return;
+
+    // SUMAR
+    if (btn.classList.contains("mas")) {
+        item.cantidad++;
+    }
+
+    // RESTAR
+    else if (btn.classList.contains("menos")) {
+        item.cantidad--;
+        if (item.cantidad < 1) item.cantidad = 1;
+    }
+
+    // ELIMINAR
+    else if (btn.classList.contains("eliminar")) {
+        produccion = produccion.filter(p => p.id !== id);
+    }
+
+    renderProduccion();
+});
+// Validación de inputs de cantidad (Producción y TPV)
+document.addEventListener("input", (e) => {
+    if (e.target.classList.contains("input-cantidad")) {
+
+        // Si no es número válido
+        if (isNaN(e.target.value) || e.target.value.trim() === "") {
+            e.target.value = 1;
+            return;
+        }
+
+        // Valor mínimo
+        if (parseInt(e.target.value) < 1) {
+            e.target.value = 1;
+        }
+    }
+});
 
 // Selección de productos
 productosGrid.addEventListener('click', e => {

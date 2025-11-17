@@ -69,15 +69,18 @@ body {
     overflow: hidden;         
 }
 .carrito-panel {
-    flex: 1;
-    background: linear-gradient(135deg,#2563eb,#1e40af);
-    border-radius: 12px;
+    width: 360px;
+    min-width: 300px;    
+    background: linear-gradient(180deg, rgba(124,58,237,0.08), rgba(12,15,30,0.24));
+    border-radius: 14px;
     padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    height: 100%;       
-    overflow: hidden;      
+    gap: 14px;
+    box-shadow: 0 10px 30px rgba(10,10,12,0.6);
+    border: 1px solid rgba(124,58,237,0.12);
+    backdrop-filter: blur(6px);
+    overflow: hidden;     
 }
 .carrito-panel h3 {
     font-size: 1.2rem;
@@ -86,17 +89,22 @@ body {
 }
 .carrito-list {
     flex: 1;
-    overflow: auto;        
-    padding-right: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;            /* <--- SCROLL DEL CARRITO */
+    padding-right: 6px;
 }
 
 .carrito-item {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 10px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 8px;
-    padding: 8px 10px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.18));
+    border-radius: 10px;
+    padding: 10px;
+    gap: 8px;
+    border: 1px solid rgba(255,255,255,0.04);
 }
 .carrito-item img.img-mini {
     width: 40px;
@@ -114,6 +122,14 @@ body {
     padding: 5px;
     border-radius: 6px;
     border: none;
+}
+.controles-cantidad{
+        display: flex;
+    gap: 12px;
+    margin-top: auto;
+}
+.btn-control .mas{
+    
 }
 .carrito-botones {
     display: flex;
