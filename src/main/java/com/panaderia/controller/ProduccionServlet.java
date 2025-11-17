@@ -2,12 +2,20 @@ package com.panaderia.controller;
 
 import com.panaderia.model.Usuario;
 import com.panaderia.util.ConexionDB;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.sql.*;
-import org.json.*;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 @WebServlet("/ProduccionServlet")
 public class ProduccionServlet extends HttpServlet {
@@ -16,72 +24,101 @@ public class ProduccionServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        response.setContentType("application/json");
-        HttpSession session = request.getSession();
-        Usuario user = (Usuario) session.getAttribute("usuario");
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json; charset=UTF-8");
+        PrintWriter out = response.getWriter();
 
-        if (user == null) {
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            response.getWriter().write("{\"success\":false,\"error\":\"Usuario no logueado\"}");
-            return;
-        }
-
-        int idPanadero = user.getId();
-
-        // Leer JSON
-        String body = request.getReader().lines()
-                .reduce("", (accumulator, actual) -> accumulator + actual);
-
-        JSONArray items;
+        JSONObject resp = new JSONObject();
         try {
-            items = new JSONArray(body);
-        } catch (JSONException e) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().write("{\"success\":false,\"error\":\"JSON inválido\"}");
-            return;
-        }
+            Usuario user = (Usuario) request.getSession().getAttribute("usuario");
 
-        if (items.length() == 0) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().write("{\"success\":false,\"error\":\"No se enviaron productos\"}");
-            return;
-        }
-
-        String sql = "INSERT INTO Produccion (cantidad_producida, id_panadero, id_producto) VALUES (?, ?, ?)";
-
-        try (Connection conn = ConexionDB.getConnection()) {
-
-            if (conn == null) {
-                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                response.getWriter().write("{\"success\":false,\"error\":\"Fallo al conectar con la base de datos\"}");
+            if (user == null || !"Panadero".equals(user.getRol())) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                resp.put("success", false);
+                resp.put("error", "No autorizado o sesión expirada");
+                out.print(resp);
                 return;
             }
 
-            try (PreparedStatement ps = conn.prepareStatement(sql)) {
-                for (int i = 0; i < items.length(); i++) {
-                    JSONObject item = items.getJSONObject(i);
-                    int cantidad = item.getInt("cantidad");
-                    int idProducto = item.getInt("idProducto");
+            // Leer JSON
+            StringBuilder sb = new StringBuilder();
+            try (BufferedReader reader = request.getReader()) {
+                String line;
+                while ((line = reader.readLine()) != null) sb.append(line);
+            }
 
+            if (sb.isEmpty()) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                resp.put("success", false);
+                resp.put("error", "No se recibió JSON");
+                out.print(resp);
+                return;
+            }
+
+            JSONArray produccionArray = new JSONArray(sb.toString());
+
+            if (produccionArray.length() == 0) {
+                resp.put("success", false);
+                resp.put("error", "No hay productos para registrar");
+                out.print(resp);
+                return;
+            }
+
+            // Insertar producción en BD
+            String insertSQL = "INSERT INTO Produccion (cantidad_producida, id_panadero, id_producto) VALUES (?, ?, ?)";
+
+            try (Connection conn = ConexionDB.getConnection();
+                 PreparedStatement ps = conn.prepareStatement(insertSQL)) {
+
+                for (int i = 0; i < produccionArray.length(); i++) {
+                    JSONObject obj = produccionArray.getJSONObject(i);
+                    int cantidad = Math.max(1, obj.getInt("cantidad")); // mínimo 1
                     ps.setInt(1, cantidad);
-                    ps.setInt(2, idPanadero);
-                    ps.setInt(3, idProducto);
+                    ps.setInt(2, user.getId());
+                    ps.setInt(3, obj.getInt("idProducto"));
                     ps.addBatch();
                 }
 
                 ps.executeBatch();
-                response.getWriter().write("{\"success\":true,\"message\":\"Producción registrada correctamente\"}");
 
-            } catch (SQLException e) {
+                // Obtener stock actualizado
+                JSONArray stockArray = new JSONArray();
+                StringBuilder ids = new StringBuilder();
+                for (int i = 0; i < produccionArray.length(); i++) {
+                    if (i > 0) ids.append(",");
+                    ids.append(produccionArray.getJSONObject(i).getInt("idProducto"));
+                }
+
+                String stockSQL = "SELECT id_producto, stock_actual FROM Productos WHERE id_producto IN (" + ids + ")";
+                try (PreparedStatement psStock = conn.prepareStatement(stockSQL);
+                     ResultSet rs = psStock.executeQuery()) {
+                    while (rs.next()) {
+                        JSONObject prodStock = new JSONObject();
+                        prodStock.put("idProducto", rs.getInt("id_producto"));
+                        prodStock.put("stock_actual", rs.getInt("stock_actual"));
+                        stockArray.put(prodStock);
+                    }
+                }
+
+                resp.put("success", true);
+                resp.put("message", "Producción registrada correctamente");
+                resp.put("stockActualizado", stockArray);
+                out.print(resp);
+
+            } catch (Exception e) {
                 e.printStackTrace();
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                response.getWriter().write("{\"success\":false,\"error\":\"" + e.getMessage() + "\"}");
+                resp.put("success", false);
+                resp.put("error", "Error al registrar la producción: " + e.getMessage());
+                out.print(resp);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            response.getWriter().write("{\"success\":false,\"error\":\"Error inesperado: " + e.getMessage() + "\"}");
+            resp.put("success", false);
+            resp.put("error", "Error inesperado: " + e.getMessage());
+            out.print(resp);
         }
     }
 }
