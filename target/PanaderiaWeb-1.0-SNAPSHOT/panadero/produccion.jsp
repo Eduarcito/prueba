@@ -17,7 +17,7 @@ if (user == null || !"Panadero".equals(user.getRol())) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/produccion.css">
 </head>
-<body>
+<body data-contextPath="${pageContext.request.contextPath}">
 
 <div class="aplicacion-tpv">
 <header class="header-tpv">
@@ -124,7 +124,7 @@ if (user == null || !"Panadero".equals(user.getRol())) {
 </div>
 </div>
 
-<script src="<%= request.getContextPath() %>/js/produccion.js?v=<%= System.currentTimeMillis() %>"></script>
+<script src="${pageContext.request.contextPath}/js/produccion.js"></script>
 
 </body>
 </html>

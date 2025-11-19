@@ -97,7 +97,7 @@ productosGrid.addEventListener('click', e => {
 registrarBtn.addEventListener('click', async () => {
     // Actualizar cantidades desde inputs
     produccion.forEach(item => {
-        const input = produccionList.querySelector(`.item[data-id='${item.id}'] .cantidad-produccion`);
+const input = produccionList.querySelector(`.item[data-id='${item.id}'] .input-cantidad`);
         if (input) item.cantidad = parseInt(input.value) || 1;
     });
 
@@ -114,7 +114,9 @@ registrarBtn.addEventListener('click', async () => {
     console.log("[DEBUG] Enviando registro:", registro);
 
     try {
+        const contextPath = document.body.getAttribute("data-contextPath");
         const res = await fetch(`${contextPath}/ProduccionServlet`, {
+
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(registro)

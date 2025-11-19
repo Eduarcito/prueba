@@ -1,5 +1,6 @@
 package com.panaderia.dao;
 
+import com.panaderia.controller.RegistrarVentaServlet;
 import com.panaderia.model.Usuario;
 import com.panaderia.util.ConexionDB;
 import java.sql.Connection;
@@ -207,8 +208,6 @@ public boolean actualizarFotoUrl(int idUsuario, String nuevaFotoUrl) throws SQLE
                                + e.getMessage(), e);
     }
 }
-
-
 
 
 

@@ -230,15 +230,45 @@ carritoList.addEventListener('change', (e) => {
         });
     }
 
-    if (btnCobrar) {
-        btnCobrar.addEventListener('click', () => {
-            if (carrito.length === 0) {
-                alert('El carrito está vacío.');
-                return;
+if (btnCobrar) {
+    btnCobrar.addEventListener('click', () => {
+        if (carrito.length === 0) {
+            alert('El carrito está vacío.');
+            return;
+        }
+
+        const datos = {
+            tipo_pago: "Efectivo", // o puedes pedirlo al usuario
+            detalle: carrito.map(item => ({
+                id_producto: parseInt(item.id),
+                cantidad: item.quantity,
+                precio_unitario: item.price,
+                subtotal_linea: (item.price * item.quantity)
+            }))
+        };
+
+        fetch("../RegistrarVentaServlet", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(datos)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.exito) {
+                alert("Venta registrada. Folio #" + data.idVenta);
+                carrito = [];
+                renderCarrito();
+            } else {
+                alert("Error: " + data.mensaje);
             }
-            alert('Cobro simulado — integrar backend después.');
+        })
+        .catch(err => {
+            console.error("Error en fetch:", err);
+            alert("Error al registrar venta.");
         });
-    }
+    });
+}
+
 
     // Menú usuario
     const menuToggle = document.getElementById('menu-toggle');
