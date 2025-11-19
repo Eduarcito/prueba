@@ -116,7 +116,7 @@ if (user == null || !"Empleado".equals(user.getRol())) {
                 <div class="productos-wrap">
                     <div class="productos-grid" id="productos-grid">
 
-                        <div class="producto-card" data-id="1" data-name="Concha" data-price="0.25" data-im="../img/concha.png">
+                        <div class="producto-card" data-id="1" data-name="Concha" data-price="0.25" data-stock="" data-im="../img/concha.png">
                             <div class="thumb">
                                 <img src="../img/concha.png" alt="Concha">
                             </div>
