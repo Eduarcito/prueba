@@ -125,7 +125,7 @@ if (user == null || !"Empleado".equals(user.getRol())) {
                                 <p class="descripcion-producto">Pan dulce tradicional con cobertura azucarada — ideal para acompañar café.</p>
                                 <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; width:100%;">
                                     <p class="precio-producto">$0.25</p>
-                                    <button class="add-btn" data-id="1" data-name="Concha" data-price="0.25" data-im="../img/concha.png">AÑADIR AL CARRITO</button>
+                                    <button class="add-btn" data-id="1" data-name="Concha" data-price="0.25" data-image="../img/concha.png">AÑADIR AL CARRITO</button>
                                 </div>
                             </div>
                         </div>
@@ -137,7 +137,7 @@ if (user == null || !"Empleado".equals(user.getRol())) {
                                 <p class="descripcion-producto">Galleta suave y esponjosa, perfecta como snack.</p>
                                 <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; width:100%;">
                                     <p class="precio-producto">$0.30</p>
-                                    <button class="add-btn" data-id="2" data-name="Maria Luisa" data-price="0.30" data-im="../img/marialuisa.png">AÑADIR AL CARRITO</button>
+                                    <button class="add-btn" data-id="2" data-name="Maria Luisa" data-price="0.30" data-image="../img/marialuisa.png">AÑADIR AL CARRITO</button>
                                 </div>
                             </div>
                         </div>
@@ -149,7 +149,7 @@ if (user == null || !"Empleado".equals(user.getRol())) {
                                 <p class="descripcion-producto">Recién horneada con queso y textura crujiente.</p>
                                 <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; width:100%;">
                                     <p class="precio-producto">$0.35</p>
-                                    <button class="add-btn" data-id="3" data-name="Quesadilla" data-price="0.35" data-im="../img/quesadilla.png">AÑADIR AL CARRITO</button>
+                                    <button class="add-btn" data-id="3" data-name="Quesadilla" data-price="0.35" data-image="../img/quesadilla.png">AÑADIR AL CARRITO</button>
                                 </div>
                             </div>
                         </div>
@@ -161,7 +161,7 @@ if (user == null || !"Empleado".equals(user.getRol())) {
                                 <p class="descripcion-producto">Clásico panecillo con un toque de mantequilla.</p>
                                 <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; width:100%;">
                                     <p class="precio-producto">$0.20</p>
-                                    <button class="add-btn" data-id="4" data-name="Roseta" data-price="0.20" data-im="../img/roseta.png">AÑADIR AL CARRITO</button>
+                                    <button class="add-btn" data-id="4" data-name="Roseta" data-price="0.20" data-image="../img/roseta.png">AÑADIR AL CARRITO</button>
                                 </div>
                             </div>
                         </div>
