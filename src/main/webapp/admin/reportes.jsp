@@ -6,10 +6,9 @@
         response.sendRedirect("../login.jsp");
         return;
     }
-
-    String url = "jdbc:sqlserver://localhost:1433;databaseName=Panaderia;encrypt=false;";
-    String usuarioDB = "sa";
-    String claveDB = "TuContraseñaFuerte123";
+String url = "jdbc:sqlserver://localhost:1433;databaseName=Panaderia;encrypt=false;";
+String usuarioDB = "sa";
+String claveDB = "TuContraseñaFuerte123";
 
     String fechaFiltro = request.getParameter("fecha");
     if(fechaFiltro == null) fechaFiltro = "";
@@ -30,8 +29,9 @@
 <!-- === SIDEBAR (sin cambios) === -->
 <aside class="sidebar">
     <div class="sidebar-header">
-        <img src="../img/logo.png" alt="Logo" class="logo">
-        <h2>PANADERIA USO</h2>
+                        <div class="coin-surface">
+                            <img src="../img/logoBlanco.png" alt="Logo Panadería" class="app-logo-coin">
+                        </div>        <h2>PANADERIA USO</h2>
     </div>
     <nav class="menu">
         <a href="dashboard.jsp"><i class="fas fa-chart-line"></i> Dashboard</a>
@@ -74,7 +74,8 @@
             }
             out.println("</tbody></table>");
             // 🔹 Cambio aquí
-            out.println("<button class='report-btn' onclick=\"window.open('GenerarReporte?tipo=productos', '_blank')\"><i class='fas fa-file-pdf'></i> Ver reporte completo</button>");
+            String fechaParam = (fechaFiltro != null && !fechaFiltro.isEmpty()) ? "&fecha=" + fechaFiltro : "";
+            out.println("<button class='report-btn' onclick=\"window.open('GenerarReporte?tipo=productos" + fechaParam + "', '_blank')\"><i class='fas fa-file-pdf'></i> Ver reporte completo</button>");
             out.println("</div>");
 
             // ========== CARD PRODUCCIÓN ==========
@@ -92,7 +93,7 @@
             }
             out.println("</tbody></table>");
             // 🔹 Cambio aquí
-            out.println("<button class='report-btn' onclick=\"window.open('GenerarReporte?tipo=produccion', '_blank')\"><i class='fas fa-file-pdf'></i> Ver reporte completo</button>");
+            out.println("<button class='report-btn' onclick=\"window.open('GenerarReporte?tipo=produccion" + fechaParam + "', '_blank')\"><i class='fas fa-file-pdf'></i> Ver reporte completo</button>");
             out.println("</div>");
 
             // ========== CARD VENTAS ==========
@@ -109,7 +110,7 @@
             }
             out.println("</tbody></table>");
             // 🔹 Cambio aquí
-            out.println("<button class='report-btn' onclick=\"window.open('GenerarReporte?tipo=ventas', '_blank')\"><i class='fas fa-file-pdf'></i> Ver reporte completo</button>");
+            out.println("<button class='report-btn' onclick=\"window.open('GenerarReporte?tipo=ventas" + fechaParam + "', '_blank')\"><i class='fas fa-file-pdf'></i> Ver reporte completo</button>");
             out.println("</div>");
 
             // ========== CARD DETALLE DE VENTAS ==========
@@ -128,7 +129,7 @@
             }
             out.println("</tbody></table>");
             // 🔹 Cambio aquí
-            out.println("<button class='report-btn' onclick=\"window.open('GenerarReporte?tipo=detalle_venta', '_blank')\"><i class='fas fa-file-pdf'></i> Ver reporte completo</button>");
+            out.println("<button class='report-btn' onclick=\"window.open('GenerarReporte?tipo=detalle_venta" + fechaParam + "', '_blank')\"><i class='fas fa-file-pdf'></i> Ver reporte completo</button>");
             out.println("</div>");
 
         } catch(Exception e){

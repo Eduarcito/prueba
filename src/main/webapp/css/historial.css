@@ -1,0 +1,215 @@
+/* ============================= */
+/*       ESTILO GENERAL          */
+/* ============================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #1f3b73, #4e2f6b);
+    min-height: 100vh;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+}
+
+.aplicacion-tpv {
+    width: 100%;
+}
+
+/* ============================= */
+/*            HEADER             */
+/* ============================= */
+
+.header-tpv {
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(10px);
+    padding: 15px 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.app-branding {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.coin-surface {
+    width: 55px;
+    height: 55px;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.coin-surface img {
+    width: 90%;
+    height: auto;
+}
+
+.app-branding h1 {
+    font-size: 1.7rem;
+    font-weight: 600;
+}
+
+/* NAV SUPERIOR */
+.top-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+.top-nav li {
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.top-nav li:hover {
+    color: #ffd86b;
+}
+
+/* ============================= */
+/*          CONTENIDO            */
+/* ============================= */
+
+.admin-content {
+    padding: 30px 50px;
+}
+
+/* HEADER DEL MÓDULO */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.main-header .usuarios {
+    font-size: 1.6rem;
+    font-weight: 600;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.acciones-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.acciones-header input,
+.acciones-header select {
+    padding: 8px 10px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #fff;
+    border-radius: 6px;
+    outline: none;
+}
+
+.acciones-header button {
+    padding: 8px 14px;
+    background: #ffd86b;
+    border: none;
+    border-radius: 6px;
+    color: #000;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.acciones-header button:hover {
+    background: #ffcc45;
+}
+
+/* ============================= */
+/*       TABLA DE HISTORIAL     */
+/* ============================= */
+
+.table-container {
+    margin-top: 10px;
+    background: rgba(255, 255, 255, 0.12);
+    padding: 20px;
+    border-radius: 14px;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    overflow-x: auto;
+}
+
+.vision-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.vision-table thead {
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.vision-table th {
+    padding: 12px;
+    text-align: left;
+    color: #ffd86b;
+    font-weight: 600;
+}
+
+.vision-table td {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.vision-table tr:hover {
+    background-color: rgba(255, 255, 255, 0.10);
+}
+
+/* ============================= */
+/*         FOOTER TOTAL         */
+/* ============================= */
+
+.footer-info {
+    margin-top: 20px;
+    text-align: right;
+    font-size: 1.2rem;
+}
+
+.footer-info strong {
+    color: #ffd86b;
+}
+
+/* ============================= */
+/*         RESPONSIVE            */
+/* ============================= */
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .main-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+
+    .acciones-header {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+}

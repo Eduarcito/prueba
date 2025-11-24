@@ -154,34 +154,118 @@ body.login-page {
   .login-wrapper {
     flex-direction: column;
   }
+
   .login-image {
-    height: 200px;
+    height: 250px;
     flex: none;
   }
+
   .login-container {
     width: 100%;
     border-radius: 20px 20px 0 0;
-    flex: none;
+    padding: 40px 30px;
   }
 }
-.chart-section {
-    margin-top: 40px;
-    background: #1f2937;
-    padding: 25px;
+
+/* ===== Móviles grandes (600px – 768px) ===== */
+@media (max-width: 768px) {
+  .login-container {
+    padding: 35px 25px;
+  }
+
+  .login-container h2 {
+    font-size: 24px;
+  }
+
+  .input-group input {
+    height: 44px;
+    font-size: 14px;
+    width: 85%;
+  }
+
+  .login-container button {
+    height: 45px;
+    font-size: 15px;
+  }
+}
+
+/* ===== Celulares pequeños (≤ 480px) ===== */
+@media (max-width: 480px) {
+  body.login-page {
+    overflow: auto;
+    background: #111827; /* fondo más limpio tipo app */
+  }
+
+  .login-wrapper {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .login-image {
+    height: 150px;
+    border-radius: 0 0 18px 18px;
+    overflow: hidden;
+  }
+
+  .login-image img {
+    object-fit: cover;
+    filter: brightness(0.7);
+  }
+
+  .login-container {
+    width: 92%;
+    margin: 20px auto;
+    padding: 28px 22px;
     border-radius: 18px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-}
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  }
 
-.chart-section h2 {
-    margin-bottom: 20px;
+  .login-container h2 {
     font-size: 22px;
-    text-align: center;
-    color: #fff;
-}
-.reverse-layout {
-  flex-direction: row-reverse;
-}
+    margin-bottom: 25px;
+  }
 
-.reverse-layout .login-container {
-  border-radius: 0 20px 20px 0;
+  .input-group input {
+    width: 85%;
+    height: 44px;
+    font-size: 14px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.12);
+  }
+
+  .input-group i {
+    font-size: 15px;
+  }
+
+  .login-container button {
+    height: 44px;
+    font-size: 15px;
+    margin-top: 5px;
+    border-radius: 10px;
+  }
+}
+/* ===== Micro-pantallas (≤ 360px) ===== */
+@media (max-width: 360px) {
+  .login-container {
+    width: 94%;
+    padding: 22px 18px;
+  }
+
+  .login-container h2 {
+    font-size: 19px;
+  }
+
+  .input-group input {
+    width: 82%;
+    height: 40px;
+    font-size: 13px;
+  }
+
+  .login-container button {
+    height: 40px;
+    font-size: 13px;
+  }
 }
