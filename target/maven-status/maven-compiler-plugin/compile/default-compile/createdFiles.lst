@@ -2,7 +2,9 @@ com/panaderia/controller/ResetPasswordServlet.class
 com/panaderia/controller/EditarUsuarioServlet.class
 com/panaderia/controller/GenerarReporte.class
 com/panaderia/controller/ExportXLS.class
+com/panaderia/controller/HistorialProduccionServlet.class
 com/panaderia/controller/RegistrarVentaServlet.class
+com/panaderia/controller/ExportProduccionXLSServlet.class
 com/panaderia/controller/ActualizarCredencialesServlet.class
 com/panaderia/controller/LoginServlet.class
 com/panaderia/dao/ProduccionDAO.class
@@ -18,6 +20,7 @@ com/panaderia/controller/AvatarServlet.class
 com/panaderia/util/TestConexion.class
 com/panaderia/controller/RegistrarUsuarioServlet.class
 com/panaderia/util/PasswordUtils.class
+com/panaderia/controller/ExportProduccionPDFServlet.class
 com/panaderia/controller/RegistrarAdministradorServlet.class
 com/panaderia/controller/RegistrarPanaderoServlet.class
 com/panaderia/controller/UploadAvatarServlet.class

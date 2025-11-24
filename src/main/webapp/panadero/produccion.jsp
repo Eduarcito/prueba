@@ -61,7 +61,7 @@ if (user == null || !"Panadero".equals(user.getRol())) {
                                 </a>
                             </li>
                             <li class="menu-element menu-element-produccion">
-                                <a href="<%= request.getContextPath() %>/produccion.jsp" class="nav-link">
+                                <a href="../panadero/historial.jsp" class="nav-link">
                                     <i class="fa fa-bread-slice"></i>
                                     <span class="label">Produccion</span>
                                 </a>

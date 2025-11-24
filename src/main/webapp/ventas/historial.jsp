@@ -44,7 +44,6 @@
                                     <input type="date" id="filtroFecha" onchange="filtrarPorFecha()">
                                     <select id="filterCajero" style="display:none;"></select>
                                     <button id="btnExportPdf" onclick="exportarPDF()">Exportar PDF</button>
-                                    <button id="btnExportXls" onclick="exportarXLS()">Exportar XLSX</button>
                                 </div>
                             </div>
 

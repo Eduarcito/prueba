@@ -1,0 +1,245 @@
+/* ============================= */
+/*       ESTILO GENERAL          */
+/* ============================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #0f1020, #141632);
+}
+
+/* ============================= */
+/*        CONTENEDOR APP         */
+/* ============================= */
+
+.aplicacion-tpv {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ============================= */
+/*           HEADER              */
+/* ============================= */
+
+.header-tpv {
+    width: 100%;
+    background: #111827;
+    /* gris oscuro (dashboard theme) */
+    padding: 12px 20px;
+    color: #fff;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.25);
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* BRANDING + LOGO */
+.app-branding {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* +++++++++++++++++++++++++++++ */
+/*   LOGO GIRANDO EN EJE Y       */
+/* +++++++++++++++++++++++++++++ */
+
+.coin-surface img {
+    width: 55px;
+    height: 55px;
+    animation: girarLogo 4s linear infinite;
+}
+
+@keyframes girarLogo {
+    0% {
+        transform: rotateY(0deg);
+    }
+
+    100% {
+        transform: rotateY(360deg);
+    }
+}
+
+/* NAV */
+.top-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+.top-nav ul li {
+    color: #ffffff;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 6px 14px;
+    border-radius: 6px;
+    transition: .2s ease;
+}
+
+.top-nav ul li:hover {
+    background: #374151;
+}
+
+/* ============================= */
+/*          CONTENIDO            */
+/* ============================= */
+
+.admin-content {
+    padding: 25px;
+    flex-grow: 1;
+}
+
+.main-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.usuarios {
+    font-size: 22px;
+    font-weight: 600;
+    color: #ffffff;
+    text-align: center;
+}
+
+.usuarios i {
+    color: #2563eb;
+    /* azul del dashboard */
+}
+
+/* ============================= */
+/*     ACCIONES (FECHAS/BOT)     */
+/* ============================= */
+
+.acciones-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.acciones-header input[type="date"],
+.acciones-header select {
+    padding: 8px 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: #fff;
+    font-size: 14px;
+}
+
+/* BOTONES */
+
+#btnExportPdf,
+#btnExportXls {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: .2s ease;
+}
+
+#btnExportPdf {
+    background: #5ac25a;
+    /* rojo */
+    color: white;
+}
+
+#btnExportPdf:hover {
+    background: #5ac25a;
+}
+
+#btnExportXls {
+    background: #059669;
+    /* verde */
+    color: white;
+}
+
+#btnExportXls:hover {
+    background: #047857;
+}
+
+/* ============================= */
+/*            TABLA              */
+/* ============================= */
+
+.table-container {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 25px;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 18px;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: 25px;
+    overflow-x: auto;
+    box-sizing: border-box;
+}
+
+.vision-table {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    color: #e1e1e6;
+    table-layout: auto;
+    word-break: break-word;
+}
+
+.vision-table thead {
+    background: #111827;
+    color: #fff;
+}
+
+.vision-table thead th {
+    padding: 12px 10px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.vision-table tbody td {
+    padding: 10px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
+}
+
+/* Renglón hover */
+.vision-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transition: 0.25s;
+}
+
+/* No registros */
+.vision-table tbody tr td[colspan] {
+    text-align: center;
+    font-weight: 500;
+    padding: 20px;
+}
+
+/* ============================= */
+/*        TOTAL VENDIDO          */
+/* ============================= */
+
+.footer-info {
+    margin-top: 20px;
+    background: #111827;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    display: inline-flex;
+    gap: 5px;
+}

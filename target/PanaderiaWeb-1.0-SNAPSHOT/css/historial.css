@@ -3,85 +3,94 @@
 /* ============================= */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css');
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 body {
-    background: linear-gradient(135deg, #1f3b73, #4e2f6b);
-    min-height: 100vh;
-    color: #fff;
-    display: flex;
-    justify-content: center;
+    background: linear-gradient(135deg, #0f1020, #141632);
 }
+
+/* ============================= */
+/*        CONTENEDOR APP         */
+/* ============================= */
 
 .aplicacion-tpv {
     width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* ============================= */
-/*            HEADER             */
+/*           HEADER              */
 /* ============================= */
 
 .header-tpv {
-    background: rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(10px);
-    padding: 15px 40px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    width: 100%;
+    background: #111827;
+    /* gris oscuro (dashboard theme) */
+    padding: 12px 20px;
+    color: #fff;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.25);
 }
 
 .header-content {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
 }
 
+/* BRANDING + LOGO */
 .app-branding {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
 }
 
-.coin-surface {
-    width: 55px;
-    height: 55px;
-    background: rgba(255, 255, 255, 0.15);
-    padding: 8px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+/* +++++++++++++++++++++++++++++ */
+/*   LOGO GIRANDO EN EJE Y       */
+/* +++++++++++++++++++++++++++++ */
 
 .coin-surface img {
-    width: 90%;
-    height: auto;
+    width: 55px;
+    height: 55px;
+    animation: girarLogo 4s linear infinite;
 }
 
-.app-branding h1 {
-    font-size: 1.7rem;
-    font-weight: 600;
+@keyframes girarLogo {
+    0% {
+        transform: rotateY(0deg);
+    }
+
+    100% {
+        transform: rotateY(360deg);
+    }
 }
 
-/* NAV SUPERIOR */
+/* NAV */
 .top-nav ul {
     list-style: none;
     display: flex;
-    gap: 25px;
+    gap: 15px;
 }
 
-.top-nav li {
-    cursor: pointer;
+.top-nav ul li {
+    color: #ffffff;
     font-weight: 500;
-    transition: 0.3s;
+    cursor: pointer;
+    padding: 6px 14px;
+    border-radius: 6px;
+    transition: .2s ease;
 }
 
-.top-nav li:hover {
-    color: #ffd86b;
+.top-nav ul li:hover {
+    background: #374151;
 }
 
 /* ============================= */
@@ -89,127 +98,148 @@ body {
 /* ============================= */
 
 .admin-content {
-    padding: 30px 50px;
+    padding: 25px;
+    flex-grow: 1;
 }
 
-/* HEADER DEL MÓDULO */
 .main-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     margin-bottom: 25px;
 }
 
-.main-header .usuarios {
-    font-size: 1.6rem;
+.usuarios {
+    font-size: 22px;
     font-weight: 600;
-    display: flex;
-    gap: 10px;
-    align-items: center;
+    color: #ffffff;
+    text-align: center;
 }
+
+.usuarios i {
+    color: #2563eb;
+    /* azul del dashboard */
+}
+
+/* ============================= */
+/*     ACCIONES (FECHAS/BOT)     */
+/* ============================= */
 
 .acciones-header {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
 }
 
-.acciones-header input,
+.acciones-header input[type="date"],
 .acciones-header select {
     padding: 8px 10px;
-    background: rgba(255, 255, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    color: #fff;
+    border: 1px solid #d1d5db;
     border-radius: 6px;
-    outline: none;
+    background: #fff;
+    font-size: 14px;
 }
 
-.acciones-header button {
-    padding: 8px 14px;
-    background: #ffd86b;
+/* BOTONES */
+
+#btnExportPdf,
+#btnExportXls {
+    padding: 8px 16px;
     border: none;
     border-radius: 6px;
-    color: #000;
-    font-weight: 600;
     cursor: pointer;
-    transition: 0.3s;
+    font-weight: 500;
+    transition: .2s ease;
 }
 
-.acciones-header button:hover {
-    background: #ffcc45;
+#btnExportPdf {
+    background: #5bce57;
+    /* rojo */
+    color: white;
+}
+
+#btnExportPdf:hover {
+    background: #5bce57;
+}
+
+#btnExportXls {
+    background: #059669;
+    /* verde */
+    color: white;
+}
+
+#btnExportXls:hover {
+    background: #047857;
 }
 
 /* ============================= */
-/*       TABLA DE HISTORIAL     */
+/*            TABLA              */
 /* ============================= */
 
 .table-container {
-    margin-top: 10px;
-    background: rgba(255, 255, 255, 0.12);
-    padding: 20px;
-    border-radius: 14px;
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.03);
+    padding: 25px;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 18px;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: 25px;
     overflow-x: auto;
+    box-sizing: border-box;
 }
 
 .vision-table {
     width: 100%;
+    max-width: 100%;
     border-collapse: collapse;
+    font-size: 14px;
+    color: #e1e1e6;
+    table-layout: auto;
+    word-break: break-word;
 }
 
 .vision-table thead {
-    background: rgba(0, 0, 0, 0.25);
+    background: #111827;
+    color: #fff;
 }
 
-.vision-table th {
-    padding: 12px;
+.vision-table thead th {
+    padding: 12px 10px;
     text-align: left;
-    color: #ffd86b;
-    font-weight: 600;
+    font-size: 14px;
 }
 
-.vision-table td {
+.vision-table tbody td {
     padding: 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
 }
 
-.vision-table tr:hover {
-    background-color: rgba(255, 255, 255, 0.10);
+/* Renglón hover */
+.vision-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transition: 0.25s;
+}
+
+/* No registros */
+.vision-table tbody tr td[colspan] {
+    text-align: center;
+    font-weight: 500;
+    padding: 20px;
 }
 
 /* ============================= */
-/*         FOOTER TOTAL         */
+/*        TOTAL VENDIDO          */
 /* ============================= */
 
 .footer-info {
     margin-top: 20px;
-    text-align: right;
-    font-size: 1.2rem;
-}
-
-.footer-info strong {
-    color: #ffd86b;
-}
-
-/* ============================= */
-/*         RESPONSIVE            */
-/* ============================= */
-
-@media (max-width: 768px) {
-    .header-content {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .main-header {
-        flex-direction: column;
-        gap: 15px;
-        align-items: flex-start;
-    }
-
-    .acciones-header {
-        flex-wrap: wrap;
-        justify-content: flex-start;
-    }
+    background: #111827;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    display: inline-flex;
+    gap: 5px;
 }
