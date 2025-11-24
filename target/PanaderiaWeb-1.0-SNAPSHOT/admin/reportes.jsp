@@ -74,7 +74,8 @@ String claveDB = "TuContraseñaFuerte123";
             }
             out.println("</tbody></table>");
             // 🔹 Cambio aquí
-            out.println("<button class='report-btn' onclick=\"window.open('GenerarReporte?tipo=productos', '_blank')\"><i class='fas fa-file-pdf'></i> Ver reporte completo</button>");
+            String fechaParam = (fechaFiltro != null && !fechaFiltro.isEmpty()) ? "&fecha=" + fechaFiltro : "";
+            out.println("<button class='report-btn' onclick=\"window.open('GenerarReporte?tipo=productos" + fechaParam + "', '_blank')\"><i class='fas fa-file-pdf'></i> Ver reporte completo</button>");
             out.println("</div>");
 
             // ========== CARD PRODUCCIÓN ==========
@@ -92,7 +93,7 @@ String claveDB = "TuContraseñaFuerte123";
             }
             out.println("</tbody></table>");
             // 🔹 Cambio aquí
-            out.println("<button class='report-btn' onclick=\"window.open('GenerarReporte?tipo=produccion', '_blank')\"><i class='fas fa-file-pdf'></i> Ver reporte completo</button>");
+            out.println("<button class='report-btn' onclick=\"window.open('GenerarReporte?tipo=produccion" + fechaParam + "', '_blank')\"><i class='fas fa-file-pdf'></i> Ver reporte completo</button>");
             out.println("</div>");
 
             // ========== CARD VENTAS ==========
@@ -109,7 +110,7 @@ String claveDB = "TuContraseñaFuerte123";
             }
             out.println("</tbody></table>");
             // 🔹 Cambio aquí
-            out.println("<button class='report-btn' onclick=\"window.open('GenerarReporte?tipo=ventas', '_blank')\"><i class='fas fa-file-pdf'></i> Ver reporte completo</button>");
+            out.println("<button class='report-btn' onclick=\"window.open('GenerarReporte?tipo=ventas" + fechaParam + "', '_blank')\"><i class='fas fa-file-pdf'></i> Ver reporte completo</button>");
             out.println("</div>");
 
             // ========== CARD DETALLE DE VENTAS ==========
@@ -128,7 +129,7 @@ String claveDB = "TuContraseñaFuerte123";
             }
             out.println("</tbody></table>");
             // 🔹 Cambio aquí
-            out.println("<button class='report-btn' onclick=\"window.open('GenerarReporte?tipo=detalle_venta', '_blank')\"><i class='fas fa-file-pdf'></i> Ver reporte completo</button>");
+            out.println("<button class='report-btn' onclick=\"window.open('GenerarReporte?tipo=detalle_venta" + fechaParam + "', '_blank')\"><i class='fas fa-file-pdf'></i> Ver reporte completo</button>");
             out.println("</div>");
 
         } catch(Exception e){
